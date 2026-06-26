@@ -14,10 +14,6 @@ const PackageSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  duration: {
-    type: String,
-    default: 'N/A', // e.g. "5 Days / 4 Nights"
-  },
   days: {
     type: Number,
     default: 1,
@@ -26,14 +22,15 @@ const PackageSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  ratePerDay: {
-    type: Number,
-    default: 0,
+  duration: {
+    type: String,
+    default: 'N/A',
   },
-  ratePerNight: {
-    type: Number,
-    default: 0,
-  },
+  durationOptions: [{
+    nights: { type: Number, required: true },
+    days: { type: Number, required: true },
+    price: { type: Number, required: true } // Price for 1 person
+  }],
   destination: {
     type: String,
     default: 'General',
@@ -74,14 +71,18 @@ const PackageSchema = new mongoose.Schema({
 
 // Pre-save middleware to dynamically determine price, duration & isAffordable
 PackageSchema.pre('save', function (next) {
-  // If ratePerDay or ratePerNight is configured, compute the base package price dynamically
-  if (this.ratePerDay > 0 || this.ratePerNight > 0) {
-    this.price = (this.days * this.ratePerDay) + (this.nights * this.ratePerNight);
-  }
-
-  // Construct duration label automatically
-  if (this.days !== undefined && this.nights !== undefined) {
-    this.duration = `${this.nights} Nights / ${this.days} Days`;
+  if (this.durationOptions && this.durationOptions.length > 0) {
+    // Set base package default price & duration from the first option
+    const defaultOpt = this.durationOptions[0];
+    this.price = defaultOpt.price;
+    this.nights = defaultOpt.nights;
+    this.days = defaultOpt.days;
+    this.duration = `${defaultOpt.nights} Nights / ${defaultOpt.days} Days`;
+  } else {
+    // Construct duration label automatically for legacy packages
+    if (this.days !== undefined && this.nights !== undefined) {
+      this.duration = `${this.nights} Nights / ${this.days} Days`;
+    }
   }
 
   // Customizable price threshold for affordable classification

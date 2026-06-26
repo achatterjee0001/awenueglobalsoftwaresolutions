@@ -16,10 +16,8 @@ export default function BookingModal({ pkg, onClose, initialTravelers = 1, total
 
   const days = customizedDays !== undefined ? customizedDays : (pkg.days || 1);
   const nights = customizedNights !== undefined ? customizedNights : (pkg.nights || 0);
-  const basePrice = (pkg.ratePerDay > 0 || pkg.ratePerNight > 0)
-    ? (days * pkg.ratePerDay) + (nights * pkg.ratePerNight)
-    : pkg.price;
-  const currentTotalPrice = basePrice * Number(travelers || 0);
+  const perPersonPrice = initialTravelers > 0 ? (totalPrice / initialTravelers) : pkg.price;
+  const currentTotalPrice = perPersonPrice * Number(travelers || 0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

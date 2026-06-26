@@ -118,26 +118,25 @@ router.get('/recommended', async (req, res) => {
 router.post('/', auth, async (req, res) => {
   try {
     const { 
-      title, description, price, duration, destination, 
+      title, description, price, destination, 
       imageUrl, category, itinerary, highlights, 
       bookingPolicy, cancellationPolicy,
-      days, nights, ratePerDay, ratePerNight
+      durationOptions
     } = req.body;
 
     let computedPrice = price;
-    if (ratePerDay > 0 || ratePerNight > 0) {
-      computedPrice = (Number(days || 1) * Number(ratePerDay || 0)) + (Number(nights || 0) * Number(ratePerNight || 0));
+    if (durationOptions && durationOptions.length > 0) {
+      computedPrice = Number(durationOptions[0].price || 0);
     }
 
     if (!title || !computedPrice) {
-      return res.status(400).json({ message: 'Title and price (or rate per day/night) are required' });
+      return res.status(400).json({ message: 'Title and price (or duration options) are required' });
     }
 
     const newPackage = new Package({
       title,
       description,
       price: computedPrice,
-      duration,
       destination,
       category,
       imageUrl,
@@ -145,10 +144,7 @@ router.post('/', auth, async (req, res) => {
       highlights,
       bookingPolicy,
       cancellationPolicy,
-      days: Number(days || 1),
-      nights: Number(nights || 0),
-      ratePerDay: Number(ratePerDay || 0),
-      ratePerNight: Number(ratePerNight || 0)
+      durationOptions: durationOptions || []
     });
 
     const savedPackage = await newPackage.save();
@@ -164,10 +160,10 @@ router.post('/', auth, async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
   try {
     const { 
-      title, description, price, duration, destination, 
+      title, description, price, destination, 
       imageUrl, category, itinerary, highlights, 
       bookingPolicy, cancellationPolicy,
-      days, nights, ratePerDay, ratePerNight
+      durationOptions
     } = req.body;
 
     let pkg = await Package.findById(req.params.id);
@@ -186,16 +182,13 @@ router.put('/:id', auth, async (req, res) => {
     if (bookingPolicy !== undefined) pkg.bookingPolicy = bookingPolicy;
     if (cancellationPolicy !== undefined) pkg.cancellationPolicy = cancellationPolicy;
 
-    // Update duration & rates
-    if (days !== undefined) pkg.days = Number(days);
-    if (nights !== undefined) pkg.nights = Number(nights);
-    if (ratePerDay !== undefined) pkg.ratePerDay = Number(ratePerDay);
-    if (ratePerNight !== undefined) pkg.ratePerNight = Number(ratePerNight);
+    // Update duration options
+    if (durationOptions !== undefined) {
+      pkg.durationOptions = durationOptions;
+    }
 
-    // Re-calculate price if rates are set
-    if (pkg.ratePerDay > 0 || pkg.ratePerNight > 0) {
-      pkg.price = (pkg.days * pkg.ratePerDay) + (pkg.nights * pkg.ratePerNight);
-    } else if (price !== undefined) {
+    // Update price fallback
+    if (price !== undefined) {
       pkg.price = price;
     }
 

@@ -87,10 +87,7 @@ export default function AdminDashboard() {
     highlights: '',
     bookingPolicy: '',
     cancellationPolicy: '',
-    days: 1,
-    nights: 0,
-    ratePerDay: 0,
-    ratePerNight: 0
+    durationOptions: []
   });
 
   // CRUD Hotel states
@@ -255,10 +252,7 @@ export default function AdminDashboard() {
       highlights: '',
       bookingPolicy: '',
       cancellationPolicy: '',
-      days: 1,
-      nights: 0,
-      ratePerDay: 0,
-      ratePerNight: 0
+      durationOptions: []
     });
     setShowPkgForm(true);
   };
@@ -277,17 +271,14 @@ export default function AdminDashboard() {
       highlights: pkg.highlights ? pkg.highlights.join('\n') : '',
       bookingPolicy: pkg.bookingPolicy || '',
       cancellationPolicy: pkg.cancellationPolicy || '',
-      days: pkg.days !== undefined ? pkg.days : 1,
-      nights: pkg.nights !== undefined ? pkg.nights : 0,
-      ratePerDay: pkg.ratePerDay !== undefined ? pkg.ratePerDay : 0,
-      ratePerNight: pkg.ratePerNight !== undefined ? pkg.ratePerNight : 0
+      durationOptions: pkg.durationOptions || []
     });
     setShowPkgForm(true);
   };
 
   const handlePkgFormSubmit = async (e) => {
     e.preventDefault();
-    if (!pkgFormData.title || pkgFormData.price === '') return;
+    if (!pkgFormData.title || (pkgFormData.price === '' && (!pkgFormData.durationOptions || pkgFormData.durationOptions.length === 0))) return;
 
     try {
       const payload = {
@@ -704,151 +695,99 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                {/* Duration & Custom Rates Section */}
-                <div className="bg-brand-surface/10 p-4 rounded-xl border border-brand-border/40 space-y-3">
-                  <span className="block text-[10px] text-brand-secondary font-bold uppercase tracking-wider">
-                    Duration & Custom Pricing Rates
-                  </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div>
-                      <label className="block text-[9px] text-brand-textSecondary uppercase mb-1">Nights</label>
-                      <input
-                        type="number"
-                        required
-                        min="0"
-                        value={pkgFormData.nights}
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          const d = pkgFormData.days !== '' ? Number(pkgFormData.days) : 1;
-                          const n = val !== '' ? Number(val) : '';
-                          const rD = pkgFormData.ratePerDay !== '' ? Number(pkgFormData.ratePerDay) : 0;
-                          const rN = pkgFormData.ratePerNight !== '' ? Number(pkgFormData.ratePerNight) : 0;
-                          
-                          let price = pkgFormData.price;
-                          if (rD > 0 || rN > 0) {
-                            price = (d * rD) + (Number(n || 0) * rN);
-                          }
-                          
-                          setPkgFormData({
-                            ...pkgFormData,
-                            nights: val,
-                            price: price,
-                            duration: n !== '' ? `${n} Nights / ${d} Days` : pkgFormData.duration
-                          });
-                        }}
-                        className="w-full bg-brand-dark/50 border border-brand-border/60 rounded-xl py-2.5 px-3 text-xs text-brand-textPrimary focus:outline-none focus:border-brand-primary transition-all"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[9px] text-brand-textSecondary uppercase mb-1">Days</label>
-                      <input
-                        type="number"
-                        required
-                        min="1"
-                        value={pkgFormData.days}
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          const d = val !== '' ? Number(val) : '';
-                          const n = pkgFormData.nights !== '' ? Number(pkgFormData.nights) : 0;
-                          const rD = pkgFormData.ratePerDay !== '' ? Number(pkgFormData.ratePerDay) : 0;
-                          const rN = pkgFormData.ratePerNight !== '' ? Number(pkgFormData.ratePerNight) : 0;
-                          
-                          let price = pkgFormData.price;
-                          if (rD > 0 || rN > 0) {
-                            price = (Number(d || 0) * rD) + (n * rN);
-                          }
-                          
-                          setPkgFormData({
-                            ...pkgFormData,
-                            days: val,
-                            price: price,
-                            duration: d !== '' ? `${n} Nights / ${d} Days` : pkgFormData.duration
-                          });
-                        }}
-                        className="w-full bg-brand-dark/50 border border-brand-border/60 rounded-xl py-2.5 px-3 text-xs text-brand-textPrimary focus:outline-none focus:border-brand-primary transition-all"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[9px] text-brand-textSecondary uppercase mb-1">Rate / Night (₹)</label>
-                      <input
-                        type="number"
-                        required
-                        min="0"
-                        value={pkgFormData.ratePerNight}
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          const d = pkgFormData.days !== '' ? Number(pkgFormData.days) : 1;
-                          const n = pkgFormData.nights !== '' ? Number(pkgFormData.nights) : 0;
-                          const rD = pkgFormData.ratePerDay !== '' ? Number(pkgFormData.ratePerDay) : 0;
-                          const rN = val !== '' ? Number(val) : '';
-                          
-                          let price = pkgFormData.price;
-                          if (rD > 0 || rN > 0) {
-                            price = (d * rD) + (n * Number(rN || 0));
-                          }
-                          
-                          setPkgFormData({
-                            ...pkgFormData,
-                            ratePerNight: val,
-                            price: price
-                          });
-                        }}
-                        className="w-full bg-brand-dark/50 border border-brand-border/60 rounded-xl py-2.5 px-3 text-xs text-brand-textPrimary focus:outline-none focus:border-brand-primary transition-all"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[9px] text-brand-textSecondary uppercase mb-1">Rate / Day (₹)</label>
-                      <input
-                        type="number"
-                        required
-                        min="0"
-                        value={pkgFormData.ratePerDay}
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          const d = pkgFormData.days !== '' ? Number(pkgFormData.days) : 1;
-                          const n = pkgFormData.nights !== '' ? Number(pkgFormData.nights) : 0;
-                          const rD = val !== '' ? Number(val) : '';
-                          const rN = pkgFormData.ratePerNight !== '' ? Number(pkgFormData.ratePerNight) : 0;
-                          
-                          let price = pkgFormData.price;
-                          if (rD > 0 || rN > 0) {
-                            price = (d * Number(rD || 0)) + (n * rN);
-                          }
-                          
-                          setPkgFormData({
-                            ...pkgFormData,
-                            ratePerDay: val,
-                            price: price
-                          });
-                        }}
-                        className="w-full bg-brand-dark/50 border border-brand-border/60 rounded-xl py-2.5 px-3 text-xs text-brand-textPrimary focus:outline-none focus:border-brand-primary transition-all"
-                      />
-                    </div>
+
+                {/* Duration Options List Builder */}
+                <div className="border border-brand-border/60 rounded-xl p-4 bg-brand-surface/20 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-[10px] font-bold text-brand-textSecondary uppercase">
+                      Duration & Pricing Options (Price per 1 Person)
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPkgFormData({
+                          ...pkgFormData,
+                          durationOptions: [...(pkgFormData.durationOptions || []), { nights: 0, days: 1, price: 0 }]
+                        });
+                      }}
+                      className="text-[10px] px-2.5 py-1 bg-brand-primary/20 text-brand-primary rounded hover:bg-brand-primary/30 transition-all font-bold"
+                    >
+                      + Add Option
+                    </button>
+                  </div>
+
+                  <div className="space-y-3">
+                    {(pkgFormData.durationOptions || []).map((opt, index) => (
+                      <div key={index} className="flex gap-3 items-center bg-brand-dark/30 p-3 rounded-lg border border-brand-border/40 text-xs">
+                        <div className="grid grid-cols-3 gap-3 flex-1">
+                          <div>
+                            <label className="block text-[9px] text-brand-textSecondary uppercase mb-1">Nights</label>
+                            <input
+                              type="number"
+                              required
+                              min="0"
+                              value={opt.nights}
+                              onChange={(e) => {
+                                const newOpts = [...pkgFormData.durationOptions];
+                                newOpts[index].nights = parseInt(e.target.value) || 0;
+                                setPkgFormData({ ...pkgFormData, durationOptions: newOpts });
+                              }}
+                              className="w-full bg-brand-dark/50 border border-brand-border/60 rounded py-1 px-2 text-xs text-brand-textPrimary focus:outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[9px] text-brand-textSecondary uppercase mb-1">Days</label>
+                            <input
+                              type="number"
+                              required
+                              min="1"
+                              value={opt.days}
+                              onChange={(e) => {
+                                const newOpts = [...pkgFormData.durationOptions];
+                                newOpts[index].days = parseInt(e.target.value) || 1;
+                                setPkgFormData({ ...pkgFormData, durationOptions: newOpts });
+                              }}
+                              className="w-full bg-brand-dark/50 border border-brand-border/60 rounded py-1 px-2 text-xs text-brand-textPrimary focus:outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[9px] text-brand-textSecondary uppercase mb-1">Price per Person (₹)</label>
+                            <input
+                              type="number"
+                              required
+                              min="0"
+                              value={opt.price}
+                              onChange={(e) => {
+                                const newOpts = [...pkgFormData.durationOptions];
+                                newOpts[index].price = parseInt(e.target.value) || 0;
+                                setPkgFormData({ ...pkgFormData, durationOptions: newOpts });
+                              }}
+                              className="w-full bg-brand-dark/50 border border-brand-border/60 rounded py-1 px-2 text-xs text-brand-textPrimary focus:outline-none"
+                            />
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newOpts = pkgFormData.durationOptions.filter((_, i) => i !== index);
+                            setPkgFormData({ ...pkgFormData, durationOptions: newOpts });
+                          }}
+                          className="text-rose-400 hover:text-rose-300 p-1 bg-rose-500/10 rounded mt-4"
+                          title="Remove Option"
+                        >
+                          <Trash2 className="w-3.5 h-3.5 animate-pulse" />
+                        </button>
+                      </div>
+                    ))}
+                    {(pkgFormData.durationOptions || []).length === 0 && (
+                      <div className="text-center text-xs text-brand-textSecondary py-4">
+                        No duration options configured. Click "+ Add Option" to add one.
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-[10px] text-brand-textSecondary uppercase mb-1">Base Price (₹)</label>
-                    <input
-                      type="number"
-                      required
-                      value={pkgFormData.price}
-                      onChange={(e) => setPkgFormData({ ...pkgFormData, price: e.target.value })}
-                      className="w-full bg-brand-dark/50 border border-brand-border/60 rounded-xl py-2.5 px-3 text-xs text-brand-textPrimary focus:outline-none focus:border-brand-primary transition-all"
-                      placeholder="Base price (calculated if rates set)"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] text-brand-textSecondary uppercase mb-1">Duration Tag</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. 4 Nights / 5 Days"
-                      value={pkgFormData.duration}
-                      onChange={(e) => setPkgFormData({ ...pkgFormData, duration: e.target.value })}
-                      className="w-full bg-brand-dark/50 border border-brand-border/60 rounded-xl py-2.5 px-3 text-xs text-brand-textPrimary focus:outline-none focus:border-brand-primary transition-all"
-                    />
-                  </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[10px] text-brand-textSecondary uppercase mb-1">Product Category</label>
                     <select

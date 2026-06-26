@@ -3,8 +3,7 @@ import { X, Users, MapPin, Clock, Tag, CheckCircle, Info, FileText } from 'lucid
 
 export default function PackageDetailModal({ pkg, onClose, onProceedBook }) {
   const [members, setMembers] = useState(1);
-  const [selectedDays, setSelectedDays] = useState(pkg.days !== undefined ? pkg.days : 1);
-  const [selectedNights, setSelectedNights] = useState(pkg.nights !== undefined ? pkg.nights : 0);
+  const [selectedOptionIdx, setSelectedOptionIdx] = useState(0);
   const [activeTab, setActiveTab] = useState('itinerary'); // 'highlights', 'itinerary', 'booking', 'cancellation'
   
   const handleMembersChange = (e) => {
@@ -15,9 +14,12 @@ export default function PackageDetailModal({ pkg, onClose, onProceedBook }) {
     setMembers(val);
   };
 
-  const basePrice = (pkg.ratePerDay > 0 || pkg.ratePerNight > 0)
-    ? (selectedDays * pkg.ratePerDay) + (selectedNights * pkg.ratePerNight)
-    : pkg.price;
+  const options = pkg.durationOptions && pkg.durationOptions.length > 0
+    ? pkg.durationOptions
+    : [{ nights: pkg.nights || 0, days: pkg.days || 1, price: pkg.price }];
+
+  const selectedOption = options[selectedOptionIdx] || options[0];
+  const basePrice = selectedOption.price;
   const totalPrice = basePrice * members;
 
   return (
@@ -51,7 +53,7 @@ export default function PackageDetailModal({ pkg, onClose, onProceedBook }) {
                 <MapPin className="w-3.5 h-3.5 text-brand-secondary" /> {pkg.destination}
               </span>
               <span className="flex items-center gap-1 bg-black/40 backdrop-blur px-3 py-1.5 rounded-full border border-white/10">
-                <Clock className="w-3.5 h-3.5 text-brand-primary" /> {selectedNights} Nights / {selectedDays} Days
+                <Clock className="w-3.5 h-3.5 text-brand-primary" /> {selectedOption.nights} Nights / {selectedOption.days} Days
               </span>
             </div>
 
@@ -62,62 +64,27 @@ export default function PackageDetailModal({ pkg, onClose, onProceedBook }) {
             {/* Price Configurator */}
             <div className="mt-auto bg-brand-surface/60 backdrop-blur-md border border-brand-border/60 rounded-2xl p-5 shadow-lg space-y-4">
               
-              {/* Customize Duration */}
+              {/* Select Duration Option */}
               <div className="border-b border-brand-border/40 pb-4">
                 <label className="block text-xs font-bold text-brand-textSecondary uppercase tracking-wider mb-2">
-                  Customize Trip Duration
+                  Select Trip Duration Option
                 </label>
-                <div className="grid grid-cols-2 gap-3">
-                  {/* Nights Counter */}
-                  <div className="flex items-center justify-between bg-brand-dark/65 border border-brand-border/60 rounded-xl p-2">
-                    <span className="text-xs font-bold text-gray-300 ml-2">Nights</span>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setSelectedNights(prev => Math.max(0, prev - 1))}
-                        className="w-7 h-7 bg-brand-surface hover:bg-brand-surface/85 border border-brand-border/60 text-white rounded-lg font-bold flex items-center justify-center transition-all"
-                      >
-                        -
-                      </button>
-                      <span className="text-sm font-bold text-white w-5 text-center">{selectedNights}</span>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedNights(prev => Math.min(45, prev + 1))}
-                        className="w-7 h-7 bg-brand-surface hover:bg-brand-surface/85 border border-brand-border/60 text-white rounded-lg font-bold flex items-center justify-center transition-all"
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  {/* Days Counter */}
-                  <div className="flex items-center justify-between bg-brand-dark/65 border border-brand-border/60 rounded-xl p-2">
-                    <span className="text-xs font-bold text-gray-300 ml-2">Days</span>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setSelectedDays(prev => Math.max(1, prev - 1))}
-                        className="w-7 h-7 bg-brand-surface hover:bg-brand-surface/85 border border-brand-border/60 text-white rounded-lg font-bold flex items-center justify-center transition-all"
-                      >
-                        -
-                      </button>
-                      <span className="text-sm font-bold text-white w-5 text-center">{selectedDays}</span>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedDays(prev => Math.min(45, prev + 1))}
-                        className="w-7 h-7 bg-brand-surface hover:bg-brand-surface/85 border border-brand-border/60 text-white rounded-lg font-bold flex items-center justify-center transition-all"
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                {(pkg.ratePerDay > 0 || pkg.ratePerNight > 0) ? (
-                  <div className="text-[10px] text-brand-primary mt-1.5 font-semibold text-center">
-                    Rates: ₹{pkg.ratePerDay}/day &bull; ₹{pkg.ratePerNight}/night
-                  </div>
+                {options.length > 1 ? (
+                  <select
+                    value={selectedOptionIdx}
+                    onChange={(e) => setSelectedOptionIdx(parseInt(e.target.value) || 0)}
+                    className="w-full bg-brand-dark border border-brand-border/60 rounded-xl py-3 px-3 text-xs text-white focus:outline-none focus:border-brand-primary font-bold transition-all"
+                  >
+                    {options.map((opt, idx) => (
+                      <option key={idx} value={idx}>
+                        {opt.nights} Nights / {opt.days} Days (₹{opt.price.toLocaleString()} / person)
+                      </option>
+                    ))}
+                  </select>
                 ) : (
-                  <div className="text-[10px] text-amber-400/80 mt-1.5 font-semibold text-center">
-                    Fixed price package (custom duration rates not set by admin)
+                  <div className="bg-brand-dark/65 border border-brand-border/60 rounded-xl p-3 text-xs text-gray-300 font-bold flex items-center justify-between">
+                    <span>{selectedOption.nights} Nights / {selectedOption.days} Days</span>
+                    <span className="text-brand-secondary">₹{selectedOption.price.toLocaleString()} / person</span>
                   </div>
                 )}
               </div>
@@ -149,7 +116,7 @@ export default function PackageDetailModal({ pkg, onClose, onProceedBook }) {
                 </div>
                 
                 <button
-                  onClick={() => onProceedBook(members, totalPrice, selectedDays, selectedNights)}
+                  onClick={() => onProceedBook(members, totalPrice, selectedOption.days, selectedOption.nights)}
                   className="w-full py-3.5 bg-brand-primary hover:bg-brand-primaryHover text-white font-bold rounded-xl transition-all shadow-md hover:shadow-brand-primary/20 flex items-center justify-center gap-2"
                 >
                   <span>Proceed to Booking</span>
