@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Designing High-Concurrency API Gateways in Node.js | Blog | AWENUE</title>
+  <meta name="description" content="Read our in-depth engineering audit on clustering threads, handling backpressure, and load balancing API gateways in Node.js.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  
+  <!-- Global JS Script -->
+  <script type="module" src="js/main.js" defer></script>
+  
+  <style>
+    /* Specific blog details styling */
+    .blog-details-hero {
+      padding-top: 160px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .blog-details-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: var(--space-2);
+      display: flex;
+      gap: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .blog-content {
+      max-width: 800px;
+      margin: var(--space-5) auto;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+    
+    .blog-content h2, .blog-content h3 {
+      margin: var(--space-4) 0 var(--space-2) 0;
+      color: var(--text-primary);
+      letter-spacing: 0.08em;
+    }
+    
+    .blog-content h2 { font-size: 1.6rem; }
+    .blog-content h3 { font-size: 1.25rem; }
+    
+    .blog-content p {
+      margin-bottom: var(--space-3);
+    }
+    
+    .blog-quote {
+      border-left: 2px solid #FFFFFF;
+      padding-left: var(--space-3);
+      font-style: italic;
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      margin: var(--space-4) 0;
+    }
+    
+    .code-block-wrapper {
+      background-color: #0c0c0c;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: var(--space-3);
+      margin: var(--space-4) 0;
+      overflow-x: auto;
+    }
+    
+    .code-block {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #FFFFFF;
+    }
+    
+    /* Scroll reading progress indicator */
+    #reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gradient-chrome);
+      width: 0%;
+      z-index: 1000;
+    }
+  </style>
+  <script>
+    // Update progress indicator on scroll
+    window.addEventListener('scroll', () => {
+      const progress = document.getElementById('reading-progress');
+      if (!progress) return;
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScroll <= 0) return;
+      const percent = (window.scrollY / totalScroll) * 100;
+      progress.style.width = `${percent}%`;
+    });
+  </script>
+</head>
+<body>
+
+  <!-- Scroll Progress Indicator -->
+  <div id="reading-progress"></div>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-screen">
+    <div class="loader-container">
+      <div class="loader-logo-wrapper">
+        <img class="loader-logo" src="assets/logo-dark.png" alt="AWENUE Logo">
+      </div>
+      <div class="loader-progress-track">
+        <div class="loader-progress-bar"></div>
+      </div>
+      <div class="loader-percentage">0%</div>
+    </div>
+  </div>
+
+  <div class="background-mesh"></div>
+  <div class="background-noise"></div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="header-nav">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-container">
+        <img src="assets/logo-dark.png" alt="AWENUE logo" class="brand-logo-img">
+      </a>
+      
+      <nav class="nav-menu-desktop">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">HOME</a>
+        </div>
+        <div class="nav-item">
+          <a href="services.html" class="nav-link">SERVICES</a>
+          <!-- MEGA MENU SERVICES -->
+          <div class="mega-menu-wrapper">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Digital Solutions</span>
+              <a href="services.html#software" class="mega-menu-item">
+                <i data-lucide="code" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Software Engineering</h4>
+                  <p>Scalable, bespoke backend systems & microservices.</p>
+                </div>
+              </a>
+              <a href="services.html#web" class="mega-menu-item">
+                <i data-lucide="globe" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Web Engineering</h4>
+                  <p>Next.js interfaces optimized for indexing.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Infrastructure</span>
+              <a href="services.html#cloud" class="mega-menu-item">
+                <i data-lucide="cloud" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cloud Architectures</h4>
+                  <p>Dockerized cluster deployments on AWS/Azure.</p>
+                </div>
+              </a>
+              <a href="services.html#mobile" class="mega-menu-item">
+                <i data-lucide="smartphone" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Mobile Development</h4>
+                  <p>Native Swift/Kotlin & React Native app builds.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Security & consulting</span>
+              <a href="services.html#consulting" class="mega-menu-item">
+                <i data-lucide="shield-check" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cybersecurity & Consulting</h4>
+                  <p>Security architectures & legacy audits.</p>
+                </div>
+              </a>
+              <a href="design-system.html" class="mega-menu-item">
+                <i data-lucide="palette" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>UI Kit & Design System</h4>
+                  <p>View brand tokens, Figma details, assets.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+          <!-- MEGA MENU PRODUCTS -->
+          <div class="mega-menu-wrapper" style="width: 600px;">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Suite</span>
+              <a href="product-details.html" class="mega-menu-item">
+                <i data-lucide="users" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue CRM</h4>
+                  <p>Automate workflows and drive pipeline conversions.</p>
+                </div>
+              </a>
+              <a href="products.html#erp" class="mega-menu-item">
+                <i data-lucide="briefcase" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue ERP</h4>
+                  <p>Resource tracking, financials, inventory modules.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Specialized Verticals</span>
+              <a href="products.html#school" class="mega-menu-item">
+                <i data-lucide="graduation-cap" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Education</h4>
+                  <p>School/University management systems.</p>
+                </div>
+              </a>
+              <a href="products.html#hospital" class="mega-menu-item">
+                <i data-lucide="activity" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Healthcare</h4>
+                  <p>Hospital records & automated scheduling systems.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">ABOUT US</a>
+        </div>
+        <div class="nav-item">
+          <a href="blog.html" class="nav-link">BLOG</a>
+        </div>
+        <div class="nav-item">
+          <a href="contact.html" class="nav-link">CONTACT US</a>
+        </div>
+      </nav>
+      
+      <div class="btn-wrapper">
+        <a href="contact.html" class="btn btn-primary nav-cta">GET IN TOUCH</a>
+      </div>
+      
+      <!-- Mobile Burger Trigger -->
+      <button class="menu-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="nav-menu-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+    <a href="about.html" class="nav-link">About Us</a>
+    <a href="blog.html" class="nav-link">BLOG</a>
+    <a href="careers.html" class="nav-link">Careers</a>
+    <a href="contact.html" class="nav-link">CONTACT US</a>
+    <a href="contact.html" class="btn btn-primary" style="margin-top: var(--space-3);">GET IN TOUCH</a>
+  </div>
+
+  <!-- ARTICLE HEADER -->
+  <section class="blog-details-hero">
+    <div class="container">
+      <div class="blog-details-meta">
+        <span>Architecture</span>
+        <span>&bull;</span>
+        <span>July 8, 2026</span>
+        <span>&bull;</span>
+        <span>5 Min Read</span>
+      </div>
+      <h1 class="text-gradient-chrome" style="font-size:2.8rem; line-height:1.2;">Designing High-Concurrency API Gateways in Node.js</h1>
+    </div>
+  </section>
+
+  <!-- ARTICLE CONTENT -->
+  <article class="container blog-content">
+    <p>
+      In modern enterprise systems, managing incoming HTTP request paths safely at high volume requires a robust entry point—an API gateway. If your database scales up to handle heavy writes, yet your entry gateway experiences thread locks or latency hikes, your entire infrastructure capacity degrades.
+    </p>
+    
+    <div class="blog-quote">
+      "An API gateway is not simply a router; it functions as a thread coordinator, rate regulator, and validation point for all core database channels."
+    </div>
+
+    <h2>Leveraging Single-Threaded Event Loops</h2>
+    <p>
+      Although Node.js operates on a single event loop thread, delegating compute-heavy operations (like JWT token decoding or schema decryption checks) can block processing new request events. To maintain 99.9% gateway availability, we use clustering layers and route heavy encryption pipelines to separate background worker pools.
+    </p>
+
+    <div class="code-block-wrapper">
+      <pre class="code-block">
+const express = require('express');
+const cluster = require('cluster');
+const os = require('os');
+
+if (cluster.isMaster) {
+  const numCPUs = os.cpus().length;
+  // Spawn worker threads for each core node
+  for (let i = 0; i &lt; numCPUs; i++) {
+    cluster.fork();
+  }
+} else {
+  const app = express();
+  app.get('/gateway/health', (req, res) => {
+    res.status(200).json({ status: 'active', node: process.pid });
+  });
+  app.listen(8080);
+}</pre>
+    </div>
+
+    <h2>Mitigating Cluster Database Backpressure</h2>
+    <p>
+      When your incoming API volume triggers sudden request loops, the event loop fills up, memory usage rises, and database write queues clog. We establish elastic request throttling limits and drop requests exceeding standard capacity triggers immediately to protect the database clusters.
+    </p>
+    
+    <div style="margin-top:var(--space-5);">
+      <a href="blog.html" class="btn btn-glass">&larr; Return to Blog Listing</a>
+    </div>
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container content-wrapper">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <a href="index.html" class="footer-logo">
+            <img src="assets/logo-dark.png" alt="AWENUE logo" style="height:110px;">
+          </a>
+          <p class="footer-desc">
+            Constructing digital architectures and premium software systems to empower businesses globally.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="social-icon" aria-label="LinkedIn"><i data-lucide="linkedin" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="GitHub"><i data-lucide="github" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="Twitter"><i data-lucide="twitter" style="width:16px; height:16px;"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Services</h3>
+          <ul class="footer-links">
+            <li><a href="services.html#software" class="footer-link">Software Engineering</a></li>
+            <li><a href="services.html#web" class="footer-link">Web Development</a></li>
+            <li><a href="services.html#cloud" class="footer-link">Cloud Deployments</a></li>
+            <li><a href="services.html#mobile" class="footer-link">Mobile Applications</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Products</h3>
+          <ul class="footer-links">
+            <li><a href="product-details.html" class="footer-link">Avenue CRM</a></li>
+            <li><a href="products.html#erp" class="footer-link">Avenue ERP</a></li>
+            <li><a href="products.html#analytics" class="footer-link">Avenue Analytics</a></li>
+            <li><a href="design-system.html" class="footer-link">UI Kit / Style Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="careers.html" class="footer-link">Careers</a></li>
+            <li><a href="blog.html" class="footer-link">Blog</a></li>
+            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Avenue Global Software Solutions. All Rights Reserved.</p>
+        <p style="display:flex; align-items:center; gap:8px;">
+          <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background-color:#10B981; filter:drop-shadow(0 0 4px #10B981);"></span> All systems operational
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

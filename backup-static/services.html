@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | AWENUE | Software, Web, Mobile, Cloud & Security Engineering</title>
+  <meta name="description" content="Explore Awenue's technological capabilities across cloud cluster scaling, responsive Next.js architectures, cyber audits, custom database setups, and mobile apps.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  
+  <!-- Global JS Script -->
+  <script type="module" src="js/main.js" defer></script>
+  
+  <style>
+    /* Specific page styling */
+    .services-hero {
+      padding-top: 160px;
+      text-align: center;
+    }
+    
+    .services-hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: var(--space-2);
+    }
+    
+    .service-detail-section {
+      padding: var(--space-7) 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .service-detail-section:nth-child(even) {
+      background-color: rgba(16, 16, 16, 0.4);
+    }
+    
+    .service-detail-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-5);
+      align-items: center;
+    }
+    
+    .service-detail-section:nth-child(even) .service-detail-grid {
+      grid-template-columns: 1fr 1.2fr;
+    }
+    
+    .service-detail-section:nth-child(even) .service-detail-content {
+      order: 2;
+    }
+    
+    .tech-stack-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+      margin-top: var(--space-3);
+    }
+    
+    .tech-badge {
+      padding: 6px 14px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition-fast);
+    }
+    
+    .tech-badge:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+    
+    .service-showcase-visual {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      background-color: var(--card-bg);
+      padding: var(--space-4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    
+    .service-bullet-list {
+      list-style: none;
+      margin: var(--space-3) 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .service-bullet-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    
+    .service-bullet-list li i {
+      color: var(--text-primary);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    
+    @media (max-width: 992px) {
+      .service-detail-grid, .service-detail-section:nth-child(even) .service-detail-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+      .service-detail-section:nth-child(even) .service-detail-content {
+        order: unset;
+      }
+      .services-hero h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-screen">
+    <div class="loader-container">
+      <div class="loader-logo-wrapper">
+        <img class="loader-logo" src="assets/logo-dark.png" alt="AWENUE Logo">
+      </div>
+      <div class="loader-progress-track">
+        <div class="loader-progress-bar"></div>
+      </div>
+      <div class="loader-percentage">0%</div>
+    </div>
+  </div>
+
+  <div class="background-mesh"></div>
+  <div class="background-noise"></div>
+  <div class="radial-glow-ambient" style="top: 20%; left: 80%; width: 500px; height: 500px;"></div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="header-nav">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-container">
+        <img src="assets/logo-dark.png" alt="AWENUE logo" class="brand-logo-img">
+      </a>
+      
+      <nav class="nav-menu-desktop">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">HOME</a>
+        </div>
+        <div class="nav-item">
+          <a href="services.html" class="nav-link">SERVICES</a>
+          <!-- MEGA MENU SERVICES -->
+          <div class="mega-menu-wrapper">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Digital Solutions</span>
+              <a href="services.html#software" class="mega-menu-item">
+                <i data-lucide="code" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Software Engineering</h4>
+                  <p>Scalable, bespoke backend systems & microservices.</p>
+                </div>
+              </a>
+              <a href="services.html#web" class="mega-menu-item">
+                <i data-lucide="globe" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Web Engineering</h4>
+                  <p>Next.js interfaces optimized for indexing.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Infrastructure</span>
+              <a href="services.html#cloud" class="mega-menu-item">
+                <i data-lucide="cloud" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cloud Architectures</h4>
+                  <p>Dockerized cluster deployments on AWS/Azure.</p>
+                </div>
+              </a>
+              <a href="services.html#mobile" class="mega-menu-item">
+                <i data-lucide="smartphone" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Mobile Development</h4>
+                  <p>Native Swift/Kotlin & React Native app builds.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Security & consulting</span>
+              <a href="services.html#consulting" class="mega-menu-item">
+                <i data-lucide="shield-check" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cybersecurity & Consulting</h4>
+                  <p>Security architectures & legacy audits.</p>
+                </div>
+              </a>
+              <a href="design-system.html" class="mega-menu-item">
+                <i data-lucide="palette" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>UI Kit & Design System</h4>
+                  <p>View brand tokens, Figma details, assets.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+          <!-- MEGA MENU PRODUCTS -->
+          <div class="mega-menu-wrapper" style="width: 600px;">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Suite</span>
+              <a href="product-details.html" class="mega-menu-item">
+                <i data-lucide="users" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue CRM</h4>
+                  <p>Automate workflows and drive pipeline conversions.</p>
+                </div>
+              </a>
+              <a href="products.html#erp" class="mega-menu-item">
+                <i data-lucide="briefcase" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue ERP</h4>
+                  <p>Resource tracking, financials, inventory modules.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Specialized Verticals</span>
+              <a href="products.html#school" class="mega-menu-item">
+                <i data-lucide="graduation-cap" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Education</h4>
+                  <p>School/University management systems.</p>
+                </div>
+              </a>
+              <a href="products.html#hospital" class="mega-menu-item">
+                <i data-lucide="activity" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Healthcare</h4>
+                  <p>Hospital records & automated scheduling systems.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">ABOUT US</a>
+        </div>
+        <div class="nav-item">
+          <a href="blog.html" class="nav-link">BLOG</a>
+        </div>
+        <div class="nav-item">
+          <a href="contact.html" class="nav-link">CONTACT US</a>
+        </div>
+      </nav>
+      
+      <div class="btn-wrapper">
+        <a href="contact.html" class="btn btn-primary nav-cta">GET IN TOUCH</a>
+      </div>
+      
+      <!-- Mobile Burger Trigger -->
+      <button class="menu-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="nav-menu-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+    <a href="about.html" class="nav-link">About Us</a>
+    <a href="blog.html" class="nav-link">BLOG</a>
+    <a href="careers.html" class="nav-link">Careers</a>
+    <a href="contact.html" class="nav-link">CONTACT US</a>
+    <a href="contact.html" class="btn btn-primary" style="margin-top: var(--space-3);">GET IN TOUCH</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="section services-hero">
+    <div class="container content-wrapper">
+      <p style="font-family:var(--font-heading); font-size:0.8rem; letter-spacing:0.25em; color:var(--text-muted); text-transform:uppercase;">Technological Capabilities</p>
+      <h1 class="text-gradient-chrome">Enterprise Services</h1>
+      <p style="color:var(--text-secondary); max-width:600px; margin:0 auto; font-size:1.1rem;">
+        Delivering performant solutions, digital grid systems, and scalable frameworks for global organizations.
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICE DETAIL 1: SOFTWARE ENGINEERING -->
+  <section class="service-detail-section" id="software">
+    <div class="container content-wrapper">
+      <div class="service-detail-grid">
+        <div class="service-detail-content">
+          <p style="font-family:var(--font-heading); font-size:0.75rem; letter-spacing:0.15em; color:var(--text-muted);">01 / SYSTEM ARCHITECTURE</p>
+          <h2 class="text-gradient-chrome" style="margin:var(--space-1) 0 var(--space-2) 0; font-size:2rem;">Software Development</h2>
+          <p>
+            We design backend layers, database clusters, and API frameworks configured to process millions of requests smoothly. We prioritize safety, speed, and thread concurrency.
+          </p>
+          <ul class="service-bullet-list">
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Microservice design using Java, Node.js, and Python.</li>
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Relational & document database tuning (MongoDB, Postgres).</li>
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Optimized enterprise data flow pipelines.</li>
+          </ul>
+          <div class="tech-stack-badges">
+            <span class="tech-badge"><i data-lucide="terminal" style="width:12px; height:12px;"></i> Node.js</span>
+            <span class="tech-badge"><i data-lucide="database" style="width:12px; height:12px;"></i> MongoDB</span>
+            <span class="tech-badge"><i data-lucide="code-2" style="width:12px; height:12px;"></i> Java</span>
+            <span class="tech-badge"><i data-lucide="cpu" style="width:12px; height:12px;"></i> Python</span>
+            <span class="tech-badge"><i data-lucide="server" style="width:12px; height:12px;"></i> Express</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" style="margin-top:var(--space-3);">Discuss Architecture</a>
+        </div>
+        <div class="service-showcase-visual">
+          <div style="font-size:0.8rem; font-family:var(--font-heading); border-bottom:1px solid var(--border-color); padding-bottom:8px; margin-bottom:12px; color:var(--text-muted);">
+            SYSTEMS_LOG
+          </div>
+          <pre style="font-family:'Courier New', monospace; font-size:0.75rem; color:var(--text-secondary); line-height:1.5; overflow-x:auto;">
+[OK] Initializing microservices...
+[OK] Database connection pool verified.
+[OK] Loaded schema.auth_v2.bin
+[OK] Starting listener thread. Port 443
+[STATUS] CPU 1.2% | Memory 142MB
+[OK] Gateway active. 100% health checked.</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE DETAIL 2: WEB DEVELOPMENT -->
+  <section class="service-detail-section" id="web">
+    <div class="container content-wrapper">
+      <div class="service-detail-grid">
+        <div class="service-detail-content">
+          <p style="font-family:var(--font-heading); font-size:0.75rem; letter-spacing:0.15em; color:var(--text-muted);">02 / CORE WEB APPS</p>
+          <h2 class="text-gradient-chrome" style="margin:var(--space-1) 0 var(--space-2) 0; font-size:2rem;">Website Development</h2>
+          <p>
+            Building interactive modern websites that rank exceptionally and look stunning. We compile clean modular templates that load in milliseconds under heavy visitor load.
+          </p>
+          <ul class="service-bullet-list">
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> High performance Next.js and React interfaces.</li>
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Fluid luxury layouts with metallic/glass designs.</li>
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Complete responsive checks across all layouts.</li>
+          </ul>
+          <div class="tech-stack-badges">
+            <span class="tech-badge"><i data-lucide="chrome" style="width:12px; height:12px;"></i> Next.js</span>
+            <span class="tech-badge"><i data-lucide="file-code" style="width:12px; height:12px;"></i> React</span>
+            <span class="tech-badge"><i data-lucide="layout" style="width:12px; height:12px;"></i> HTML5 / CSS3</span>
+            <span class="tech-badge"><i data-lucide="sparkles" style="width:12px; height:12px;"></i> Tailwind</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" style="margin-top:var(--space-3);">Initiate Project</a>
+        </div>
+        <div class="service-showcase-visual">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:8px; margin-bottom:12px;">
+            <span style="font-size:0.8rem; font-family:var(--font-heading); color:var(--text-muted);">PERFORMANCE_INSIGHTS</span>
+            <span style="color:#10B981; font-size:0.75rem; font-weight:600;"><span style="display:inline-block; width:6px; height:6px; border-radius:50%; background-color:#10B981; margin-right:4px;"></span> 99/100 LCP</span>
+          </div>
+          <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; text-align:center;">
+            <div style="border:1px solid var(--border-color); border-radius:8px; padding:10px;">
+              <p style="font-size:0.7rem; color:var(--text-muted);">FCP</p>
+              <h4 style="font-size:1.1rem; margin-top:4px;">0.3s</h4>
+            </div>
+            <div style="border:1px solid var(--border-color); border-radius:8px; padding:10px;">
+              <p style="font-size:0.7rem; color:var(--text-muted);">TBT</p>
+              <h4 style="font-size:1.1rem; margin-top:4px;">45ms</h4>
+            </div>
+            <div style="border:1px solid var(--border-color); border-radius:8px; padding:10px;">
+              <p style="font-size:0.7rem; color:var(--text-muted);">SEO</p>
+              <h4 style="font-size:1.1rem; margin-top:4px; color:#10B981;">100</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE DETAIL 3: CLOUD SOLUTIONS -->
+  <section class="service-detail-section" id="cloud">
+    <div class="container content-wrapper">
+      <div class="service-detail-grid">
+        <div class="service-detail-content">
+          <p style="font-family:var(--font-heading); font-size:0.75rem; letter-spacing:0.15em; color:var(--text-muted);">03 / CLOUD OPERATIONS</p>
+          <h2 class="text-gradient-chrome" style="margin:var(--space-1) 0 var(--space-2) 0; font-size:2rem;">Cloud Solutions</h2>
+          <p>
+            Deploying resilient container network nodes, load balances, and storage grids. We coordinate CI/CD pipelines to ensure database scalability and zero-downtime updates.
+          </p>
+          <ul class="service-bullet-list">
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> AWS, Azure, Google Cloud deployments.</li>
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Kubernetes cluster orchestration & Docker images.</li>
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Failover structures and database replication.</li>
+          </ul>
+          <div class="tech-stack-badges">
+            <span class="tech-badge"><i data-lucide="box" style="width:12px; height:12px;"></i> Docker</span>
+            <span class="tech-badge"><i data-lucide="container" style="width:12px; height:12px;"></i> Kubernetes</span>
+            <span class="tech-badge"><i data-lucide="cloud" style="width:12px; height:12px;"></i> AWS</span>
+            <span class="tech-badge"><i data-lucide="cpu" style="width:12px; height:12px;"></i> Azure</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" style="margin-top:var(--space-3);">Configure Cloud</a>
+        </div>
+        <div class="service-showcase-visual">
+          <div style="font-size:0.8rem; font-family:var(--font-heading); border-bottom:1px solid var(--border-color); padding-bottom:8px; margin-bottom:12px; color:var(--text-muted);">
+            KUBERNETES_CLUSTER
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; justify-content:space-between; background:rgba(0,0,0,0.3); padding:8px 12px; border-radius:6px; border:1px solid var(--border-color);">
+              <span style="font-size:0.8rem;">node-us-east-1a</span>
+              <span style="color:#10B981; font-size:0.8rem;">ACTIVE</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; background:rgba(0,0,0,0.3); padding:8px 12px; border-radius:6px; border:1px solid var(--border-color);">
+              <span style="font-size:0.8rem;">node-us-east-1b</span>
+              <span style="color:#10B981; font-size:0.8rem;">ACTIVE</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; background:rgba(0,0,0,0.3); padding:8px 12px; border-radius:6px; border:1px solid var(--border-color);">
+              <span style="font-size:0.8rem;">load-balancer-ingress</span>
+              <span style="color:#10B981; font-size:0.8rem;">HEALTHY</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE DETAIL 4: MOBILE APP DEVELOPMENT -->
+  <section class="service-detail-section" id="mobile">
+    <div class="container content-wrapper">
+      <div class="service-detail-grid">
+        <div class="service-detail-content">
+          <p style="font-family:var(--font-heading); font-size:0.75rem; letter-spacing:0.15em; color:var(--text-muted);">04 / MOBILE CHANNELS</p>
+          <h2 class="text-gradient-chrome" style="margin:var(--space-1) 0 var(--space-2) 0; font-size:2rem;">Mobile App Development</h2>
+          <p>
+            Constructing native and hybrid mobile software containing fluid page transitions, offline database caches, and responsive custom component logic.
+          </p>
+          <ul class="service-bullet-list">
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Native iOS apps using Swift & Android using Kotlin.</li>
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> High performance React Native architectures.</li>
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> App Store and Play Store deploy setups.</li>
+          </ul>
+          <div class="tech-stack-badges">
+            <span class="tech-badge"><i data-lucide="smartphone" style="width:12px; height:12px;"></i> React Native</span>
+            <span class="tech-badge"><i data-lucide="tablet" style="width:12px; height:12px;"></i> Swift</span>
+            <span class="tech-badge"><i data-lucide="layers" style="width:12px; height:12px;"></i> Kotlin</span>
+            <span class="tech-badge"><i data-lucide="activity" style="width:12px; height:12px;"></i> Firebase</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" style="margin-top:var(--space-3);">Start Mobile Build</a>
+        </div>
+        <div class="service-showcase-visual">
+          <div style="font-size:0.8rem; font-family:var(--font-heading); border-bottom:1px solid var(--border-color); padding-bottom:8px; margin-bottom:12px; color:var(--text-muted);">
+            MOBILE_PREVIEW
+          </div>
+          <div style="width: 140px; height: 200px; border: 2px solid var(--border-color); border-radius: 20px; margin: 0 auto; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; background-color: #060606;">
+            <div style="width: 40px; height: 4px; background-color: var(--border-color); border-radius: 2px; margin: 0 auto;"></div>
+            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+              <img src="assets/logo-dark.png" style="width:70px;" alt="emblem">
+            </div>
+            <div style="width: 12px; height: 12px; border: 1.5px solid var(--border-color); border-radius: 50%; margin: 0 auto;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE DETAIL 5: IT CONSULTING & SECURITY -->
+  <section class="service-detail-section" id="consulting">
+    <div class="container content-wrapper">
+      <div class="service-detail-grid">
+        <div class="service-detail-content">
+          <p style="font-family:var(--font-heading); font-size:0.75rem; letter-spacing:0.15em; color:var(--text-muted);">05 / SECURITY & PLANNING</p>
+          <h2 class="text-gradient-chrome" style="margin:var(--space-1) 0 var(--space-2) 0; font-size:2rem;">IT Consulting & Security</h2>
+          <p>
+            Securing endpoints, verifying network logic paths, and outlining digital plans to transition business operations safely from legacy setups.
+          </p>
+          <ul class="service-bullet-list">
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Threat mapping, SSL policies, firewall auditing.</li>
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Cloud deployment cost estimation reports.</li>
+            <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Framework planning for microservice architecture migrations.</li>
+          </ul>
+          <div class="tech-stack-badges">
+            <span class="tech-badge"><i data-lucide="shield" style="width:12px; height:12px;"></i> Threat Audits</span>
+            <span class="tech-badge"><i data-lucide="lock" style="width:12px; height:12px;"></i> Penetration Testing</span>
+            <span class="tech-badge"><i data-lucide="activity" style="width:12px; height:12px;"></i> TLS 1.3 Standards</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" style="margin-top:var(--space-3);">Request Tech Audit</a>
+        </div>
+        <div class="service-showcase-visual">
+          <div style="font-size:0.8rem; font-family:var(--font-heading); border-bottom:1px solid var(--border-color); padding-bottom:8px; margin-bottom:12px; color:var(--text-muted);">
+            THREAT_MATRIX
+          </div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="width:70px; height:70px; border-radius:50%; border:3px solid #10B981; display:flex; align-items:center; justify-content:center; font-weight:700; color:#10B981; font-size:1.1rem;">
+              SECURE
+            </div>
+            <div>
+              <p style="font-size:0.85rem; font-weight:600;">0 Vulnerabilities Detected</p>
+              <p style="color:var(--text-muted); font-size:0.75rem;">TLS certificate status: valid (expires in 340 days)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="text-align: center;">
+    <div class="container content-wrapper">
+      <h2 class="text-gradient-chrome" style="margin-bottom:var(--space-3);">Ready to Scale Your Systems?</h2>
+      <p style="color:var(--text-secondary); max-width:550px; margin:0 auto var(--space-4) auto;">
+        Get in touch with an AWENUE solutions architect to scope your business architecture, database structures, or custom web portals.
+      </p>
+      <div class="btn-wrapper">
+        <a href="contact.html" class="btn btn-primary">Book Consultation Session</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container content-wrapper">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <a href="index.html" class="footer-logo">
+            <img src="assets/logo-dark.png" alt="AWENUE logo" style="height:110px;">
+          </a>
+          <p class="footer-desc">
+            Constructing digital architectures and premium software systems to empower businesses globally.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="social-icon" aria-label="LinkedIn"><i data-lucide="linkedin" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="GitHub"><i data-lucide="github" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="Twitter"><i data-lucide="twitter" style="width:16px; height:16px;"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Services</h3>
+          <ul class="footer-links">
+            <li><a href="services.html#software" class="footer-link">Software Engineering</a></li>
+            <li><a href="services.html#web" class="footer-link">Web Development</a></li>
+            <li><a href="services.html#cloud" class="footer-link">Cloud Deployments</a></li>
+            <li><a href="services.html#mobile" class="footer-link">Mobile Applications</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Products</h3>
+          <ul class="footer-links">
+            <li><a href="product-details.html" class="footer-link">Avenue CRM</a></li>
+            <li><a href="products.html#erp" class="footer-link">Avenue ERP</a></li>
+            <li><a href="products.html#analytics" class="footer-link">Avenue Analytics</a></li>
+            <li><a href="design-system.html" class="footer-link">UI Kit / Style Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="careers.html" class="footer-link">Careers</a></li>
+            <li><a href="blog.html" class="footer-link">Blog</a></li>
+            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Avenue Global Software Solutions. All Rights Reserved.</p>
+        <p style="display:flex; align-items:center; gap:8px;">
+          <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background-color:#10B981; filter:drop-shadow(0 0 4px #10B981);"></span> All systems operational
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWENUE | Global Enterprise Software & Digital Transformation Solutions</title>
+  <meta name="description" content="Awenue Global Software Solutions designs enterprise websites, cloud infrastructures, mobile apps, and custom AI systems. Positioned as a luxury, high-performance technology brand.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  
+  <!-- Global JS Script -->
+  <script type="module" src="js/main.js" defer></script>
+  
+  <style>
+    /* Inline overrides and specific styles for Homepage */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 120px;
+      position: relative;
+    }
+    
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-5);
+      align-items: center;
+      width: 100%;
+    }
+    
+    .hero-title {
+      font-size: 5rem;
+      line-height: 1.0;
+      margin-bottom: var(--space-3);
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+    
+    .hero-tagline {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin-bottom: var(--space-4);
+    }
+    
+    .hero-ctas {
+      display: flex;
+      gap: var(--space-2);
+    }
+    
+    /* Hero Dashboard Illustration */
+    .hero-dashboard-wrapper {
+      position: relative;
+      height: 480px;
+      width: 100%;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-color);
+      background-color: rgba(20, 20, 20, 0.4);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-3);
+    }
+    
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+    
+    .dashboard-dots {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .dashboard-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--border-color);
+    }
+    
+    .dashboard-body {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-3);
+      flex-grow: 1;
+    }
+    
+    .dashboard-main {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background-color: rgba(6, 6, 6, 0.6);
+      padding: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .dashboard-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    
+    .dashboard-mini-card {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background-color: rgba(16, 16, 16, 0.6);
+      padding: var(--space-2);
+      font-size: 0.8rem;
+    }
+    
+    .dashboard-graph {
+      height: 80px;
+      width: 100%;
+      position: relative;
+      margin-top: var(--space-2);
+    }
+    
+    .dashboard-line-svg {
+      width: 100%;
+      height: 100%;
+    }
+    
+    /* Floating Glass Object animations */
+    .floating-glass-box {
+      position: absolute;
+      width: 140px;
+      padding: var(--space-2);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+      font-size: 0.75rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      animation: float-box 6s infinite ease-in-out;
+      z-index: 5;
+    }
+    
+    .fg-1 { top: 40px; right: -20px; animation-delay: 0s; }
+    .fg-2 { bottom: 60px; left: -30px; animation-delay: 2s; }
+    
+    @keyframes float-box {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(2deg); }
+    }
+    
+    /* Trust Section Logo Bar */
+    .trust-slider {
+      overflow: hidden;
+      white-space: nowrap;
+      padding: var(--space-3) 0;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      background-color: rgba(16, 16, 16, 0.3);
+    }
+    
+    .trust-track {
+      display: inline-block;
+      animation: scroll-trust 25s linear infinite;
+    }
+    
+    .trust-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin: 0 var(--space-6);
+    }
+    
+    @keyframes scroll-trust {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    /* Why Choose Us Timeline */
+    .timeline-container {
+      position: relative;
+      margin-top: var(--space-6);
+    }
+    
+    .timeline-line {
+      position: absolute;
+      top: 24px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--border-color);
+      z-index: 1;
+    }
+    
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .timeline-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 var(--space-2);
+    }
+    
+    .timeline-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+      transition: var(--transition-fast);
+    }
+    
+    .timeline-node:hover .timeline-dot {
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+      transform: scale(1.1);
+    }
+    
+    .timeline-title {
+      font-size: 0.9rem;
+      margin-bottom: var(--space-1);
+    }
+    
+    .timeline-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-width: 180px;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+    }
+    
+    .stat-card {
+      text-align: center;
+      padding: var(--space-4) var(--space-2);
+      border: 1px solid var(--border-color);
+      background-color: rgba(16, 16, 16, 0.5);
+      border-radius: var(--radius-card);
+    }
+    
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: var(--space-1);
+    }
+    
+    .stat-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Testimonials slider */
+    .testimonial-card {
+      background: var(--gradient-glass);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+      position: relative;
+      overflow: hidden;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .testimonial-quote {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-4);
+    }
+    
+    .testimonial-user {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    
+    .testimonial-user-photo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    
+    .testimonial-user-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+    
+    .testimonial-user-role {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Responsiveness overrides */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: var(--space-5);
+      }
+      .hero-title { font-size: 3.8rem; }
+      .hero-tagline { margin: 0 auto var(--space-4) auto; }
+      .hero-ctas { justify-content: center; }
+      .hero-dashboard-wrapper { max-width: 600px; margin: 0 auto; }
+      .timeline-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+      .timeline-line { display: none; }
+      .timeline-node { flex-direction: row; text-align: left; gap: var(--space-3); }
+      .timeline-desc { max-width: 100%; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    @media (max-width: 576px) {
+      .hero-title { font-size: 2.8rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-screen">
+    <div class="loader-container">
+      <div class="loader-logo-wrapper">
+        <img class="loader-logo" src="assets/logo-dark.png" alt="AWENUE Logo">
+      </div>
+      <div class="loader-progress-track">
+        <div class="loader-progress-bar"></div>
+      </div>
+      <div class="loader-percentage">0%</div>
+    </div>
+  </div>
+
+  <!-- BG GRIDS & GLOW EFFECTS -->
+  <div class="background-mesh"></div>
+  <div class="background-noise"></div>
+  <div class="radial-glow-ambient" style="top: 10%; left: 50%; transform: translate(-50%, -50%);"></div>
+  <div class="radial-glow-ambient" style="top: 60%; left: 10%; width: 400px; height: 400px;"></div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="header-nav">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-container">
+        <img src="assets/logo-dark.png" alt="AWENUE logo" class="brand-logo-img">
+      </a>
+      
+      <nav class="nav-menu-desktop">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">HOME</a>
+        </div>
+        <div class="nav-item">
+          <a href="services.html" class="nav-link">SERVICES</a>
+          <!-- MEGA MENU SERVICES -->
+          <div class="mega-menu-wrapper">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Digital Solutions</span>
+              <a href="services.html#software" class="mega-menu-item">
+                <i data-lucide="code" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Software Engineering</h4>
+                  <p>Scalable, bespoke backend systems & microservices.</p>
+                </div>
+              </a>
+              <a href="services.html#web" class="mega-menu-item">
+                <i data-lucide="globe" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Web Engineering</h4>
+                  <p>Next.js interfaces optimized for indexing.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Infrastructure</span>
+              <a href="services.html#cloud" class="mega-menu-item">
+                <i data-lucide="cloud" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cloud Architectures</h4>
+                  <p>Dockerized cluster deployments on AWS/Azure.</p>
+                </div>
+              </a>
+              <a href="services.html#mobile" class="mega-menu-item">
+                <i data-lucide="smartphone" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Mobile Development</h4>
+                  <p>Native Swift/Kotlin & React Native app builds.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Security & consulting</span>
+              <a href="services.html#consulting" class="mega-menu-item">
+                <i data-lucide="shield-check" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cybersecurity & Consulting</h4>
+                  <p>Security architectures & legacy audits.</p>
+                </div>
+              </a>
+              <a href="design-system.html" class="mega-menu-item">
+                <i data-lucide="palette" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>UI Kit & Design System</h4>
+                  <p>View brand tokens, Figma details, assets.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+          <!-- MEGA MENU PRODUCTS -->
+          <div class="mega-menu-wrapper" style="width: 600px;">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Suite</span>
+              <a href="product-details.html" class="mega-menu-item">
+                <i data-lucide="users" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue CRM</h4>
+                  <p>Automate workflows and drive pipeline conversions.</p>
+                </div>
+              </a>
+              <a href="products.html#erp" class="mega-menu-item">
+                <i data-lucide="briefcase" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue ERP</h4>
+                  <p>Resource tracking, financials, inventory modules.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Specialized Verticals</span>
+              <a href="products.html#school" class="mega-menu-item">
+                <i data-lucide="graduation-cap" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Education</h4>
+                  <p>School/University management systems.</p>
+                </div>
+              </a>
+              <a href="products.html#hospital" class="mega-menu-item">
+                <i data-lucide="activity" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Healthcare</h4>
+                  <p>Hospital records & automated scheduling systems.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">ABOUT US</a>
+        </div>
+        <div class="nav-item">
+          <a href="blog.html" class="nav-link">BLOG</a>
+        </div>
+        <div class="nav-item">
+          <a href="contact.html" class="nav-link">CONTACT US</a>
+        </div>
+      </nav>
+      
+      <div class="btn-wrapper">
+        <a href="contact.html" class="btn btn-primary nav-cta">GET IN TOUCH</a>
+      </div>
+      
+      <!-- Mobile Burger Trigger -->
+      <button class="menu-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="nav-menu-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+    <a href="about.html" class="nav-link">About Us</a>
+    <a href="blog.html" class="nav-link">BLOG</a>
+    <a href="careers.html" class="nav-link">Careers</a>
+    <a href="contact.html" class="nav-link">CONTACT US</a>
+    <a href="contact.html" class="btn btn-primary" style="margin-top: var(--space-3);">GET IN TOUCH</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="section hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1 class="hero-title hero-reveal text-gradient-chrome" style="opacity: 0; transform: translateY(30px);">
+          Engineering<br>Digital<br>Excellence
+        </h1>
+        <p class="hero-tagline hero-reveal" style="opacity: 0; transform: translateY(30px);">
+          We construct top-tier enterprise architectures, modern platforms, cloud solutions, and customized AI models that catalyze growth and streamline processes globally.
+        </p>
+        <div class="hero-ctas hero-reveal" style="opacity: 0; transform: translateY(30px);">
+          <a href="services.html" class="btn btn-primary">Explore Services</a>
+          <a href="contact.html" class="btn btn-glass">GET IN TOUCH</a>
+        </div>
+      </div>
+      
+      <div class="hero-parallax hero-reveal" style="opacity: 0; transform: scale(0.95); position: relative;">
+        <!-- Float boxes -->
+        <div class="floating-glass-box fg-1">
+          <p style="font-weight:600;"><i data-lucide="cpu" style="width:12px; height:12px; margin-right:4px;"></i> AI Model Layer</p>
+          <p style="color:var(--text-muted); font-size:0.65rem;">Active node, clusters running at 99.8% precision.</p>
+        </div>
+        <div class="floating-glass-box fg-2">
+          <p style="font-weight:600;"><i data-lucide="cloud" style="width:12px; height:12px; margin-right:4px;"></i> AWS Deploy</p>
+          <p style="color:var(--text-muted); font-size:0.65rem;">Build validated. Clusters scale up +12 nodes.</p>
+        </div>
+        
+        <!-- Software dashboard visual -->
+        <div class="hero-dashboard-wrapper">
+          <div class="dashboard-header">
+            <div class="dashboard-dots">
+              <span class="dashboard-dot"></span>
+              <span class="dashboard-dot"></span>
+              <span class="dashboard-dot"></span>
+            </div>
+            <span style="font-size:0.7rem; font-family:var(--font-heading); color:var(--text-muted); letter-spacing:0.1em;">AWENUE_CLOUD_DASHBOARD</span>
+          </div>
+          <div class="dashboard-body">
+            <div class="dashboard-main">
+              <div>
+                <p style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.05em;">API Gateways</p>
+                <h3 style="font-size:1.8rem; margin:6px 0; letter-spacing:0;" class="text-gradient-chrome">1.8M / sec</h3>
+              </div>
+              <div class="dashboard-graph">
+                <svg class="dashboard-line-svg" viewBox="0 0 100 40">
+                  <path d="M0,35 Q10,15 20,25 T40,10 T60,30 T80,5 T100,20" fill="none" stroke="url(#line-chrome-grad)" stroke-width="1.5"/>
+                  <defs>
+                    <linearGradient id="line-chrome-grad" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="#444444"/>
+                      <stop offset="50%" stop-color="#FFFFFF"/>
+                      <stop offset="100%" stop-color="#777777"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+            <div class="dashboard-sidebar">
+              <div class="dashboard-mini-card">
+                <p style="color:var(--text-muted);">Database</p>
+                <p style="font-weight:600;">MongoDB Cluster</p>
+              </div>
+              <div class="dashboard-mini-card">
+                <p style="color:var(--text-muted);">Integrations</p>
+                <p style="font-weight:600;">Express / Node.js</p>
+              </div>
+              <div class="dashboard-mini-card">
+                <p style="color:var(--text-muted);">Security</p>
+                <p style="font-weight:600; color:#FFFFFF;"><i data-lucide="shield" style="width:12px; height:12px; vertical-align:middle;"></i> TLS 1.3 Active</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BANNERS -->
+  <section class="trust-slider">
+    <div class="trust-track">
+      <span class="trust-logo"><i data-lucide="building"></i> ENTERPRISE</span>
+      <span class="trust-logo"><i data-lucide="rocket"></i> STARTUPS</span>
+      <span class="trust-logo"><i data-lucide="landmark"></i> GOVERNMENT</span>
+      <span class="trust-logo"><i data-lucide="activity"></i> HEALTHCARE</span>
+      <span class="trust-logo"><i data-lucide="graduation-cap"></i> EDUCATION</span>
+      <!-- Duplicate for looping animation scroll -->
+      <span class="trust-logo"><i data-lucide="building"></i> ENTERPRISE</span>
+      <span class="trust-logo"><i data-lucide="rocket"></i> STARTUPS</span>
+      <span class="trust-logo"><i data-lucide="landmark"></i> GOVERNMENT</span>
+      <span class="trust-logo"><i data-lucide="activity"></i> HEALTHCARE</span>
+      <span class="trust-logo"><i data-lucide="graduation-cap"></i> EDUCATION</span>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section class="section" id="services">
+    <div class="container content-wrapper">
+      <div style="text-align: center; margin-bottom: var(--space-5);">
+        <div class="section-subtitle-divider">WHAT WE DO</div>
+        <h2 class="text-gradient-chrome" style="margin-top:var(--space-1); font-size: 2.2rem; letter-spacing: 0.12em;">OUR SERVICES</h2>
+      </div>
+      
+      <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+        <div class="card-premium card-centered">
+          <div class="card-icon"><i data-lucide="code"></i></div>
+          <h3 class="card-title" style="font-size: 1.05rem;">Software Development</h3>
+          <p class="card-desc">Custom software solutions designed to solve real-world problems and drive efficiency.</p>
+          <a href="services.html#software" class="card-action btn-text">Learn More</a>
+        </div>
+        
+        <div class="card-premium card-centered">
+          <div class="card-icon"><i data-lucide="cloud"></i></div>
+          <h3 class="card-title" style="font-size: 1.05rem;">Cloud Solutions</h3>
+          <p class="card-desc">Scalable, secure and reliable cloud solutions to modernize your infrastructure.</p>
+          <a href="services.html#cloud" class="card-action btn-text">Learn More</a>
+        </div>
+        
+        <div class="card-premium card-centered">
+          <div class="card-icon"><i data-lucide="shield"></i></div>
+          <h3 class="card-title" style="font-size: 1.05rem;">Cybersecurity</h3>
+          <p class="card-desc">Advanced security solutions to protect your systems, data and digital assets.</p>
+          <a href="services.html#consulting" class="card-action btn-text">Learn More</a>
+        </div>
+        
+        <div class="card-premium card-centered">
+          <div class="card-icon"><i data-lucide="smartphone"></i></div>
+          <h3 class="card-title" style="font-size: 1.05rem;">Mobile App Development</h3>
+          <p class="card-desc">Building intuitive and high-performance mobile apps for iOS and Android.</p>
+          <a href="services.html#mobile" class="card-action btn-text">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US TIMELINE SECTION -->
+  <section class="section" style="background-color: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="container content-wrapper">
+      <div style="text-align: center; margin-bottom: var(--space-5);">
+        <p class="section-subtitle" style="font-family:var(--font-heading); font-size:0.8rem; letter-spacing:0.2em; color:var(--text-muted); text-transform:uppercase;">Engineering Philosophy</p>
+        <h2 class="text-gradient-chrome" style="margin-top:var(--space-1);">Why Choose Us</h2>
+      </div>
+      
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+        <div class="timeline-grid">
+          <div class="timeline-node">
+            <div class="timeline-dot"><i data-lucide="lightbulb" style="width:20px; height:20px;"></i></div>
+            <h4 class="timeline-title">Innovation</h4>
+            <p class="timeline-desc">Pioneering edge tech solutions rather than legacy frameworks.</p>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot"><i data-lucide="compass" style="width:20px; height:20px;"></i></div>
+            <h4 class="timeline-title">Strategy</h4>
+            <p class="timeline-desc">Thorough client scoping to build exact corporate logic paths.</p>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot"><i data-lucide="cpu" style="width:20px; height:20px;"></i></div>
+            <h4 class="timeline-title">Engineering</h4>
+            <p class="timeline-desc">Clean, optimized codebases supporting concurrent scaling.</p>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot"><i data-lucide="send" style="width:20px; height:20px;"></i></div>
+            <h4 class="timeline-title">Deployment</h4>
+            <p class="timeline-desc">Automated CI/CD validation checks with zero-downtime.</p>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot"><i data-lucide="heart-handshake" style="width:20px; height:20px;"></i></div>
+            <h4 class="timeline-title">Support</h4>
+            <p class="timeline-desc">Continuous monitoring and server updates round-the-clock.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS SECTION -->
+  <section class="section" id="products">
+    <div class="container content-wrapper">
+      <div style="text-align: center; margin-bottom: var(--space-5);">
+        <div class="section-subtitle-divider">INNOVATIVE SOLUTIONS</div>
+        <h2 class="text-gradient-chrome" style="margin-top:var(--space-1); font-size: 2.2rem; letter-spacing: 0.12em;">OUR PRODUCTS</h2>
+      </div>
+      
+      <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));">
+        <!-- Card 1 -->
+        <div class="card-product-horizontal">
+          <svg class="product-emblem-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="emblem-chrome-1" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#1F252C" />
+                <stop offset="20%" stop-color="#8A95A5" />
+                <stop offset="40%" stop-color="#CFD6DF" />
+                <stop offset="60%" stop-color="#FFFFFF" />
+                <stop offset="80%" stop-color="#8A95A5" />
+                <stop offset="100%" stop-color="#1F252C" />
+              </linearGradient>
+              <linearGradient id="emblem-chrome-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="30%" stop-color="#D1D7E0" />
+                <stop offset="50%" stop-color="#5C6673" />
+                <stop offset="70%" stop-color="#EBEFF5" />
+                <stop offset="100%" stop-color="#151A21" />
+              </linearGradient>
+            </defs>
+            <path d="M 32 85 C 32 85 45 42 55 25 C 62 13 70 12 75 22 C 80 32 85 48 85 48 C 85 48 76 68 70 78 C 65 85 58 87 50 82 Z" fill="url(#emblem-chrome-1)" opacity="0.9" />
+            <path d="M 22 82 C 12 60 22 30 45 15 C 65 2 82 8 92 25 C 102 42 101 70 85 85 C 75 95 62 98 48 90 C 44 87 48 80 54 82 C 64 85 74 81 81 74 C 91 64 92 42 84 28 C 76 15 63 11 48 21 C 32 32 23 55 30 74 C 32 80 24 84 22 82 Z" fill="url(#emblem-chrome-2)" />
+            <path d="M 33 62 C 37 58 48 55 60 57 C 72 59 81 65 85 71 C 88 77 82 81 77 78 C 72 75 66 70 56 68 C 46 66 38 68 35 71 C 31 75 29 66 33 62 Z" fill="url(#emblem-chrome-1)" />
+          </svg>
+          <div class="product-content">
+            <h3 class="product-title">AWENUE CRM</h3>
+            <p class="product-desc">A powerful CRM to manage leads, customers and sales pipeline effortlessly.</p>
+            <a href="product-details.html" class="product-link btn-text">VIEW PRODUCT</a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card-product-horizontal">
+          <svg class="product-emblem-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="emblem-chrome-1" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#1F252C" />
+                <stop offset="20%" stop-color="#8A95A5" />
+                <stop offset="40%" stop-color="#CFD6DF" />
+                <stop offset="60%" stop-color="#FFFFFF" />
+                <stop offset="80%" stop-color="#8A95A5" />
+                <stop offset="100%" stop-color="#1F252C" />
+              </linearGradient>
+              <linearGradient id="emblem-chrome-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="30%" stop-color="#D1D7E0" />
+                <stop offset="50%" stop-color="#5C6673" />
+                <stop offset="70%" stop-color="#EBEFF5" />
+                <stop offset="100%" stop-color="#151A21" />
+              </linearGradient>
+            </defs>
+            <path d="M 32 85 C 32 85 45 42 55 25 C 62 13 70 12 75 22 C 80 32 85 48 85 48 C 85 48 76 68 70 78 C 65 85 58 87 50 82 Z" fill="url(#emblem-chrome-1)" opacity="0.9" />
+            <path d="M 22 82 C 12 60 22 30 45 15 C 65 2 82 8 92 25 C 102 42 101 70 85 85 C 75 95 62 98 48 90 C 44 87 48 80 54 82 C 64 85 74 81 81 74 C 91 64 92 42 84 28 C 76 15 63 11 48 21 C 32 32 23 55 30 74 C 32 80 24 84 22 82 Z" fill="url(#emblem-chrome-2)" />
+            <path d="M 33 62 C 37 58 48 55 60 57 C 72 59 81 65 85 71 C 88 77 82 81 77 78 C 72 75 66 70 56 68 C 46 66 38 68 35 71 C 31 75 29 66 33 62 Z" fill="url(#emblem-chrome-1)" />
+          </svg>
+          <div class="product-content">
+            <h3 class="product-title">AWENUE ERP</h3>
+            <p class="product-desc">An intelligent ERP system to streamline your operations and improve productivity.</p>
+            <a href="products.html#erp" class="product-link btn-text">VIEW PRODUCT</a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card-product-horizontal">
+          <svg class="product-emblem-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="emblem-chrome-1" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#1F252C" />
+                <stop offset="20%" stop-color="#8A95A5" />
+                <stop offset="40%" stop-color="#CFD6DF" />
+                <stop offset="60%" stop-color="#FFFFFF" />
+                <stop offset="80%" stop-color="#8A95A5" />
+                <stop offset="100%" stop-color="#1F252C" />
+              </linearGradient>
+              <linearGradient id="emblem-chrome-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="30%" stop-color="#D1D7E0" />
+                <stop offset="50%" stop-color="#5C6673" />
+                <stop offset="70%" stop-color="#EBEFF5" />
+                <stop offset="100%" stop-color="#151A21" />
+              </linearGradient>
+            </defs>
+            <path d="M 32 85 C 32 85 45 42 55 25 C 62 13 70 12 75 22 C 80 32 85 48 85 48 C 85 48 76 68 70 78 C 65 85 58 87 50 82 Z" fill="url(#emblem-chrome-1)" opacity="0.9" />
+            <path d="M 22 82 C 12 60 22 30 45 15 C 65 2 82 8 92 25 C 102 42 101 70 85 85 C 75 95 62 98 48 90 C 44 87 48 80 54 82 C 64 85 74 81 81 74 C 91 64 92 42 84 28 C 76 15 63 11 48 21 C 32 32 23 55 30 74 C 32 80 24 84 22 82 Z" fill="url(#emblem-chrome-2)" />
+            <path d="M 33 62 C 37 58 48 55 60 57 C 72 59 81 65 85 71 C 88 77 82 81 77 78 C 72 75 66 70 56 68 C 46 66 38 68 35 71 C 31 75 29 66 33 62 Z" fill="url(#emblem-chrome-1)" />
+          </svg>
+          <div class="product-content">
+            <h3 class="product-title">AWENUE ANALYTICS</h3>
+            <p class="product-desc">Data analytics platform that turns your data into actionable business insights.</p>
+            <a href="products.html#analytics" class="product-link btn-text">VIEW PRODUCT</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT US SPLIT SECTION -->
+  <section class="section" style="background-color: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);" id="about">
+    <div class="container content-wrapper about-split-layout">
+      <!-- Left side copy -->
+      <div class="about-text-content">
+        <div class="section-subtitle-left">ABOUT US</div>
+        <h2 class="text-gradient-chrome" style="font-size: 2.2rem; letter-spacing: 0.12em; line-height: 1.2; margin: var(--space-1) 0 var(--space-2) 0;">
+          DRIVEN BY INNOVATION<br>FOCUSED ON IMPACT
+        </h2>
+        <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: var(--space-3); color: var(--text-secondary);">
+          Avenue Global Software Solutions is a technology company passionate about delivering innovative, reliable and scalable software solutions. We partner with businesses to turn ideas into impactful digital experiences.
+        </p>
+        <a href="about.html" class="btn btn-primary">READ MORE ABOUT US &rarr;</a>
+      </div>
+      
+      <!-- Right side metrics -->
+      <div class="about-stats-container">
+        <!-- Stat 1 -->
+        <div class="about-stat-box">
+          <i data-lucide="users" class="stat-icon"></i>
+          <span class="stat-num text-gradient-chrome">50+</span>
+          <span class="stat-lbl">Happy Clients</span>
+        </div>
+        <!-- Stat 2 -->
+        <div class="about-stat-box">
+          <i data-lucide="folder-check" class="stat-icon"></i>
+          <span class="stat-num text-gradient-chrome">120+</span>
+          <span class="stat-lbl">Projects Delivered</span>
+        </div>
+        <!-- Stat 3 -->
+        <div class="about-stat-box">
+          <i data-lucide="award" class="stat-icon"></i>
+          <span class="stat-num text-gradient-chrome">10+</span>
+          <span class="stat-lbl">Years of Experience</span>
+        </div>
+        <!-- Stat 4 -->
+        <div class="about-stat-box">
+          <i data-lucide="users-2" class="stat-icon"></i>
+          <span class="stat-num text-gradient-chrome">25+</span>
+          <span class="stat-lbl">Expert Team</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALL TO ACTION BOTTOM -->
+  <section class="section" style="text-align: center; padding: var(--space-8) 0;">
+    <div class="container content-wrapper">
+      <h2 class="text-gradient-chrome" style="font-size: 3rem; margin-bottom: var(--space-3); line-height: 1.2;">
+        Let's Build Something<br>Extraordinary
+      </h2>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto var(--space-4) auto; font-size: 1.1rem;">
+        Partner with AWENUE to map your enterprise systems, deploy scalable web structures, and lead your digital transformation cycle.
+      </p>
+      <div class="btn-wrapper">
+        <a href="contact.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 18px 48px;">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container content-wrapper">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <a href="index.html" class="footer-logo">
+            <img src="assets/logo-dark.png" alt="AWENUE logo" style="height:110px;">
+          </a>
+          <p class="footer-desc">
+            Building digital solutions that empower businesses and create lasting impact.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="social-icon" aria-label="LinkedIn"><i data-lucide="linkedin" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="GitHub"><i data-lucide="github" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="Twitter"><i data-lucide="twitter" style="width:16px; height:16px;"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>OUR SERVICES</h3>
+          <ul class="footer-links">
+            <li><a href="services.html#software" class="footer-link">Software Development</a></li>
+            <li><a href="services.html#cloud" class="footer-link">Cloud Solutions</a></li>
+            <li><a href="services.html#consulting" class="footer-link">Cybersecurity</a></li>
+            <li><a href="services.html#mobile" class="footer-link">Mobile App Development</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Products</h3>
+          <ul class="footer-links">
+            <li><a href="product-details.html" class="footer-link">Avenue CRM</a></li>
+            <li><a href="products.html#erp" class="footer-link">Avenue ERP</a></li>
+            <li><a href="products.html#analytics" class="footer-link">Avenue Analytics</a></li>
+            <li><a href="design-system.html" class="footer-link">UI Kit / Style Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="careers.html" class="footer-link">Careers</a></li>
+            <li><a href="blog.html" class="footer-link">Blog</a></li>
+            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Avenue Global Software Solutions. All Rights Reserved.</p>
+        <p style="display:flex; align-items:center; gap:8px;">
+          <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background-color:#10B981; filter:drop-shadow(0 0 4px #10B981);"></span> All systems operational
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

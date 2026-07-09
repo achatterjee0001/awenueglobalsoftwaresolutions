@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products Suite | AWENUE | CRM, ERP, HRMS, Education & Medical Platforms</title>
+  <meta name="description" content="Browse Awenue's suite of modular products: Avenue CRM, Avenue ERP, Avenue HRMS, AI tools, School & Hospital Administration databases.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  
+  <!-- Global JS Script -->
+  <script type="module" src="js/main.js" defer></script>
+  
+  <style>
+    /* Specific page styles */
+    .products-hero {
+      padding-top: 160px;
+      text-align: center;
+    }
+    
+    .products-hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: var(--space-2);
+    }
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: var(--space-3);
+      margin-top: var(--space-5);
+    }
+    
+    .product-badge-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--space-2);
+    }
+    
+    .product-sector-badge {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .product-mockup-wrapper {
+      width: 100%;
+      height: 160px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background-color: #060606;
+      margin-bottom: var(--space-3);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .product-mockup-inner {
+      width: 90%;
+      height: 80%;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .mock-row {
+      height: 6px;
+      background-color: var(--border-color);
+      border-radius: 3px;
+      width: 100%;
+    }
+    
+    /* Filters */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: var(--space-4);
+    }
+    
+    .filter-btn {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-family: var(--font-heading);
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    
+    .filter-btn.active, .filter-btn:hover {
+      border-color: rgba(255, 255, 255, 0.4);
+      color: var(--text-primary);
+      background-color: var(--card-bg);
+    }
+    
+    @media (max-width: 768px) {
+      .products-hero h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-screen">
+    <div class="loader-container">
+      <div class="loader-logo-wrapper">
+        <img class="loader-logo" src="assets/logo-dark.png" alt="AWENUE Logo">
+      </div>
+      <div class="loader-progress-track">
+        <div class="loader-progress-bar"></div>
+      </div>
+      <div class="loader-percentage">0%</div>
+    </div>
+  </div>
+
+  <div class="background-mesh"></div>
+  <div class="background-noise"></div>
+  <div class="radial-glow-ambient" style="top: 30%; left: 10%; width: 500px; height: 500px;"></div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="header-nav">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-container">
+        <img src="assets/logo-dark.png" alt="AWENUE logo" class="brand-logo-img">
+      </a>
+      
+      <nav class="nav-menu-desktop">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">HOME</a>
+        </div>
+        <div class="nav-item">
+          <a href="services.html" class="nav-link">SERVICES</a>
+          <!-- MEGA MENU SERVICES -->
+          <div class="mega-menu-wrapper">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Digital Solutions</span>
+              <a href="services.html#software" class="mega-menu-item">
+                <i data-lucide="code" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Software Engineering</h4>
+                  <p>Scalable, bespoke backend systems & microservices.</p>
+                </div>
+              </a>
+              <a href="services.html#web" class="mega-menu-item">
+                <i data-lucide="globe" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Web Engineering</h4>
+                  <p>Next.js interfaces optimized for indexing.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Infrastructure</span>
+              <a href="services.html#cloud" class="mega-menu-item">
+                <i data-lucide="cloud" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cloud Architectures</h4>
+                  <p>Dockerized cluster deployments on AWS/Azure.</p>
+                </div>
+              </a>
+              <a href="services.html#mobile" class="mega-menu-item">
+                <i data-lucide="smartphone" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Mobile Development</h4>
+                  <p>Native Swift/Kotlin & React Native app builds.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Security & consulting</span>
+              <a href="services.html#consulting" class="mega-menu-item">
+                <i data-lucide="shield-check" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cybersecurity & Consulting</h4>
+                  <p>Security architectures & legacy audits.</p>
+                </div>
+              </a>
+              <a href="design-system.html" class="mega-menu-item">
+                <i data-lucide="palette" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>UI Kit & Design System</h4>
+                  <p>View brand tokens, Figma details, assets.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+          <!-- MEGA MENU PRODUCTS -->
+          <div class="mega-menu-wrapper" style="width: 600px;">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Suite</span>
+              <a href="product-details.html" class="mega-menu-item">
+                <i data-lucide="users" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue CRM</h4>
+                  <p>Automate workflows and drive pipeline conversions.</p>
+                </div>
+              </a>
+              <a href="products.html#erp" class="mega-menu-item">
+                <i data-lucide="briefcase" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue ERP</h4>
+                  <p>Resource tracking, financials, inventory modules.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Specialized Verticals</span>
+              <a href="products.html#school" class="mega-menu-item">
+                <i data-lucide="graduation-cap" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Education</h4>
+                  <p>School/University management systems.</p>
+                </div>
+              </a>
+              <a href="products.html#hospital" class="mega-menu-item">
+                <i data-lucide="activity" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Healthcare</h4>
+                  <p>Hospital records & automated scheduling systems.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">ABOUT US</a>
+        </div>
+        <div class="nav-item">
+          <a href="blog.html" class="nav-link">BLOG</a>
+        </div>
+        <div class="nav-item">
+          <a href="contact.html" class="nav-link">CONTACT US</a>
+        </div>
+      </nav>
+      
+      <div class="btn-wrapper">
+        <a href="contact.html" class="btn btn-primary nav-cta">GET IN TOUCH</a>
+      </div>
+      
+      <!-- Mobile Burger Trigger -->
+      <button class="menu-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="nav-menu-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+    <a href="about.html" class="nav-link">About Us</a>
+    <a href="blog.html" class="nav-link">BLOG</a>
+    <a href="careers.html" class="nav-link">Careers</a>
+    <a href="contact.html" class="nav-link">CONTACT US</a>
+    <a href="contact.html" class="btn btn-primary" style="margin-top: var(--space-3);">GET IN TOUCH</a>
+  </div>
+
+  <!-- PRODUCTS HERO -->
+  <section class="section products-hero">
+    <div class="container content-wrapper">
+      <p style="font-family:var(--font-heading); font-size:0.8rem; letter-spacing:0.25em; color:var(--text-muted); text-transform:uppercase;">Software Suite</p>
+      <h1 class="text-gradient-chrome">Core Products</h1>
+      <p style="color:var(--text-secondary); max-width:600px; margin:0 auto; font-size:1.1rem;">
+        Engineered for operational precision, cloud integration, and enterprise administration.
+      </p>
+      
+      <!-- Filters -->
+      <div class="filter-bar">
+        <button class="filter-btn active">All Systems</button>
+        <button class="filter-btn">Enterprise</button>
+        <button class="filter-btn">Verticals</button>
+        <button class="filter-btn">AI Models</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS CATALOG GRID -->
+  <section class="section" style="padding-top:0;">
+    <div class="container content-wrapper">
+      <div class="products-grid">
+        
+        <!-- AVENUE CRM -->
+        <div class="card-premium">
+          <div class="product-badge-group">
+            <span class="product-sector-badge">Enterprise</span>
+            <span class="product-sector-badge">Marketing</span>
+          </div>
+          <div class="product-mockup-wrapper">
+            <div class="product-mockup-inner">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <span style="font-size:0.6rem; font-weight:600;">CRM PIPELINE</span>
+                <span style="font-size:0.55rem; color:#10B981;">+$45,280</span>
+              </div>
+              <div class="mock-row" style="width: 80%;"></div>
+              <div class="mock-row" style="width: 50%;"></div>
+              <div style="display:flex; gap:6px; margin-top:auto;">
+                <div style="flex-grow:1; height:20px; border:1px dashed var(--border-color); border-radius:4px;"></div>
+                <div style="flex-grow:1; height:20px; border:1px dashed var(--border-color); border-radius:4px;"></div>
+              </div>
+            </div>
+          </div>
+          <h3 class="card-title">Avenue CRM</h3>
+          <p class="card-desc">Advanced lead acquisition matrices, automated custom email drips, and integrated contract signature verification boards.</p>
+          <a href="product-details.html" class="btn btn-primary" style="margin-top:auto;">Explore Features</a>
+        </div>
+
+        <!-- AVENUE ERP -->
+        <div class="card-premium" id="erp">
+          <div class="product-badge-group">
+            <span class="product-sector-badge">Enterprise</span>
+            <span class="product-sector-badge">Operations</span>
+          </div>
+          <div class="product-mockup-wrapper">
+            <div class="product-mockup-inner">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <span style="font-size:0.6rem; font-weight:600;">INVENTORY LEDGER</span>
+                <span style="font-size:0.55rem; color:var(--text-muted);">98% CAP</span>
+              </div>
+              <div class="mock-row"></div>
+              <div class="mock-row" style="width:70%;"></div>
+              <div class="mock-row" style="width:40%;"></div>
+              <div style="height:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border-color); border-radius:4px; margin-top:auto; display:flex; align-items:center; padding:2px;">
+                <div style="width:60%; height:100%; background:var(--gradient-chrome); border-radius:2px;"></div>
+              </div>
+            </div>
+          </div>
+          <h3 class="card-title">Avenue ERP</h3>
+          <p class="card-desc">Supply ledger automation systems, ledger auditing panels, and localized invoicing compilers for multi-currency companies.</p>
+          <button class="btn btn-primary" style="margin-top:auto;" onclick="location.href='contact.html'">Request Demo</button>
+        </div>
+
+        <!-- AVENUE HRMS -->
+        <div class="card-premium">
+          <div class="product-badge-group">
+            <span class="product-sector-badge">Enterprise</span>
+            <span class="product-sector-badge">HR Logic</span>
+          </div>
+          <div class="product-mockup-wrapper">
+            <div class="product-mockup-inner">
+              <span style="font-size:0.6rem; font-weight:600; margin-bottom:4px;">TEAM ATTENDANCE</span>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.75rem;">124 Active</span>
+                <span style="font-size:0.6rem; color:#10B981;">0 Alert</span>
+              </div>
+              <div class="mock-row" style="margin-top:8px;"></div>
+              <div class="mock-row" style="width:60%;"></div>
+            </div>
+          </div>
+          <h3 class="card-title">Avenue HRMS</h3>
+          <p class="card-desc">Interactive personnel logs, secure check-in modules, salary ledger configurations, and custom review pipelines.</p>
+          <button class="btn btn-primary" style="margin-top:auto;" onclick="location.href='contact.html'">Request Demo</button>
+        </div>
+
+        <!-- SCHOOL MANAGEMENT -->
+        <div class="card-premium" id="school">
+          <div class="product-badge-group">
+            <span class="product-sector-badge">Verticals</span>
+            <span class="product-sector-badge">Education</span>
+          </div>
+          <div class="product-mockup-wrapper">
+            <div class="product-mockup-inner">
+              <span style="font-size:0.6rem; font-weight:600; margin-bottom:4px;">STUDENT DATABASE</span>
+              <div style="display:flex; justify-content:space-between; align-items:center; border:1px solid var(--border-color); padding:4px; border-radius:4px;">
+                <span style="font-size:0.6rem;">ID: #9902</span>
+                <span style="font-size:0.6rem; font-weight:600;">Grade: A+</span>
+              </div>
+              <div class="mock-row" style="margin-top:4px;"></div>
+            </div>
+          </div>
+          <h3 class="card-title">Avenue Education</h3>
+          <p class="card-desc">Complete university databases, fee compiled invoice trackers, schedules grids, and digital grading systems.</p>
+          <button class="btn btn-primary" style="margin-top:auto;" onclick="location.href='contact.html'">Request Demo</button>
+        </div>
+
+        <!-- HOSPITAL MANAGEMENT -->
+        <div class="card-premium" id="hospital">
+          <div class="product-badge-group">
+            <span class="product-sector-badge">Verticals</span>
+            <span class="product-sector-badge">Medical</span>
+          </div>
+          <div class="product-mockup-wrapper">
+            <div class="product-mockup-inner">
+              <span style="font-size:0.6rem; font-weight:600; margin-bottom:4px;">BEDS OCCUPANCY</span>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="width:24px; height:24px; border-radius:50%; border:2px solid #EF4444; display:flex; align-items:center; justify-content:center; font-size:0.5rem; color:#EF4444; font-weight:700;">82%</div>
+                <div style="font-size:0.6rem;">High Load Warning</div>
+              </div>
+              <div class="mock-row" style="margin-top:6px;"></div>
+            </div>
+          </div>
+          <h3 class="card-title">Avenue Healthcare</h3>
+          <p class="card-desc">Electronic medical logs, secure consultation queues, resource monitoring systems, and billing dashboards.</p>
+          <button class="btn btn-primary" style="margin-top:auto;" onclick="location.href='contact.html'">Request Demo</button>
+        </div>
+
+        <!-- CUSTOM AI SOLUTIONS -->
+        <div class="card-premium" id="analytics">
+          <div class="product-badge-group">
+            <span class="product-sector-badge">AI Models</span>
+            <span class="product-sector-badge">Data Science</span>
+          </div>
+          <div class="product-mockup-wrapper">
+            <div class="product-mockup-inner">
+              <span style="font-size:0.6rem; font-weight:600; margin-bottom:4px;">NEURAL NET RUNNER</span>
+              <div style="height:35px; border:1px solid var(--border-color); border-radius:6px; background-color:#060606; display:flex; align-items:center; justify-content:center;">
+                <span style="font-family:monospace; font-size:0.65rem; color:#10B981;">Epoch 42/100 | loss: 0.012</span>
+              </div>
+              <div class="mock-row" style="margin-top:4px;"></div>
+            </div>
+          </div>
+          <h3 class="card-title">AI Solutions</h3>
+          <p class="card-desc">Custom integrated predictive networks, parsing algorithms, automated speech engines, and smart decision nodes.</p>
+          <button class="btn btn-primary" style="margin-top:auto;" onclick="location.href='contact.html'">Request Demo</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT CTA -->
+  <section class="section" style="text-align: center; border-top:1px solid var(--border-color); background-color: var(--bg-secondary);">
+    <div class="container content-wrapper">
+      <h2 class="text-gradient-chrome" style="margin-bottom:var(--space-3);">Need Custom Logic?</h2>
+      <p style="color:var(--text-secondary); max-width:550px; margin:0 auto var(--space-4) auto;">
+        We construct customized enterprise layouts and databases tailored to your organizational grid. Get in touch to schedule a demo.
+      </p>
+      <div class="btn-wrapper">
+        <a href="contact.html" class="btn btn-primary">Request Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container content-wrapper">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <a href="index.html" class="footer-logo">
+            <img src="assets/logo-dark.png" alt="AWENUE logo" style="height:110px;">
+          </a>
+          <p class="footer-desc">
+            Constructing digital architectures and premium software systems to empower businesses globally.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="social-icon" aria-label="LinkedIn"><i data-lucide="linkedin" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="GitHub"><i data-lucide="github" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="Twitter"><i data-lucide="twitter" style="width:16px; height:16px;"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Services</h3>
+          <ul class="footer-links">
+            <li><a href="services.html#software" class="footer-link">Software Engineering</a></li>
+            <li><a href="services.html#web" class="footer-link">Web Development</a></li>
+            <li><a href="services.html#cloud" class="footer-link">Cloud Deployments</a></li>
+            <li><a href="services.html#mobile" class="footer-link">Mobile Applications</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Products</h3>
+          <ul class="footer-links">
+            <li><a href="product-details.html" class="footer-link">Avenue CRM</a></li>
+            <li><a href="products.html#erp" class="footer-link">Avenue ERP</a></li>
+            <li><a href="products.html#analytics" class="footer-link">Avenue Analytics</a></li>
+            <li><a href="design-system.html" class="footer-link">UI Kit / Style Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="careers.html" class="footer-link">Careers</a></li>
+            <li><a href="blog.html" class="footer-link">Blog</a></li>
+            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Avenue Global Software Solutions. All Rights Reserved.</p>
+        <p style="display:flex; align-items:center; gap:8px;">
+          <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background-color:#10B981; filter:drop-shadow(0 0 4px #10B981);"></span> All systems operational
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

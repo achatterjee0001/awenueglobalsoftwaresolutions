@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers | AWENUE | Join Our Engineering Lab</title>
+  <meta name="description" content="Explore open engineering positions at Awenue Global Software Solutions. View roles in distributed systems, Next.js architecture, and cloud security.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  
+  <!-- Global JS Script -->
+  <script type="module" src="js/main.js" defer></script>
+  
+  <style>
+    /* Specific careers page styling */
+    .careers-hero {
+      padding-top: 160px;
+      text-align: center;
+    }
+    
+    .careers-hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: var(--space-2);
+    }
+    
+    .jobs-board {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin-top: var(--space-5);
+    }
+    
+    .job-listing-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition-smooth);
+    }
+    
+    .job-listing-card:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px);
+    }
+    
+    .job-details h3 {
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+    
+    .job-meta-tags {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .job-tag {
+      font-size: 0.75rem;
+      background-color: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 2px 8px;
+      color: var(--text-muted);
+    }
+    
+    /* Apply Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(6, 6, 6, 0.85);
+      z-index: var(--z-modal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal-content {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      width: 100%;
+      max-width: 500px;
+      padding: var(--space-4);
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .modal-overlay.open .modal-content {
+      transform: scale(1);
+    }
+    
+    .modal-close-btn {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    
+    .modal-close-btn:hover {
+      color: var(--text-primary);
+    }
+    
+    @media (max-width: 768px) {
+      .job-listing-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
+      }
+      .careers-hero h1 { font-size: 2.8rem; }
+    }
+  </style>
+  <script>
+    // Open/Close Application Modal
+    function openApplyModal(roleName) {
+      const modal = document.getElementById('apply-modal');
+      const roleInput = document.getElementById('apply-role');
+      if (modal && roleInput) {
+        roleInput.value = roleName;
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    function closeApplyModal() {
+      const modal = document.getElementById('apply-modal');
+      if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+    
+    function submitApplication(event) {
+      event.preventDefault();
+      alert("APPLICATION SUBMITTED SUCCESSFULLY");
+      closeApplyModal();
+    }
+  </script>
+</head>
+<body>
+
+  <!-- APPLICATION MODAL OVERLAY -->
+  <div class="modal-overlay" id="apply-modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeApplyModal()"><i data-lucide="x"></i></button>
+      <h2 style="font-size:1.4rem; margin-bottom:var(--space-3);" class="text-gradient-chrome">Apply For Position</h2>
+      
+      <form onsubmit="submitApplication(event)">
+        <div class="form-group">
+          <label class="form-label" for="apply-role">Target Role</label>
+          <input type="text" id="apply-role" class="form-control" readonly style="background-color:rgba(10,10,10,0.8); cursor:default;">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="apply-name">Full Name</label>
+          <input type="text" id="apply-name" class="form-control" required placeholder="Enter name">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="apply-email">Email Address</label>
+          <input type="email" id="apply-email" class="form-control" required placeholder="Enter email">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="apply-portfolio">Portfolio / CV Link</label>
+          <input type="url" id="apply-portfolio" class="form-control" required placeholder="https://github.com/...">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="apply-cover">Brief Cover Note</label>
+          <textarea id="apply-cover" class="form-control" rows="3" placeholder="Why Awenue?"></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:var(--space-2);">Submit Application</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-screen">
+    <div class="loader-container">
+      <div class="loader-logo-wrapper">
+        <img class="loader-logo" src="assets/logo-dark.png" alt="AWENUE Logo">
+      </div>
+      <div class="loader-progress-track">
+        <div class="loader-progress-bar"></div>
+      </div>
+      <div class="loader-percentage">0%</div>
+    </div>
+  </div>
+
+  <div class="background-mesh"></div>
+  <div class="background-noise"></div>
+  <div class="radial-glow-ambient" style="top: 20%; left: 80%; width: 500px; height: 500px;"></div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="header-nav">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-container">
+        <img src="assets/logo-dark.png" alt="AWENUE logo" class="brand-logo-img">
+      </a>
+      
+      <nav class="nav-menu-desktop">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">HOME</a>
+        </div>
+        <div class="nav-item">
+          <a href="services.html" class="nav-link">SERVICES</a>
+          <!-- MEGA MENU SERVICES -->
+          <div class="mega-menu-wrapper">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Digital Solutions</span>
+              <a href="services.html#software" class="mega-menu-item">
+                <i data-lucide="code" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Software Engineering</h4>
+                  <p>Scalable, bespoke backend systems & microservices.</p>
+                </div>
+              </a>
+              <a href="services.html#web" class="mega-menu-item">
+                <i data-lucide="globe" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Web Engineering</h4>
+                  <p>Next.js interfaces optimized for indexing.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Infrastructure</span>
+              <a href="services.html#cloud" class="mega-menu-item">
+                <i data-lucide="cloud" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cloud Architectures</h4>
+                  <p>Dockerized cluster deployments on AWS/Azure.</p>
+                </div>
+              </a>
+              <a href="services.html#mobile" class="mega-menu-item">
+                <i data-lucide="smartphone" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Mobile Development</h4>
+                  <p>Native Swift/Kotlin & React Native app builds.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Security & consulting</span>
+              <a href="services.html#consulting" class="mega-menu-item">
+                <i data-lucide="shield-check" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cybersecurity & Consulting</h4>
+                  <p>Security architectures & legacy audits.</p>
+                </div>
+              </a>
+              <a href="design-system.html" class="mega-menu-item">
+                <i data-lucide="palette" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>UI Kit & Design System</h4>
+                  <p>View brand tokens, Figma details, assets.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+          <!-- MEGA MENU PRODUCTS -->
+          <div class="mega-menu-wrapper" style="width: 600px;">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Suite</span>
+              <a href="product-details.html" class="mega-menu-item">
+                <i data-lucide="users" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue CRM</h4>
+                  <p>Automate workflows and drive pipeline conversions.</p>
+                </div>
+              </a>
+              <a href="products.html#erp" class="mega-menu-item">
+                <i data-lucide="briefcase" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue ERP</h4>
+                  <p>Resource tracking, financials, inventory modules.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Specialized Verticals</span>
+              <a href="products.html#school" class="mega-menu-item">
+                <i data-lucide="graduation-cap" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Education</h4>
+                  <p>School/University management systems.</p>
+                </div>
+              </a>
+              <a href="products.html#hospital" class="mega-menu-item">
+                <i data-lucide="activity" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Healthcare</h4>
+                  <p>Hospital records & automated scheduling systems.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">ABOUT US</a>
+        </div>
+        <div class="nav-item">
+          <a href="blog.html" class="nav-link">BLOG</a>
+        </div>
+        <div class="nav-item">
+          <a href="contact.html" class="nav-link">CONTACT US</a>
+        </div>
+      </nav>
+      
+      <div class="btn-wrapper">
+        <a href="contact.html" class="btn btn-primary nav-cta">GET IN TOUCH</a>
+      </div>
+      
+      <!-- Mobile Burger Trigger -->
+      <button class="menu-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="nav-menu-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+    <a href="about.html" class="nav-link">About Us</a>
+    <a href="blog.html" class="nav-link">BLOG</a>
+    <a href="careers.html" class="nav-link">Careers</a>
+    <a href="contact.html" class="nav-link">CONTACT US</a>
+    <a href="contact.html" class="btn btn-primary" style="margin-top: var(--space-3);">GET IN TOUCH</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="section careers-hero">
+    <div class="container content-wrapper">
+      <p style="font-family:var(--font-heading); font-size:0.8rem; letter-spacing:0.25em; color:var(--text-muted); text-transform:uppercase;">Engineering Lab</p>
+      <h1 class="text-gradient-chrome">Open Positions</h1>
+      <p style="color:var(--text-secondary); max-width:600px; margin:0 auto; font-size:1.1rem;">
+        Constructing technological frameworks alongside senior systems developers.
+      </p>
+    </div>
+  </section>
+
+  <!-- JOBS LISTINGS -->
+  <section class="section" style="padding-top:0;">
+    <div class="container content-wrapper">
+      <div class="jobs-board">
+        
+        <!-- Job 1 -->
+        <div class="job-listing-card">
+          <div class="job-details">
+            <h3>Senior Frontend Architect (Next.js / CSS)</h3>
+            <div class="job-meta-tags">
+              <span class="job-tag">Hybrid</span>
+              <span class="job-tag">Varanasi Lab</span>
+              <span class="job-tag">Full-time</span>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="openApplyModal('Senior Frontend Architect')">Apply Now</button>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="job-listing-card">
+          <div class="job-details">
+            <h3>Distributed Systems Engineer (Java / Microservices)</h3>
+            <div class="job-meta-tags">
+              <span class="job-tag">Remote</span>
+              <span class="job-tag">India</span>
+              <span class="job-tag">Full-time</span>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="openApplyModal('Distributed Systems Engineer')">Apply Now</button>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="job-listing-card">
+          <div class="job-details">
+            <h3>Cloud Security Specialist (AWS / Kubernetes)</h3>
+            <div class="job-meta-tags">
+              <span class="job-tag">Hybrid</span>
+              <span class="job-tag">Varanasi Lab</span>
+              <span class="job-tag">Contract (1 Yr)</span>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="openApplyModal('Cloud Security Specialist')">Apply Now</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container content-wrapper">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <a href="index.html" class="footer-logo">
+            <img src="assets/logo-dark.png" alt="AWENUE logo" style="height:110px;">
+          </a>
+          <p class="footer-desc">
+            Constructing digital architectures and premium software systems to empower businesses globally.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="social-icon" aria-label="LinkedIn"><i data-lucide="linkedin" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="GitHub"><i data-lucide="github" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="Twitter"><i data-lucide="twitter" style="width:16px; height:16px;"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Services</h3>
+          <ul class="footer-links">
+            <li><a href="services.html#software" class="footer-link">Software Engineering</a></li>
+            <li><a href="services.html#web" class="footer-link">Web Development</a></li>
+            <li><a href="services.html#cloud" class="footer-link">Cloud Deployments</a></li>
+            <li><a href="services.html#mobile" class="footer-link">Mobile Applications</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Products</h3>
+          <ul class="footer-links">
+            <li><a href="product-details.html" class="footer-link">Avenue CRM</a></li>
+            <li><a href="products.html#erp" class="footer-link">Avenue ERP</a></li>
+            <li><a href="products.html#analytics" class="footer-link">Avenue Analytics</a></li>
+            <li><a href="design-system.html" class="footer-link">UI Kit / Style Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="careers.html" class="footer-link">Careers</a></li>
+            <li><a href="blog.html" class="footer-link">Blog</a></li>
+            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Avenue Global Software Solutions. All Rights Reserved.</p>
+        <p style="display:flex; align-items:center; gap:8px;">
+          <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background-color:#10B981; filter:drop-shadow(0 0 4px #10B981);"></span> All systems operational
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

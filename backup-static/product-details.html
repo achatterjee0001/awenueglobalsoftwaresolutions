@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avenue CRM | Products | AWENUE</title>
+  <meta name="description" content="Detailed features, workflow setups, pipeline monitoring, and deployment tiers for Avenue CRM. Engineered to automate business client processes.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  
+  <!-- Global JS Script -->
+  <script type="module" src="js/main.js" defer></script>
+  
+  <style>
+    /* Specific styling for Product Details */
+    .product-hero {
+      padding-top: 160px;
+    }
+    
+    .product-hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-5);
+      align-items: center;
+    }
+    
+    .product-hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: var(--space-2);
+    }
+    
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-3);
+      margin-top: var(--space-5);
+    }
+    
+    .pricing-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition-smooth);
+    }
+    
+    .pricing-card.popular {
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.02);
+    }
+    
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .price-value {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: var(--space-2) 0;
+    }
+    
+    .features-list {
+      list-style: none;
+      margin: var(--space-3) 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+    }
+    
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .features-list li i {
+      color: var(--text-primary);
+      width: 14px;
+      height: 14px;
+    }
+    
+    .detail-feature-section {
+      padding: var(--space-6) 0;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .detail-feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+      align-items: center;
+    }
+    
+    @media (max-width: 992px) {
+      .product-hero-grid, .detail-feature-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+      .product-hero h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-screen">
+    <div class="loader-container">
+      <div class="loader-logo-wrapper">
+        <img class="loader-logo" src="assets/logo-dark.png" alt="AWENUE Logo">
+      </div>
+      <div class="loader-progress-track">
+        <div class="loader-progress-bar"></div>
+      </div>
+      <div class="loader-percentage">0%</div>
+    </div>
+  </div>
+
+  <div class="background-mesh"></div>
+  <div class="background-noise"></div>
+  <div class="radial-glow-ambient" style="top: 10%; left: 50%; transform: translate(-50%, -50%);"></div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="header-nav">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-container">
+        <img src="assets/logo-dark.png" alt="AWENUE logo" class="brand-logo-img">
+      </a>
+      
+      <nav class="nav-menu-desktop">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">HOME</a>
+        </div>
+        <div class="nav-item">
+          <a href="services.html" class="nav-link">SERVICES</a>
+          <!-- MEGA MENU SERVICES -->
+          <div class="mega-menu-wrapper">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Digital Solutions</span>
+              <a href="services.html#software" class="mega-menu-item">
+                <i data-lucide="code" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Software Engineering</h4>
+                  <p>Scalable, bespoke backend systems & microservices.</p>
+                </div>
+              </a>
+              <a href="services.html#web" class="mega-menu-item">
+                <i data-lucide="globe" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Web Engineering</h4>
+                  <p>Next.js interfaces optimized for indexing.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Infrastructure</span>
+              <a href="services.html#cloud" class="mega-menu-item">
+                <i data-lucide="cloud" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cloud Architectures</h4>
+                  <p>Dockerized cluster deployments on AWS/Azure.</p>
+                </div>
+              </a>
+              <a href="services.html#mobile" class="mega-menu-item">
+                <i data-lucide="smartphone" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Mobile Development</h4>
+                  <p>Native Swift/Kotlin & React Native app builds.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Security & consulting</span>
+              <a href="services.html#consulting" class="mega-menu-item">
+                <i data-lucide="shield-check" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Cybersecurity & Consulting</h4>
+                  <p>Security architectures & legacy audits.</p>
+                </div>
+              </a>
+              <a href="design-system.html" class="mega-menu-item">
+                <i data-lucide="palette" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>UI Kit & Design System</h4>
+                  <p>View brand tokens, Figma details, assets.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+          <!-- MEGA MENU PRODUCTS -->
+          <div class="mega-menu-wrapper" style="width: 600px;">
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Enterprise Suite</span>
+              <a href="product-details.html" class="mega-menu-item">
+                <i data-lucide="users" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue CRM</h4>
+                  <p>Automate workflows and drive pipeline conversions.</p>
+                </div>
+              </a>
+              <a href="products.html#erp" class="mega-menu-item">
+                <i data-lucide="briefcase" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue ERP</h4>
+                  <p>Resource tracking, financials, inventory modules.</p>
+                </div>
+              </a>
+            </div>
+            <div class="mega-menu-column">
+              <span class="mega-menu-title">Specialized Verticals</span>
+              <a href="products.html#school" class="mega-menu-item">
+                <i data-lucide="graduation-cap" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Education</h4>
+                  <p>School/University management systems.</p>
+                </div>
+              </a>
+              <a href="products.html#hospital" class="mega-menu-item">
+                <i data-lucide="activity" class="mega-menu-icon"></i>
+                <div class="mega-menu-info">
+                  <h4>Avenue Healthcare</h4>
+                  <p>Hospital records & automated scheduling systems.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">ABOUT US</a>
+        </div>
+        <div class="nav-item">
+          <a href="blog.html" class="nav-link">BLOG</a>
+        </div>
+        <div class="nav-item">
+          <a href="contact.html" class="nav-link">CONTACT US</a>
+        </div>
+      </nav>
+      
+      <div class="btn-wrapper">
+        <a href="contact.html" class="btn btn-primary nav-cta">GET IN TOUCH</a>
+      </div>
+      
+      <!-- Mobile Burger Trigger -->
+      <button class="menu-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="nav-menu-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="products.html" class="nav-link">OUR PRODUCTS</a>
+    <a href="about.html" class="nav-link">About Us</a>
+    <a href="blog.html" class="nav-link">BLOG</a>
+    <a href="careers.html" class="nav-link">Careers</a>
+    <a href="contact.html" class="nav-link">CONTACT US</a>
+    <a href="contact.html" class="btn btn-primary" style="margin-top: var(--space-3);">GET IN TOUCH</a>
+  </div>
+
+  <!-- PRODUCT HERO -->
+  <section class="section product-hero">
+    <div class="container content-wrapper product-hero-grid">
+      <div class="product-hero-info">
+        <p style="font-family:var(--font-heading); font-size:0.8rem; letter-spacing:0.2em; color:var(--text-muted); text-transform:uppercase;">Product Overview</p>
+        <h1 class="text-gradient-chrome">Avenue CRM</h1>
+        <p style="color:var(--text-secondary); font-size:1.15rem; margin-bottom:var(--space-3);">
+          Scale customer pipelines, track communications, and trigger automated sales workflows with an integrated, luxury system.
+        </p>
+        <div class="btn-wrapper">
+          <a href="contact.html" class="btn btn-primary">Book CRM Walkthrough</a>
+        </div>
+      </div>
+      
+      <div class="service-showcase-visual">
+        <div style="font-size:0.75rem; font-family:var(--font-heading); border-bottom:1px solid var(--border-color); padding-bottom:8px; margin-bottom:12px; color:var(--text-muted); display:flex; justify-content:space-between;">
+          <span>PIPELINE_STATUS</span>
+          <span style="color:#10B981;">ONLINE</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.3); padding:8px 12px; border-radius:6px; border:1px solid var(--border-color);">
+            <span style="font-size:0.8rem; font-weight:600;">Acquisition Layer</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">481 Leads</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.3); padding:8px 12px; border-radius:6px; border:1px solid var(--border-color);">
+            <span style="font-size:0.8rem; font-weight:600;">Meeting Set</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">92 Accounts</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.3); padding:8px 12px; border-radius:6px; border:1px solid var(--border-color);">
+            <span style="font-size:0.8rem; font-weight:600;">Proposal compilations</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">18 Closed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAIL FEATURES -->
+  <section class="section" style="padding-top:0;">
+    <div class="container content-wrapper">
+      
+      <!-- Feature 1 -->
+      <div class="detail-feature-section">
+        <div class="detail-feature-grid">
+          <div>
+            <h2 class="text-gradient-chrome" style="font-size:1.8rem; margin-bottom:var(--space-2);">Lead Aggregation</h2>
+            <p>
+              Consolidate input vectors from web contact layers, external API channels, and calendar schedules instantly. Ensure no client conversation slips by using automated alerts and status grids.
+            </p>
+          </div>
+          <div class="service-showcase-visual">
+            <span style="font-size:0.7rem; color:var(--text-muted); display:block; margin-bottom:6px;">ACQUISITION_GRAPH</span>
+            <div style="height:100px; width:100%; border:1px dashed var(--border-color); border-radius:8px; display:flex; align-items:flex-end; padding:8px; gap:8px;">
+              <div style="width:20%; height:30%; background:var(--gradient-titanium); border-radius:2px;"></div>
+              <div style="width:20%; height:50%; background:var(--gradient-titanium); border-radius:2px;"></div>
+              <div style="width:20%; height:40%; background:var(--gradient-titanium); border-radius:2px;"></div>
+              <div style="width:20%; height:75%; background:var(--gradient-chrome); border-radius:2px;"></div>
+              <div style="width:20%; height:90%; background:var(--gradient-chrome); border-radius:2px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="detail-feature-section">
+        <div class="detail-feature-grid" style="direction:rtl;">
+          <div style="direction:ltr;">
+            <h2 class="text-gradient-chrome" style="font-size:1.8rem; margin-bottom:var(--space-2);">Workflow Triggers</h2>
+            <p>
+              Formulate logic nodes that run when states change. Send verification e-mails, trigger staff check-ins, or compile invoices automatically on client approvals.
+            </p>
+          </div>
+          <div class="service-showcase-visual" style="direction:ltr;">
+            <span style="font-size:0.7rem; color:var(--text-muted); display:block; margin-bottom:8px;">LOGIC_BUILDER</span>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <p style="font-size:0.8rem; padding:6px; border:1px solid var(--border-color); border-radius:4px;"><b>IF:</b> Lead status changes to "APPROVED"</p>
+              <p style="font-size:0.8rem; padding:6px; border:1px solid var(--border-color); border-radius:4px; padding-left:16px;"><b>THEN:</b> Send Proposal document</p>
+              <p style="font-size:0.8rem; padding:6px; border:1px solid var(--border-color); border-radius:4px; padding-left:16px;"><b>THEN:</b> Notify Account Manager</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRICING TIERS -->
+  <section class="section" style="background-color: var(--bg-secondary); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color);">
+    <div class="container content-wrapper">
+      <div style="text-align: center; margin-bottom: var(--space-4);">
+        <h2 class="text-gradient-chrome">Deployment Tiers</h2>
+        <p style="color:var(--text-muted);">Choose a configuration that aligns with your scale.</p>
+      </div>
+      
+      <div class="pricing-grid">
+        <!-- Tier 1 -->
+        <div class="pricing-card">
+          <h3 style="font-size:1.2rem;">Growth</h3>
+          <p style="color:var(--text-muted); font-size:0.8rem;">For emerging organizations</p>
+          <div class="price-value text-gradient-chrome">$490<span style="font-size:1rem; color:var(--text-muted);"> / mo</span></div>
+          <ul class="features-list">
+            <li><i data-lucide="check"></i> Up to 5,000 Contacts</li>
+            <li><i data-lucide="check"></i> Basic workflow automation</li>
+            <li><i data-lucide="check"></i> Standard email campaigns</li>
+            <li><i data-lucide="check"></i> 10 Users included</li>
+          </ul>
+          <button class="btn btn-glass" style="margin-top:auto;" onclick="location.href='contact.html'">Select Growth</button>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="pricing-card popular">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="font-size:1.2rem;">Enterprise</h3>
+            <span style="font-size:0.6rem; border:1px solid rgba(255,255,255,0.2); padding:2px 8px; border-radius:20px;">POPULAR</span>
+          </div>
+          <p style="color:var(--text-muted); font-size:0.8rem;">For scale businesses</p>
+          <div class="price-value text-gradient-chrome">$1,290<span style="font-size:1rem; color:var(--text-muted);"> / mo</span></div>
+          <ul class="features-list">
+            <li><i data-lucide="check"></i> Unlimited Contacts</li>
+            <li><i data-lucide="check"></i> Complete workflow building</li>
+            <li><i data-lucide="check"></i> Integrated data analytics nodes</li>
+            <li><i data-lucide="check"></i> 50 Users included</li>
+          </ul>
+          <button class="btn btn-primary" style="margin-top:auto;" onclick="location.href='contact.html'">Deploy Enterprise</button>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="pricing-card">
+          <h3 style="font-size:1.2rem;">Custom Dedicated</h3>
+          <p style="color:var(--text-muted); font-size:0.8rem;">Dedicated node hosting</p>
+          <div class="price-value text-gradient-chrome">Custom</div>
+          <ul class="features-list">
+            <li><i data-lucide="check"></i> On-prem / isolated AWS hosting</li>
+            <li><i data-lucide="check"></i> Customized DB integration</li>
+            <li><i data-lucide="check"></i> Dedicated support team</li>
+            <li><i data-lucide="check"></i> SLA uptime guarantees</li>
+          </ul>
+          <button class="btn btn-glass" style="margin-top:auto;" onclick="location.href='contact.html'">Contact Architects</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container content-wrapper">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <a href="index.html" class="footer-logo">
+            <img src="assets/logo-dark.png" alt="AWENUE logo" style="height:110px;">
+          </a>
+          <p class="footer-desc">
+            Constructing digital architectures and premium software systems to empower businesses globally.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="social-icon" aria-label="LinkedIn"><i data-lucide="linkedin" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="GitHub"><i data-lucide="github" style="width:16px; height:16px;"></i></a>
+            <a href="#" class="social-icon" aria-label="Twitter"><i data-lucide="twitter" style="width:16px; height:16px;"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Services</h3>
+          <ul class="footer-links">
+            <li><a href="services.html#software" class="footer-link">Software Engineering</a></li>
+            <li><a href="services.html#web" class="footer-link">Web Development</a></li>
+            <li><a href="services.html#cloud" class="footer-link">Cloud Deployments</a></li>
+            <li><a href="services.html#mobile" class="footer-link">Mobile Applications</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Products</h3>
+          <ul class="footer-links">
+            <li><a href="product-details.html" class="footer-link">Avenue CRM</a></li>
+            <li><a href="products.html#erp" class="footer-link">Avenue ERP</a></li>
+            <li><a href="products.html#analytics" class="footer-link">Avenue Analytics</a></li>
+            <li><a href="design-system.html" class="footer-link">UI Kit / Style Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="careers.html" class="footer-link">Careers</a></li>
+            <li><a href="blog.html" class="footer-link">Blog</a></li>
+            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Avenue Global Software Solutions. All Rights Reserved.</p>
+        <p style="display:flex; align-items:center; gap:8px;">
+          <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background-color:#10B981; filter:drop-shadow(0 0 4px #10B981);"></span> All systems operational
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
