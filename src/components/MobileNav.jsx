@@ -2,17 +2,11 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { X } from 'lucide-react';
+import { Linkedin, Twitter, Instagram, Facebook } from 'lucide-react';
 
 export default function MobileNav({ isOpen, onClose }) {
   return (
     <div className={`nav-menu-mobile ${isOpen ? 'open' : ''}`}>
-      <div className="mobile-nav-header">
-        <img src="/assets/logo-dark.png" alt="AWENUE logo" style={{ height: '50px', objectFit: 'contain' }} />
-        <button className="mobile-close-btn" aria-label="Close Navigation" onClick={onClose}>
-          <X style={{ width: 18, height: 18 }} />
-        </button>
-      </div>
       <div className="mobile-nav-links">
         <Link href="/" className="nav-link" onClick={onClose}>HOME</Link>
         <Link href="/services" className="nav-link" onClick={onClose}>SERVICES</Link>
@@ -22,6 +16,22 @@ export default function MobileNav({ isOpen, onClose }) {
         <Link href="/contact" className="btn btn-primary" style={{ marginTop: 'var(--space-4)', textAlign: 'center', borderRadius: '9999px' }} onClick={onClose}>
           GET IN TOUCH
         </Link>
+        
+        {/* Mobile menu bottom social links */}
+        <div className="mobile-nav-socials">
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="LinkedIn">
+            <Linkedin style={{ width: 22, height: 22 }} />
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="Twitter">
+            <Twitter style={{ width: 22, height: 22 }} />
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="Instagram">
+            <Instagram style={{ width: 22, height: 22 }} />
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="Facebook">
+            <Facebook style={{ width: 22, height: 22 }} />
+          </a>
+        </div>
       </div>
     </div>
   );

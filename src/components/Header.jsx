@@ -30,7 +30,7 @@ export default function Header({ onMobileMenuToggle, isOpen }) {
   }, []);
 
   return (
-    <header className={`header-nav ${scrolled ? 'scrolled' : ''}`}>
+    <header className={`header-nav ${scrolled ? 'scrolled' : ''} ${isOpen ? 'menu-open' : ''}`}>
       <div className="container nav-container">
         <Link href="/" className="brand-logo-container">
           <img src="/assets/logo-dark.png" alt="AWENUE logo" className="brand-logo-img" />

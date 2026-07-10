@@ -2,6 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
+import ServiceThreeVisual from '../../components/ServiceThreeVisual';
+import WebThreeVisual from '../../components/WebThreeVisual';
 import {
   Activity,
   Award,
@@ -82,17 +84,11 @@ export default function ServicesPage() {
           </div>
           <Link href="/contact" className="btn btn-primary" style={{marginTop: 'var(--space-3)'}}>Discuss Architecture</Link>
         </div>
-        <div className="service-showcase-visual">
-          <div style={{fontSize: '0.8rem', fontFamily: 'var(--font-heading)', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', marginBottom: '12px', color: 'var(--text-muted)'}}>
-            SYSTEMS_LOG
+        <div className="service-showcase-visual" style={{ padding: '0 !important', overflow: 'hidden' }}>
+          <div style={{fontSize: '0.8rem', fontFamily: 'var(--font-heading)', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', paddingLeft: '20px', paddingRight: '20px', paddingTop: '15px', color: 'var(--text-muted)'}}>
+            SYSTEMS_CORE_3D
           </div>
-          <pre style={{fontFamily: 'Courier New, monospace', fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: '1.5', overflowX: 'auto'}}>
-[OK] Initializing microservices...
-[OK] Database connection pool verified.
-[OK] Loaded schema.auth_v2.bin
-[OK] Starting listener thread. Port 443
-[STATUS] CPU 1.2% | Memory 142MB
-[OK] Gateway active. 100% health checked.</pre>
+          <ServiceThreeVisual />
         </div>
       </div>
     </div>
@@ -121,25 +117,12 @@ export default function ServicesPage() {
           </div>
           <Link href="/contact" className="btn btn-primary" style={{marginTop: 'var(--space-3)'}}>Initiate Project</Link>
         </div>
-        <div className="service-showcase-visual">
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', marginBottom: '12px'}}>
-            <span style={{fontSize: '0.8rem', fontFamily: 'var(--font-heading)', color: 'var(--text-muted)'}}>PERFORMANCE_INSIGHTS</span>
-            <span style={{color: '#10B981', fontSize: '0.75rem', fontWeight: '600'}}><span style={{display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10B981', marginRight: '4px'}}></span> 99/100 LCP</span>
+        <div className="service-showcase-visual" style={{ padding: '0 !important', overflow: 'hidden' }}>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', paddingLeft: '20px', paddingRight: '20px', paddingTop: '15px'}}>
+            <span style={{fontSize: '0.8rem', fontFamily: 'var(--font-heading)', color: 'var(--text-muted)'}}>DOM_PARALLAX_3D</span>
+            <span style={{color: '#10B981', fontSize: '0.75rem', fontWeight: '600'}}><span style={{display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10B981', marginRight: '4px'}}></span> ACTIVE</span>
           </div>
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', textAlign: 'center'}}>
-            <div style={{border: '1px solid var(--border-color)', borderRadius: '8px', padding: '10px'}}>
-              <p style={{fontSize: '0.7rem', color: 'var(--text-muted)'}}>FCP</p>
-              <h4 style={{fontSize: '1.1rem', marginTop: '4px'}}>0.3s</h4>
-            </div>
-            <div style={{border: '1px solid var(--border-color)', borderRadius: '8px', padding: '10px'}}>
-              <p style={{fontSize: '0.7rem', color: 'var(--text-muted)'}}>TBT</p>
-              <h4 style={{fontSize: '1.1rem', marginTop: '4px'}}>45ms</h4>
-            </div>
-            <div style={{border: '1px solid var(--border-color)', borderRadius: '8px', padding: '10px'}}>
-              <p style={{fontSize: '0.7rem', color: 'var(--text-muted)'}}>SEO</p>
-              <h4 style={{fontSize: '1.1rem', marginTop: '4px', color: '#10B981'}}>100</h4>
-            </div>
-          </div>
+          <WebThreeVisual />
         </div>
       </div>
     </div>

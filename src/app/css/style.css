@@ -2217,18 +2217,32 @@ br.desktop-only {
 /* 4. Fullscreen Centered Mobile Overlay Menu */
 @media (max-width: 768px) {
   .nav-menu-mobile {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    right: -100vw !important;
-    left: auto !important;
+    right: auto !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
-    padding: 0 !important;
+    justify-content: flex-start !important;
+    padding: 160px 0 0 0 !important; /* Space to clear the centered logo */
     z-index: 99999 !important;
+
+    /* Holographic Radial Ripple Reveal starting from bottom-right floating FAB */
+    clip-path: circle(0px at calc(100vw - 50px) calc(100vh - 50px)) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: clip-path 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out !important;
   }
   
+  .nav-menu-mobile.open {
+    clip-path: circle(150% at calc(100vw - 50px) calc(100vh - 50px)) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
   /* Centered spinning holographic circular radar outline */
   .nav-menu-mobile::before {
     content: '';
@@ -2245,27 +2259,104 @@ br.desktop-only {
     animation: rotateClockwise 45s linear infinite;
   }
   
-  .nav-menu-mobile.open {
-    right: 0 !important;
-  }
-  
-  .mobile-nav-header {
+  /* 1. Normal state logo layout positioning on mobile (for smooth transitions) */
+  .brand-logo-container {
     position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 90px !important;
+    left: var(--space-4) !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    z-index: 100001 !important;
+    opacity: 1 !important;
+    will-change: left, transform !important;
+  }
+
+  .brand-logo-img {
+    height: 75px !important;
+    transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    opacity: 1 !important;
+    will-change: height, transform !important;
+  }
+
+  /* 2. Float header navbar on top of menu overlay when active */
+  .header-nav {
+    transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                backdrop-filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                -webkit-backdrop-filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                height 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .header-nav.menu-open {
+    z-index: 100000 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* 3. Center the logo in the viewport header smoothly when menu is open */
+  .header-nav.menu-open .brand-logo-container {
+    left: 50% !important;
+    top: 30px !important; /* Push it down from the top edge of the mobile screen */
+    transform: translate(-50%, 0) !important; /* Vertical translation reset to keep the 30px top padding intact */
+    opacity: 1 !important;
+  }
+
+  .header-nav.menu-open .brand-logo-img {
+    height: 100px !important; /* Scale logo height inside mobile menu up to 100px */
+    transform: scale(1.15) !important; /* Larger centered visual presence */
+    opacity: 1 !important;
+  }
+
+  /* 4. Reposition the burger/cross button into a floating action button (FAB) at bottom-right */
+  .header-nav .menu-btn {
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 25px !important;
+    top: auto !important;
+    transform: none !important;
+    width: 54px !important;
+    height: 54px !important;
+    border-radius: 50% !important;
+    background: rgba(10, 10, 10, 0.6) !important;
+    backdrop-filter: blur(12px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
     display: flex !important;
+    flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 0 var(--space-4) !important;
+    z-index: 100002 !important;
+    gap: 5px !important;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s, border-color 0.3s !important;
+    padding: 0 !important;
   }
-  
-  .mobile-close-btn {
-    position: absolute !important;
-    top: 25px !important;
-    right: 25px !important;
-    margin: 0 !important;
+
+  .header-nav .menu-btn:hover {
+    transform: scale(1.06) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    background: rgba(20, 20, 20, 0.7) !important;
+  }
+
+  .header-nav .menu-btn span {
+    width: 20px !important;
+    height: 1.5px !important;
+    margin: 0 auto !important;
+  }
+
+  .header-nav .menu-btn.open span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg) !important;
+  }
+
+  .header-nav .menu-btn.open span:nth-child(2) {
+    opacity: 0 !important;
+  }
+
+  .header-nav .menu-btn.open span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg) !important;
   }
   
   .mobile-nav-links {
@@ -2275,7 +2366,7 @@ br.desktop-only {
     justify-content: center !important;
     gap: var(--space-4) !important;
     width: 100% !important;
-    margin-top: 50px !important;
+    margin-top: 0 !important;
     padding: 0 var(--space-4) !important;
   }
   
@@ -2285,7 +2376,16 @@ br.desktop-only {
     border-bottom: none !important;
     padding: 8px 0 !important;
     width: fit-content !important;
-    transition: color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease, opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    
+    /* Center vertical slide entrance */
+    opacity: 0 !important;
+    transform: translateY(25px) !important;
+    transition: color 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), text-shadow 0.3s ease, opacity 0.5s ease !important;
+  }
+
+  .nav-menu-mobile.open .nav-link {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
   }
 
   .nav-menu-mobile .nav-link::before {
@@ -2304,4 +2404,92 @@ br.desktop-only {
     transform: scale(1.12) !important;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.35) !important;
   }
+
+  /* Social Icons Row Styling & Flying Burst Reveal from the FAB cross button */
+  .mobile-nav-socials {
+    position: absolute !important;
+    bottom: 120px !important; /* Place row nicely at bottom viewport above the FAB */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 16px !important;
+    width: auto !important;
+    pointer-events: none !important;
+  }
+
+  .nav-menu-mobile.open .mobile-nav-socials {
+    pointer-events: auto !important;
+  }
+
+  .social-icon-link {
+    width: 48px !important; /* Increased icon size from 40px */
+    height: 48px !important; /* Increased icon size from 40px */
+    border-radius: 50% !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    color: var(--text-secondary) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    /* 
+      Calculate flight offset from FAB center:
+      Center of row: (50vw, 100vh - 120px - 24px)
+      Center of FAB: (100vw - 25px - 27px, 100vh - 30px - 27px)
+      X offset = FAB_X - Row_X = 100vw - 52px - 50vw = 50vw - 52px
+      Y offset = FAB_Y - Row_Y = (100vh - 57px) - (100vh - 144px) = 87px
+    */
+    opacity: 0 !important;
+    transform: translate(calc(50vw - 52px), 87px) scale(0) !important;
+    
+    /* Snappy custom elastic spring effect transition on entering/exiting */
+    transition: transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                opacity 0.5s ease-out, 
+                background-color 0.3s, 
+                border-color 0.3s, 
+                color 0.3s, 
+                box-shadow 0.3s !important;
+  }
+
+  /* Staggered fly-out delays when menu opens */
+  .nav-menu-mobile.open .social-icon-link {
+    opacity: 1 !important;
+    transform: translate(0, 0) scale(1) !important;
+  }
+
+  .nav-menu-mobile.open .social-icon-link:nth-child(1) {
+    transition-delay: 0.4s !important;
+  }
+  .nav-menu-mobile.open .social-icon-link:nth-child(2) {
+    transition-delay: 0.48s !important;
+  }
+  .nav-menu-mobile.open .social-icon-link:nth-child(3) {
+    transition-delay: 0.56s !important;
+  }
+  .nav-menu-mobile.open .social-icon-link:nth-child(4) {
+    transition-delay: 0.64s !important;
+  }
+
+  /* Exiting state: slide back immediately with short delayed return */
+  .nav-menu-mobile:not(.open) .social-icon-link {
+    transition: transform 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97), opacity 0.4s ease !important;
+  }
+
+  .social-icon-link:hover {
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    transform: scale(1.15) translateY(-3px) !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15) !important;
+  }
+}
+
+/* Flashing typewriter terminal cursor */
+.typewriter-cursor {
+  color: #00f2fe !important;
+  font-weight: 200 !important;
+  margin-left: 2px !important;
+  text-shadow: 0 0 10px #00f2fe !important;
 }

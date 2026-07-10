@@ -19,6 +19,275 @@ import {
 } from 'lucide-react';
 
 export default function Home() {
+  React.useEffect(() => {
+    // Dynamic import of GSAP to ensure safe execution on Next.js client-side only
+    const { gsap } = require('gsap');
+    const { ScrollTrigger } = require('gsap/ScrollTrigger');
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. 3D Flight Entrance (comes from the front/viewer's perspective)
+    gsap.fromTo('.hero-title',
+      { 
+        opacity: 0, 
+        z: 450, 
+        y: 40,
+        filter: 'blur(15px)',
+        transformPerspective: 1000
+      },
+      {
+        opacity: 1,
+        z: 0,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 1.8,
+        ease: 'power3.out',
+        delay: 0.1
+      }
+    );
+
+    // 2. 3D ScrollTrigger Flight (recedes and tilts backwards in depth as page scrolls)
+    // Using fromTo with immediateRender: false prevents capturing styles before load settles
+    gsap.fromTo('.hero-title',
+      {
+        y: 0,
+        z: 0,
+        rotateX: 0,
+        opacity: 1
+      },
+      {
+        scrollTrigger: {
+          trigger: '.hero-section',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        },
+        y: -320,
+        z: -600,
+        rotateX: 65,
+        opacity: 0,
+        immediateRender: false,
+        ease: 'none'
+      }
+    );
+
+    // 3. Tagline Entrance (soft blur and slide-up)
+    gsap.fromTo('.hero-tagline',
+      { 
+        opacity: 0, 
+        y: 25, 
+        filter: 'blur(5px)',
+        transformPerspective: 1000
+      },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 1.5,
+        ease: 'power3.out',
+        delay: 0.5
+      }
+    );
+
+    // 4. Tagline 3D ScrollTrigger Parallax
+    gsap.fromTo('.hero-tagline',
+      {
+        y: 0,
+        z: 0,
+        opacity: 1
+      },
+      {
+        scrollTrigger: {
+          trigger: '.hero-section',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        },
+        y: -220,
+        z: -400,
+        opacity: 0,
+        immediateRender: false,
+        ease: 'none'
+      }
+    );
+
+    // 5. CTA Button Entrance
+    gsap.fromTo('.hero-ctas',
+      { 
+        opacity: 0, 
+        y: 20,
+        transformPerspective: 1000
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        delay: 0.8
+      }
+    );
+
+    // 6. CTA Button 3D ScrollTrigger Parallax
+    gsap.fromTo('.hero-ctas',
+      {
+        y: 0,
+        z: 0,
+        opacity: 1
+      },
+      {
+        scrollTrigger: {
+          trigger: '.hero-section',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        },
+        y: -140,
+        z: -240,
+        opacity: 0,
+        immediateRender: false,
+        ease: 'none'
+      }
+    );
+
+    // 2. Desktop-only ScrollTrigger animations (viewports >= 1024px)
+    let mm = gsap.matchMedia();
+    mm.add("(min-width: 1024px)", () => {
+      // Services Card Grid Stagger
+      gsap.fromTo('.card-premium', 
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '#services',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
+          }
+        }
+      );
+
+      // scrubbing track line animation on Why Choose Us Timeline
+      gsap.fromTo('.timeline-line',
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          duration: 1.5,
+          ease: 'none',
+          transformOrigin: 'top center',
+          scrollTrigger: {
+            trigger: '.timeline-container',
+            start: 'top 80%',
+            end: 'bottom 60%',
+            scrub: true
+          }
+        }
+      );
+
+      // Staggered node entry on Why Choose Us Timeline
+      gsap.fromTo('.timeline-node',
+        { opacity: 0, x: -30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.timeline-container',
+            start: 'top 75%',
+            end: 'bottom 25%',
+            toggleActions: 'play reverse play reverse'
+          }
+        }
+      );
+
+      // Product Cards Grid Stagger
+      gsap.fromTo('.card-product-horizontal',
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '#products',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
+          }
+        }
+      );
+
+      // About Us left copy text entrance
+      gsap.fromTo('.about-text-content',
+        { opacity: 0, x: -50 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '#about',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse'
+          }
+        }
+      );
+
+      // About Us stats boxes bounce pop stagger
+      gsap.fromTo('.about-stat-box',
+        { opacity: 0, scale: 0.85, y: 30 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'back.out(1.7)',
+          scrollTrigger: {
+            trigger: '.about-stats-container',
+            start: 'top 85%',
+            end: 'bottom 15%',
+            toggleActions: 'play reverse play reverse'
+          }
+        }
+      );
+    });
+
+    // 3. Holographic Focus Lock ScrollTrigger animation on bottom CTA Title
+    gsap.fromTo('.cta-title',
+      {
+        opacity: 0,
+        scale: 0.95,
+        y: 25,
+        filter: 'blur(12px)',
+        letterSpacing: '-0.15em'
+      },
+      {
+        scrollTrigger: {
+          trigger: '.cta-section',
+          start: 'top 85%',
+          end: 'bottom 15%',
+          toggleActions: 'play reverse play reverse'
+        },
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        letterSpacing: '0.02em',
+        duration: 1.4,
+        ease: 'power3.out'
+      }
+    );
+
+    return () => mm.revert();
+  }, []);
+
   return (
     <>
       {/* HERO SECTION */}
@@ -30,14 +299,14 @@ export default function Home() {
         <HeroThreeSciFi />
         
         <div className="container hero-grid" style={{ position: 'relative', zIndex: 1 }}>
-          <div className="hero-content">
-            <h1 className="hero-title hero-reveal text-gradient-chrome" style={{ opacity: 0, transform: 'translateY(30px)' }}>
+          <div className="hero-content" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
+            <h1 className="hero-title text-gradient-chrome" style={{ opacity: 0, transform: 'translateZ(450px) translateY(40px)', filter: 'blur(15px)', transformStyle: 'preserve-3d', willChange: 'transform, opacity, filter' }}>
               TECHNOLOGY<br className="desktop-only" /> THAT EMPOWERS<br className="desktop-only" /> BUSINESSES
             </h1>
-            <p className="hero-tagline hero-reveal" style={{ opacity: 0, transform: 'translateY(30px)', fontSize: '1.1rem', maxWidth: '500px', color: 'var(--text-secondary)', lineHeight: '1.6', marginTop: 'var(--space-3)' }}>
+            <p className="hero-tagline" style={{ opacity: 0, transform: 'translateY(25px)', filter: 'blur(5px)', transformStyle: 'preserve-3d', willChange: 'transform, opacity, filter', fontSize: '1.1rem', maxWidth: '500px', color: 'var(--text-secondary)', lineHeight: '1.6', marginTop: 'var(--space-3)' }}>
               We build powerful software solutions that drive innovation, automate processes and accelerate your business growth.
             </p>
-            <div className="hero-ctas hero-reveal" style={{ opacity: 0, transform: 'translateY(30px)', marginTop: 'var(--space-4)', display: 'flex' }}>
+            <div className="hero-ctas" style={{ opacity: 0, transform: 'translateY(20px)', transformStyle: 'preserve-3d', willChange: 'transform, opacity', marginTop: 'var(--space-4)', display: 'flex' }}>
               <Link href="/services" className="btn btn-glass" style={{ borderRadius: '9999px', padding: '12px 28px', backgroundColor: 'rgba(255, 255, 255, 0.02)', borderColor: 'rgba(255, 255, 255, 0.15)', color: '#FFFFFF' }}>EXPLORE SERVICES &rarr;</Link>
             </div>
           </div>
@@ -293,9 +562,9 @@ export default function Home() {
       </section>
 
       {/* CALL TO ACTION BOTTOM */}
-      <section className="section" style={{textAlign: 'center', padding: 'var(--space-8) 0'}}>
+      <section className="section cta-section" style={{textAlign: 'center', padding: 'var(--space-8) 0'}}>
         <div className="container content-wrapper">
-          <h2 className="text-gradient-chrome" style={{fontSize: '3rem', marginBottom: 'var(--space-3)', lineHeight: '1.2'}}>
+          <h2 className="text-gradient-chrome cta-title" style={{fontSize: '3rem', marginBottom: 'var(--space-3)', lineHeight: '1.2'}}>
             Let's Build Something<br className="desktop-only" /> Extraordinary
           </h2>
           <p style={{color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto var(--space-4) auto', fontSize: '1.1rem'}}>
