@@ -38,10 +38,10 @@ export default function Header({ onMobileMenuToggle, isOpen }) {
         
         <nav className="nav-menu-desktop">
           <div className="nav-item">
-            <Link href="/" className="nav-link">HOME</Link>
+            <Link href="/" className="nav-link">Home</Link>
           </div>
           <div className="nav-item">
-            <Link href="/services" className="nav-link">SERVICES</Link>
+            <Link href="/services" className="nav-link">Services</Link>
             {/* MEGA MENU SERVICES */}
             <div className="mega-menu-wrapper">
               <div className="mega-menu-column">
@@ -98,7 +98,7 @@ export default function Header({ onMobileMenuToggle, isOpen }) {
             </div>
           </div>
           <div className="nav-item">
-            <Link href="/products" className="nav-link">OUR PRODUCTS</Link>
+            <Link href="/products" className="nav-link">Products</Link>
             {/* MEGA MENU PRODUCTS */}
             <div className="mega-menu-wrapper" style={{ width: '600px' }}>
               <div className="mega-menu-column">
@@ -138,16 +138,21 @@ export default function Header({ onMobileMenuToggle, isOpen }) {
             </div>
           </div>
           <div className="nav-item">
-            <Link href="/about" className="nav-link">ABOUT US</Link>
+            <Link href="/#portfolio" className="nav-link">Portfolio</Link>
           </div>
-
           <div className="nav-item">
-            <Link href="/contact" className="nav-link">CONTACT US</Link>
+            <Link href="/about" className="nav-link">About</Link>
+          </div>
+          <div className="nav-item">
+            <Link href="/blog" className="nav-link">Resources</Link>
+          </div>
+          <div className="nav-item">
+            <Link href="/contact" className="nav-link">Contact</Link>
           </div>
         </nav>
         
         <div className="btn-wrapper">
-          <Link href="/contact" className="nav-cta">GET IN TOUCH</Link>
+          <Link href="/contact" className="nav-cta">Get Free Consultation</Link>
         </div>
         
         {/* Mobile Burger Trigger */}

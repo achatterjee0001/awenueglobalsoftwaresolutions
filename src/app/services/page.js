@@ -1,272 +1,500 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import ServiceThreeVisual from '../../components/ServiceThreeVisual';
-import WebThreeVisual from '../../components/WebThreeVisual';
-import {
+import { 
+  Code, 
+  Globe, 
+  Smartphone, 
+  Layers, 
+  Shield, 
+  Users, 
+  Check, 
+  ArrowRight, 
+  Sparkles, 
+  Cpu, 
+  Cloud, 
+  Database, 
+  ChevronDown, 
+  ChevronUp,
   Activity,
-  Award,
-  Box,
-  Briefcase,
-  Building,
-  Calendar,
-  CheckCircle,
-  CheckCircle2,
-  ChevronRight,
-  Clock,
-  Cloud,
-  Code,
-  Code2,
-  Compass,
-  Container,
-  Cpu,
-  Database,
-  FileCode,
-  FolderCheck,
-  Globe,
-  GraduationCap,
-  HeartHandshake,
-  Layers,
-  Layout,
-  Lightbulb,
-  Lock,
-  Mail,
-  MapPin,
-  Phone,
-  Send,
   Server,
-  Shield,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  Tablet,
-  Target,
-  Terminal,
-  Users
+  Lock,
+  Briefcase,
+  Search,
+  FileCode,
+  TrendingUp
 } from 'lucide-react';
 
 export default function ServicesPage() {
+  const [activeCategory, setActiveCategory] = useState('engineering');
+  const [openFaq, setOpenFaq] = useState(null);
+
+  // Initialize scroll animations
+  useEffect(() => {
+    const { gsap } = require('gsap');
+    const { ScrollTrigger } = require('gsap/ScrollTrigger');
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo('.reveal-service-card', 
+      { opacity: 0, y: 35 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.reveal-services-grid',
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  }, []);
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const categories = {
+    engineering: {
+      title: "Software Engineering",
+      services: [
+        {
+          title: "Custom Software Development",
+          problem: "Legacy backend monoliths causing operational lags, high server maintenance overhead, and unstable databases under peak load.",
+          solution: "Bespoke backend modules, microservices, and database tuning mapped to scale securely with lower CPU execution cycles.",
+          technologies: ["Node.js", "Python", "Golang", "PostgreSQL", "MongoDB"],
+          deliverables: ["Microservices Architecture Plan", "REST/GraphQL API Documentation", "Database Schema Optimization", "Unit Test Coverage Logs"]
+        },
+        {
+          title: "SaaS Product Engineering",
+          problem: "Businesses struggling to design and launch stable, multi-tenant workspace platforms with integrated user billing systems.",
+          solution: "Multi-tenant SaaS architectures engineered with secure user access levels, automated payment pipelines, and analytics boards.",
+          technologies: ["Next.js", "Node.js", "Stripe Billing", "JWT Auth", "Postgres"],
+          deliverables: ["Multi-Tenant DB Configuration", "Stripe Checkout Integrations", "User Permissions Logic Matrix", "Analytics Audit Board"]
+        },
+        {
+          title: "Enterprise ERP & CRM systems",
+          problem: "Operational friction and data loss from manual billing, disjointed CRM tracking sheets, and manual inventory audits.",
+          solution: "Custom resource planning dashboards built to centralize sales pipelines, employee logs, and automatic invoice generations.",
+          technologies: ["React", "Express", "REST APIs", "AWS RDS", "Docker"],
+          deliverables: ["CRM Sales Pipeline Matrix", "Automated Billing & PDF Dispatch", "Inventory Audit Trackers", "LDAP Admin Auth Setup"]
+        }
+      ]
+    },
+    webMobile: {
+      title: "Web & Mobile Development",
+      services: [
+        {
+          title: "Next.js Web Engineering",
+          problem: "Websites with slow page load times, poor mobile response layouts, and low conversion/retention metrics.",
+          solution: "Optimized Next.js templates, static site rendering (SSR), and smooth CSS grids to maximize load speeds and mobile UX.",
+          technologies: ["Next.js", "React", "Tailwind CSS", "Vercel", "HTML5/CSS3"],
+          deliverables: ["Page-Speed Audit Score Logs", "Custom Responsive Layout Maps", "Modular Component Library", "SEO Metadata Integrations"]
+        },
+        {
+          title: "Mobile App Development",
+          problem: "Unresponsive hybrid framework wrappers, missing offline cache architectures, and poor app performance.",
+          solution: "Hybrid React Native and native iOS/Android code blocks featuring offline state caches and fluid visual transitions.",
+          technologies: ["Flutter", "React Native", "Swift", "Kotlin", "Firebase"],
+          deliverables: ["React Native Build Configurations", "SQLite Offline Cache Setup", "App Store Compliance Check", "Push Notification Channels"]
+        }
+      ]
+    },
+    design: {
+      title: "UI/UX & Branding Design",
+      services: [
+        {
+          title: "UI/UX Architecture & Prototyping",
+          problem: "User drop-offs and poor tool adoption caused by complicated task flows and inconsistent page structures.",
+          solution: "Detailed Figma user journey frames, interactive click prototypes, and modular system tokens styled for accessibility.",
+          technologies: ["Figma", "Adobe CC", "Tailwind Design Tokens"],
+          deliverables: ["User Journey Wireframe Boards", "Interactive Click Prototypes", "Developer Design Token Assets", "Accessibility Compliance Reports"]
+        },
+        {
+          title: "Brand Identity Design",
+          problem: "Innovative technology companies lacking corporate credibility due to outdated assets and inconsistent brand style guidelines.",
+          solution: "Premium typographic scales, vectorized emblems, landing layout wireframes, and corporate identity specifications.",
+          technologies: ["Vector Design Toolsets", "Figma", "Typography Sheets"],
+          deliverables: ["Vector Logo Master Files", "Corporate Typography Specifications", "Digital Asset Design Guidelines", "Branding Color Palettes"]
+        }
+      ]
+    },
+    growth: {
+      title: "Business Growth & Consulting",
+      services: [
+        {
+          title: "Cloud Operations & DevOps",
+          problem: "High hosting bills, manual cluster deployments, server downtime, and slow version release schedules.",
+          solution: "Containerized deployment automation using Docker and Kubernetes clusters on AWS/Azure to secure high availability.",
+          technologies: ["Docker", "Kubernetes", "AWS ECS", "GitHub Actions CI/CD"],
+          deliverables: ["CI/CD Deployment Pipelines", "Kubernetes Config Manifests", "AWS Cost Optimization Reports", "Auto-Scale System Triggers"]
+        },
+        {
+          title: "Strategic IT Consulting",
+          problem: "Companies lacking a clear roadmap to migrate legacy infrastructures to modern technology stacks.",
+          solution: "Full code base security checks, performance analysis logs, database mapping, and phase-by-phase migration plans.",
+          technologies: ["Tech Audits", "System Diagrams", "Database Schema Maps"],
+          deliverables: ["Legacy System Auditing Reports", "Phased Migration Blueprints", "Database Refactoring Maps", "Risk Mitigation Checklists"]
+        }
+      ]
+    }
+  };
+
+  const processSteps = [
+    { title: "1. Discovery Call", desc: "Align with your technical stakeholders to map out systems challenges and scope success parameters." },
+    { title: "2. Requirement Analysis", desc: "Audit legacy database schemas, dependencies, API models, and data security standards." },
+    { title: "3. Scope & Proposal", desc: "Deliver a fixed-milestone architectural specification outlining exact deliverables and timelines." },
+    { title: "4. UI/UX Prototyping", desc: "Build interactive Figma prototypes and design components before starting engineering sprint lines." },
+    { title: "5. Agile Development", desc: "Write modular code structures backed by automated CI/CD validation checks." },
+    { title: "6. QA & Testing", desc: "Execute load stress checks, end-to-end user validations, and automated security scans." },
+    { title: "7. Deployment", desc: "Deploy container nodes to AWS/Azure with active monitoring layers." },
+    { title: "8. Support SLA", desc: "Establish ongoing patches, performance monitors, database backups, and maintenance logs." }
+  ];
+
+  const serviceFaqs = [
+    { q: "How do you scope custom software project timelines?", a: "We outline phases using detailed functional specifications. Sprints run in bi-weekly delivery blocks with demo links so your stakeholders track ongoing builds." },
+    { q: "Do you supply dedicated engineers?", a: "Yes. Our models assign dedicated backend, frontend, and QA engineers managed directly by an Awenue Project Manager." },
+    { q: "What happens after the product is deployed?", a: "We provide dedicated maintenance SLAs that cover server uptime logs, security upgrades, database backups, and monthly reviews." }
+  ];
+
   return (
-    <div className="page-route-services">
-      {/* HERO SECTION */}
-  <section className="section services-hero">
-    <div className="container content-wrapper">
-      <p style={{fontFamily: 'var(--font-heading)', fontSize: '0.8rem', letterSpacing: '0.25em', color: 'var(--text-muted)', textTransform: 'uppercase'}}>Technological Capabilities</p>
-      <h1 className="text-gradient-chrome">Enterprise Services</h1>
-      <p style={{color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem'}}>
-        Delivering performant solutions, digital grid systems, and scalable frameworks for global organizations.
-      </p>
-    </div>
-  </section>
+    <div className="services-page-redesign">
+      
+      {/* 1. HERO SECTION */}
+      <section className="section services-hero" style={{ minHeight: '65vh', paddingTop: '160px', paddingBottom: '64px', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
+        <div className="grid-background"></div>
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.18)', borderRadius: '9999px', padding: '6px 16px', width: 'fit-content' }}>
+              <Sparkles style={{ width: '13px', height: '13px', color: '#2563EB' }} />
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#2563EB', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Professional Capabilities</span>
+            </div>
+            
+            <h1 className="text-gradient-chrome" style={{ fontSize: '3.6rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-1px' }}>
+              Technology Solutions Built Around Your Business Goals.
+            </h1>
+            
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '640px' }}>
+              We partner with startup founders and enterprise CTOs to engineer custom software, scalable cloud architectures, high-performance web systems, and design tokens that translate into business growth.
+            </p>
 
-  {/* SERVICE DETAIL 1: SOFTWARE ENGINEERING */}
-  <section className="service-detail-section" id="software">
-    <div className="container content-wrapper">
-      <div className="service-detail-grid">
-        <div className="service-detail-content">
-          <p style={{fontFamily: 'var(--font-heading)', fontSize: '0.75rem', letterSpacing: '0.15em', color: 'var(--text-muted)'}}>01 / SYSTEM ARCHITECTURE</p>
-          <h2 className="text-gradient-chrome" style={{margin: 'var(--space-1) 0 var(--space-2) 0', fontSize: '2rem'}}>Software Development</h2>
-          <p>
-            We design backend layers, database clusters, and API frameworks configured to process millions of requests smoothly. We prioritize safety, speed, and thread concurrency.
+            <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
+              <Link href="/contact" className="btn btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', background: 'var(--accent-blue)', color: '#FFFFFF', fontWeight: 600 }}>
+                Start Your Project
+              </Link>
+              <a href="#challenges" className="btn btn-glass" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontWeight: 600 }}>
+                Explore Solutions
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. PROBLEMS WE SOLVE */}
+      <section className="section" id="challenges" style={{ padding: '100px 0', borderTop: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Business Barriers</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Is your business facing these challenges?</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              Acknowledge your systems bottleneck cycles. We construct tailored tech solutions to resolve operational roadblocks.
+            </p>
+          </div>
+
+          <div className="challenge-grid">
+            {[
+              { t: "Outdated Legacy Code", d: "Old code frameworks causing performance lags, API errors, and high hosting bills." },
+              { t: "Manual Working Cycles", d: "Staff members manually entering databases, matching billing reports, and filing forms." },
+              { t: "Low Online Conversion", d: "Slow load speeds and poor mobile responsive UI layouts causing visitor drop-offs." },
+              { t: "Lack of System Scales", d: "Monolith software breaking under peak user requests and missing container rules." }
+            ].map((chall, idx) => (
+              <div key={idx} className="challenge-card">
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '10px' }}>{chall.t}</h3>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{chall.d}</p>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '48px' }}>
+            <p style={{ fontSize: '1.1rem', color: '#2563EB', fontWeight: 600 }}>
+              "Awenue maps these systems problems and engineers custom code structures to solve them."
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. GROUPED SERVICE CATEGORIES & SERVICE CARDS */}
+      <section className="section" style={{ padding: '100px 0', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-4) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Our Services</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Grouped Capabilities</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              Select an engineering division to view corresponding technical scope and deliverables.
+            </p>
+          </div>
+
+          {/* Category Tabs */}
+          <div className="tech-directory-tabs" style={{ marginBottom: '48px' }}>
+            {Object.keys(categories).map((key) => (
+              <button 
+                key={key}
+                className={`tech-tab-button ${activeCategory === key ? 'active' : ''}`}
+                onClick={() => setActiveCategory(key)}
+              >
+                {categories[key].title}
+              </button>
+            ))}
+          </div>
+
+          {/* Detailed Cards for Active Category */}
+          <div className="reveal-services-grid" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+            {categories[activeCategory].services.map((service, index) => (
+              <div 
+                key={index} 
+                className="reveal-service-card"
+                style={{
+                  background: 'var(--card-bg)',
+                  border: '1px solid var(--border-color)',
+                  borderRadius: '24px',
+                  padding: '40px',
+                  display: 'grid',
+                  gridTemplateColumns: '1.1fr 0.9fr',
+                  gap: '40px',
+                  alignItems: 'start',
+                  transition: 'var(--transition-smooth)'
+                }}
+              >
+                {/* Left Side: Problem & Solution Alignments */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{service.title}</h3>
+                  
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div>
+                      <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#EF4444', fontWeight: 700, letterSpacing: '0.5px', display: 'block' }}>Operational Barrier</span>
+                      <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.5 }}>{service.problem}</p>
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#10B981', fontWeight: 700, letterSpacing: '0.5px', display: 'block' }}>Our Solution</span>
+                      <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.5 }}>{service.solution}</p>
+                    </div>
+                  </div>
+
+                  {/* Technologies Badges */}
+                  <div>
+                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, display: 'block', marginBottom: '8px' }}>Stack Competencies</span>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      {service.technologies.map((t, idx) => (
+                        <span key={idx} style={{ fontSize: '0.75rem', color: 'var(--text-primary)', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '4px 10px' }}>{t}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Link href="/contact" className="btn btn-primary" style={{ alignSelf: 'flex-start', padding: '10px 22px', fontSize: '0.85rem', background: '#2563EB', color: '#FFF', borderRadius: '10px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '8px' }}>
+                    Request Scope Details <ArrowRight style={{ width: '14px', height: '14px' }} />
+                  </Link>
+                </div>
+
+                {/* Right Side: Key Deliverables Checklist */}
+                <div style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: '16px', padding: '28px' }}>
+                  <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#2563EB', fontWeight: 700, letterSpacing: '1px', display: 'block', marginBottom: '16px' }}>Project Deliverables</span>
+                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', padding: 0 }}>
+                    {service.deliverables.map((del, idx) => (
+                      <li key={idx} style={{ display: 'flex', alignItems: 'start', gap: '10px', fontSize: '0.85rem', color: 'var(--text-primary)' }}>
+                        <Check style={{ width: '14px', height: '14px', color: '#10B981', marginTop: '2px', strokeWidth: '3px' }} />
+                        <span>{del}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. DEVELOPMENT PROCESS */}
+      <section className="section" style={{ padding: '100px 0', borderTop: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Engagement Flow</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>How We Work Together</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              What happens after you contact us? A clean, milestone-based timeline outlining our engagement track.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
+            {processSteps.map((step, idx) => (
+              <div key={idx} style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '18px', padding: '24px', position: 'relative' }}>
+                <span style={{ fontSize: '0.7rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>Step {idx + 1}</span>
+                <h4 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>{step.title.split('. ')[1]}</h4>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. WHY AWENUE (DIFFERENTIATORS COMPARISON) */}
+      <section className="section" style={{ padding: '100px 0', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Why Choose Awenue</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Tangible Differentiators</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              Why startup founders and tech leaders select Awenue over generic freelance contracts.
+            </p>
+          </div>
+
+          <div className="challenge-grid">
+            {[
+              { t: "Dedicated PM Support", d: "A single, technically aligned project manager keeping task milestones updated and coordinating all developer logs." },
+              { t: "Security-First Coding", d: "We embed security scans directly into CI/CD pipelines to mitigate authentication and SQL leakage cycles." },
+              { t: "Agile Sprints Visibility", d: "Demo staging setups deploy automatically at the end of every sprint, offering full development progress tracking." },
+              { t: "Long-Term SLA Maintenance", d: "Post-deployment checks, patching configurations, database backups, and hosting reviews mapped clearly." }
+            ].map((diff, i) => (
+              <div key={i} className="challenge-card" style={{ padding: '28px' }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '10px' }}>{diff.t}</h3>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{diff.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FEATURED CASE STUDIES */}
+      <section className="section" style={{ padding: '100px 0', borderTop: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Proof of Execution</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Proven Solutions in Action</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              Explore how our services solved real operational bottlenecks.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+            {[
+              {
+                title: "Custom CRM Deployment",
+                problem: "Agencies managing client leads manually across Google sheets, leading to 25% follow-up delays.",
+                solution: "Integrated a custom CRM dashboard with automated lead routing, calendar notifications, and automatic logs.",
+                outcome: "Follow-up delays eliminated; pipeline conversions improved by 18%."
+              },
+              {
+                title: "Next.js E-Commerce Scale",
+                problem: "Slow page response layouts and high loading times resulting in high bounce rates and low checkouts.",
+                solution: "Migrated infrastructure to a containerized Next.js grid on Vercel utilizing static data regeneration rules.",
+                outcome: "Page loading speed improved to 180ms; checkout conversions boosted by 22%."
+              }
+            ].map((caseStudy, idx) => (
+              <div key={idx} style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '20px', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <h4 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{caseStudy.title}</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem' }}>
+                  <p style={{ color: 'var(--text-secondary)' }}><strong style={{ color: '#EF4444' }}>Challenge: </strong>{caseStudy.problem}</p>
+                  <p style={{ color: 'var(--text-secondary)' }}><strong style={{ color: '#10B981' }}>Solution: </strong>{caseStudy.solution}</p>
+                  <p style={{ color: 'var(--text-primary)', fontWeight: 500 }}><strong style={{ color: '#2563EB' }}>Result: </strong>{caseStudy.outcome}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. INDUSTRIES */}
+      <section className="section" style={{ padding: '100px 0', borderTop: '1px solid var(--border-color)', background: 'rgba(255,255,255,0.01)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Sector Integration</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>We Build Solutions For</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              Adapting software structures to match compliance standards and operational paths in specific markets.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+            {["Healthcare", "Education", "Manufacturing", "Retail", "Logistics", "Finance", "Real Estate", "Hospitality"].map((ind, i) => (
+              <div key={i} style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '14px', padding: '20px', textAlign: 'center', fontWeight: 600, color: 'var(--text-primary)' }}>
+                {ind}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. SERVICES FAQ SECTION */}
+      <section className="section" style={{ padding: '100px 0', borderTop: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Scoping Queries</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Services FAQ</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              Common integration questions clarified before starting projects.
+            </p>
+          </div>
+
+          <div className="faq-accordion-container" style={{ marginTop: '48px' }}>
+            {serviceFaqs.map((faq, index) => (
+              <div key={index} className="faq-item">
+                <button 
+                  className="faq-question-button"
+                  onClick={() => toggleFaq(index)}
+                >
+                  <span>{faq.q}</span>
+                  {openFaq === index ? (
+                    <ChevronUp style={{ width: '18px', height: '18px', color: '#2563EB' }} />
+                  ) : (
+                    <ChevronDown style={{ width: '18px', height: '18px', color: 'var(--text-muted)' }} />
+                  )}
+                </button>
+                {openFaq === index && (
+                  <div className="faq-answer-wrapper">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. ACTION-ORIENTED FINAL CTA SECTION */}
+      <section className="section cta-section" style={{ padding: '120px 0', textAlign: 'center', position: 'relative', overflow: 'hidden', borderTop: '1px solid var(--border-color)' }}>
+        <div 
+          style={{ 
+            position: 'absolute',
+            width: '60%',
+            height: '60%',
+            top: '20%',
+            left: '20%',
+            background: 'radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0) 60%)',
+            filter: 'blur(50px)',
+            pointerEvents: 'none',
+            zIndex: 1
+          }}
+        />
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <h2 className="text-gradient-chrome cta-title" style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '16px', lineHeight: 1.25 }}>
+            Let's Build Your Next Digital Solution.
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '580px', margin: '0 auto var(--space-4) auto', fontSize: '1.05rem', lineHeight: 1.6 }}>
+            Whether you're launching a startup, modernizing legacy software, or building a scalable SaaS platform, our team is ready to help.
           </p>
-          <ul className="service-bullet-list">
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Microservice design using Java, Node.js, and Python.</li>
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Relational & document database tuning (MongoDB, Postgres).</li>
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Optimized enterprise data flow pipelines.</li>
-          </ul>
-          <div className="tech-stack-badges">
-            <span className="tech-badge"><Terminal  style={{ width: 24, height: 24, display: 'inline-block' }} /> Node.js</span>
-            <span className="tech-badge"><Database  style={{ width: 24, height: 24, display: 'inline-block' }} /> MongoDB</span>
-            <span className="tech-badge"><Code2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Java</span>
-            <span className="tech-badge"><Cpu  style={{ width: 24, height: 24, display: 'inline-block' }} /> Python</span>
-            <span className="tech-badge"><Server  style={{ width: 24, height: 24, display: 'inline-block' }} /> Express</span>
+          <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/contact" className="btn btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', background: 'var(--accent-blue)', color: '#FFFFFF', fontWeight: 600 }}>
+              Schedule a Free Consultation
+            </Link>
+            <Link href="/contact" className="btn btn-glass" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontWeight: 600 }}>
+              Request a Proposal
+            </Link>
           </div>
-          <Link href="/contact" className="btn btn-primary" style={{marginTop: 'var(--space-3)'}}>Discuss Architecture</Link>
         </div>
-        <div className="service-showcase-visual" style={{ padding: '0 !important', overflow: 'hidden' }}>
-          <div style={{fontSize: '0.8rem', fontFamily: 'var(--font-heading)', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', paddingLeft: '20px', paddingRight: '20px', paddingTop: '15px', color: 'var(--text-muted)'}}>
-            SYSTEMS_CORE_3D
-          </div>
-          <ServiceThreeVisual />
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  {/* SERVICE DETAIL 2: WEB DEVELOPMENT */}
-  <section className="service-detail-section" id="web">
-    <div className="container content-wrapper">
-      <div className="service-detail-grid">
-        <div className="service-detail-content">
-          <p style={{fontFamily: 'var(--font-heading)', fontSize: '0.75rem', letterSpacing: '0.15em', color: 'var(--text-muted)'}}>02 / CORE WEB APPS</p>
-          <h2 className="text-gradient-chrome" style={{margin: 'var(--space-1) 0 var(--space-2) 0', fontSize: '2rem'}}>Website Development</h2>
-          <p>
-            Building interactive modern websites that rank exceptionally and look stunning. We compile clean modular templates that load in milliseconds under heavy visitor load.
-          </p>
-          <ul className="service-bullet-list">
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> High performance Next.js and React interfaces.</li>
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Fluid luxury layouts with metallic/glass designs.</li>
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Complete responsive checks across all layouts.</li>
-          </ul>
-          <div className="tech-stack-badges">
-            <span className="tech-badge"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', marginRight: '4px', verticalAlign: 'middle' }}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg> Next.js</span>
-            <span className="tech-badge"><FileCode  style={{ width: 24, height: 24, display: 'inline-block' }} /> React</span>
-            <span className="tech-badge"><Layout  style={{ width: 24, height: 24, display: 'inline-block' }} /> HTML5 / CSS3</span>
-            <span className="tech-badge"><Sparkles  style={{ width: 24, height: 24, display: 'inline-block' }} /> Tailwind</span>
-          </div>
-          <Link href="/contact" className="btn btn-primary" style={{marginTop: 'var(--space-3)'}}>Initiate Project</Link>
-        </div>
-        <div className="service-showcase-visual" style={{ padding: '0 !important', overflow: 'hidden' }}>
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', paddingLeft: '20px', paddingRight: '20px', paddingTop: '15px'}}>
-            <span style={{fontSize: '0.8rem', fontFamily: 'var(--font-heading)', color: 'var(--text-muted)'}}>DOM_PARALLAX_3D</span>
-            <span style={{color: '#10B981', fontSize: '0.75rem', fontWeight: '600'}}><span style={{display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10B981', marginRight: '4px'}}></span> ACTIVE</span>
-          </div>
-          <WebThreeVisual />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* SERVICE DETAIL 3: CLOUD SOLUTIONS */}
-  <section className="service-detail-section" id="cloud">
-    <div className="container content-wrapper">
-      <div className="service-detail-grid">
-        <div className="service-detail-content">
-          <p style={{fontFamily: 'var(--font-heading)', fontSize: '0.75rem', letterSpacing: '0.15em', color: 'var(--text-muted)'}}>03 / CLOUD OPERATIONS</p>
-          <h2 className="text-gradient-chrome" style={{margin: 'var(--space-1) 0 var(--space-2) 0', fontSize: '2rem'}}>Cloud Solutions</h2>
-          <p>
-            Deploying resilient container network nodes, load balances, and storage grids. We coordinate CI/CD pipelines to ensure database scalability and zero-downtime updates.
-          </p>
-          <ul className="service-bullet-list">
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> AWS, Azure, Google Cloud deployments.</li>
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Kubernetes cluster orchestration & Docker images.</li>
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Failover structures and database replication.</li>
-          </ul>
-          <div className="tech-stack-badges">
-            <span className="tech-badge"><Box  style={{ width: 24, height: 24, display: 'inline-block' }} /> Docker</span>
-            <span className="tech-badge"><Container  style={{ width: 24, height: 24, display: 'inline-block' }} /> Kubernetes</span>
-            <span className="tech-badge"><Cloud  style={{ width: 24, height: 24, display: 'inline-block' }} /> AWS</span>
-            <span className="tech-badge"><Cpu  style={{ width: 24, height: 24, display: 'inline-block' }} /> Azure</span>
-          </div>
-          <Link href="/contact" className="btn btn-primary" style={{marginTop: 'var(--space-3)'}}>Configure Cloud</Link>
-        </div>
-        <div className="service-showcase-visual">
-          <div style={{fontSize: '0.8rem', fontFamily: 'var(--font-heading)', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', marginBottom: '12px', color: 'var(--text-muted)'}}>
-            KUBERNETES_CLUSTER
-          </div>
-          <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-            <div style={{display: 'flex', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-color)'}}>
-              <span style={{fontSize: '0.8rem'}}>node-us-east-1a</span>
-              <span style={{color: '#10B981', fontSize: '0.8rem'}}>ACTIVE</span>
-            </div>
-            <div style={{display: 'flex', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-color)'}}>
-              <span style={{fontSize: '0.8rem'}}>node-us-east-1b</span>
-              <span style={{color: '#10B981', fontSize: '0.8rem'}}>ACTIVE</span>
-            </div>
-            <div style={{display: 'flex', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-color)'}}>
-              <span style={{fontSize: '0.8rem'}}>load-balancer-ingress</span>
-              <span style={{color: '#10B981', fontSize: '0.8rem'}}>HEALTHY</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* SERVICE DETAIL 4: MOBILE APP DEVELOPMENT */}
-  <section className="service-detail-section" id="mobile">
-    <div className="container content-wrapper">
-      <div className="service-detail-grid">
-        <div className="service-detail-content">
-          <p style={{fontFamily: 'var(--font-heading)', fontSize: '0.75rem', letterSpacing: '0.15em', color: 'var(--text-muted)'}}>04 / MOBILE CHANNELS</p>
-          <h2 className="text-gradient-chrome" style={{margin: 'var(--space-1) 0 var(--space-2) 0', fontSize: '2rem'}}>Mobile App Development</h2>
-          <p>
-            Constructing native and hybrid mobile software containing fluid page transitions, offline database caches, and responsive custom component logic.
-          </p>
-          <ul className="service-bullet-list">
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Native iOS apps using Swift & Android using Kotlin.</li>
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> High performance React Native architectures.</li>
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> App Store and Play Store deploy setups.</li>
-          </ul>
-          <div className="tech-stack-badges">
-            <span className="tech-badge"><Smartphone  style={{ width: 24, height: 24, display: 'inline-block' }} /> React Native</span>
-            <span className="tech-badge"><Tablet  style={{ width: 24, height: 24, display: 'inline-block' }} /> Swift</span>
-            <span className="tech-badge"><Layers  style={{ width: 24, height: 24, display: 'inline-block' }} /> Kotlin</span>
-            <span className="tech-badge"><Activity  style={{ width: 24, height: 24, display: 'inline-block' }} /> Firebase</span>
-          </div>
-          <Link href="/contact" className="btn btn-primary" style={{marginTop: 'var(--space-3)'}}>Start Mobile Build</Link>
-        </div>
-        <div className="service-showcase-visual">
-          <div style={{fontSize: '0.8rem', fontFamily: 'var(--font-heading)', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', marginBottom: '12px', color: 'var(--text-muted)'}}>
-            MOBILE_PREVIEW
-          </div>
-          <div style={{width: '140px', height: '200px', border: '2px solid var(--border-color)', borderRadius: '20px', margin: '0 auto', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#060606'}}>
-            <div style={{width: '40px', height: '4px', backgroundColor: 'var(--border-color)', borderRadius: '2px', margin: '0 auto'}}></div>
-            <div style={{flexGrow: '1', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-              <img src="assets/logo-dark.png" style={{width: '70px'}} alt="emblem" />
-            </div>
-            <div style={{width: '12px', height: '12px', border: '1.5px solid var(--border-color)', borderRadius: '50%', margin: '0 auto'}}></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* SERVICE DETAIL 5: IT CONSULTING & SECURITY */}
-  <section className="service-detail-section" id="consulting">
-    <div className="container content-wrapper">
-      <div className="service-detail-grid">
-        <div className="service-detail-content">
-          <p style={{fontFamily: 'var(--font-heading)', fontSize: '0.75rem', letterSpacing: '0.15em', color: 'var(--text-muted)'}}>05 / SECURITY & PLANNING</p>
-          <h2 className="text-gradient-chrome" style={{margin: 'var(--space-1) 0 var(--space-2) 0', fontSize: '2rem'}}>IT Consulting & Security</h2>
-          <p>
-            Securing endpoints, verifying network logic paths, and outlining digital plans to transition business operations safely from legacy setups.
-          </p>
-          <ul className="service-bullet-list">
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Threat mapping, SSL policies, firewall auditing.</li>
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Cloud deployment cost estimation reports.</li>
-            <li><CheckCircle2  style={{ width: 24, height: 24, display: 'inline-block' }} /> Framework planning for microservice architecture migrations.</li>
-          </ul>
-          <div className="tech-stack-badges">
-            <span className="tech-badge"><Shield  style={{ width: 24, height: 24, display: 'inline-block' }} /> Threat Audits</span>
-            <span className="tech-badge"><Lock  style={{ width: 24, height: 24, display: 'inline-block' }} /> Penetration Testing</span>
-            <span className="tech-badge"><Activity  style={{ width: 24, height: 24, display: 'inline-block' }} /> TLS 1.3 Standards</span>
-          </div>
-          <Link href="/contact" className="btn btn-primary" style={{marginTop: 'var(--space-3)'}}>Request Tech Audit</Link>
-        </div>
-        <div className="service-showcase-visual">
-          <div style={{fontSize: '0.8rem', fontFamily: 'var(--font-heading)', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', marginBottom: '12px', color: 'var(--text-muted)'}}>
-            THREAT_MATRIX
-          </div>
-          <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
-            <div style={{width: '70px', height: '70px', borderRadius: '50%', border: '3px solid #10B981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '700', color: '#10B981', fontSize: '1.1rem'}}>
-              SECURE
-            </div>
-            <div>
-              <p style={{fontSize: '0.85rem', fontWeight: '600'}}>0 Vulnerabilities Detected</p>
-              <p style={{color: 'var(--text-muted)', fontSize: '0.75rem'}}>TLS certificate status: valid (expires in 340 days)</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* CTA */}
-  <section className="section" style={{textAlign: 'center'}}>
-    <div className="container content-wrapper">
-      <h2 className="text-gradient-chrome" style={{marginBottom: 'var(--space-3)'}}>Ready to Scale Your Systems?</h2>
-      <p style={{color: 'var(--text-secondary)', maxWidth: '550px', margin: '0 auto var(--space-4) auto'}}>
-        Get in touch with an AWENUE solutions architect to scope your business architecture, database structures, or custom web portals.
-      </p>
-      <div className="btn-wrapper">
-        <Link href="/contact" className="btn btn-primary">Book Consultation Session</Link>
-      </div>
-    </div>
-  </section>
-
-  {/* FOOTER */}
     </div>
   );
 }

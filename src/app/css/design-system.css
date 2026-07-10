@@ -32,7 +32,7 @@
 }
 
 .header-nav.scrolled {
-  background-color: rgba(6, 6, 6, 0.7);
+  background-color: rgba(10, 15, 30, 0.85);
   border-bottom: 1px solid var(--border-color);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);

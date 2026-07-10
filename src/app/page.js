@@ -1,580 +1,723 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import HeroThreeSciFi from '../components/HeroThreeSciFi';
+import DashboardMockup from '../components/DashboardMockup';
+import ProcessTimeline from '../components/ProcessTimeline';
 import { 
-  Lightbulb, 
-  Compass, 
-  Cpu, 
-  Send, 
-  HeartHandshake, 
   Code, 
-  Cloud, 
-  Shield, 
+  Globe, 
   Smartphone, 
+  Layers, 
+  Shield, 
   Users, 
-  FolderCheck, 
-  Award 
+  Award, 
+  Check, 
+  ArrowRight, 
+  Sparkles, 
+  Cpu, 
+  Cloud, 
+  Database, 
+  ChevronDown, 
+  ChevronUp,
+  Activity,
+  Terminal,
+  Server,
+  Lock,
+  Building,
+  HeartHandshake
 } from 'lucide-react';
 
 export default function Home() {
-  React.useEffect(() => {
-    // Dynamic import of GSAP to ensure safe execution on Next.js client-side only
+  const [activeTechTab, setActiveTechTab] = useState('frontend');
+  const [openFaq, setOpenFaq] = useState(null);
+
+  // Initialize scroll animations using GSAP on client mount
+  useEffect(() => {
     const { gsap } = require('gsap');
     const { ScrollTrigger } = require('gsap/ScrollTrigger');
     gsap.registerPlugin(ScrollTrigger);
 
-    // 1. 3D Flight Entrance (comes from the front/viewer's perspective)
-    gsap.fromTo('.hero-title',
-      { 
-        opacity: 0, 
-        z: 450, 
-        y: 40,
-        filter: 'blur(15px)',
-        transformPerspective: 1000
-      },
-      {
-        opacity: 1,
-        z: 0,
-        y: 0,
-        filter: 'blur(0px)',
-        duration: 1.8,
-        ease: 'power3.out',
-        delay: 0.1
-      }
-    );
-
-    // 2. 3D ScrollTrigger Flight (recedes and tilts backwards in depth as page scrolls)
-    // Using fromTo with immediateRender: false prevents capturing styles before load settles
-    gsap.fromTo('.hero-title',
-      {
-        y: 0,
-        z: 0,
-        rotateX: 0,
-        opacity: 1
-      },
-      {
-        scrollTrigger: {
-          trigger: '.hero-section',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        },
-        y: -320,
-        z: -600,
-        rotateX: 65,
-        opacity: 0,
-        immediateRender: false,
-        ease: 'none'
-      }
-    );
-
-    // 3. Tagline Entrance (soft blur and slide-up)
-    gsap.fromTo('.hero-tagline',
-      { 
-        opacity: 0, 
-        y: 25, 
-        filter: 'blur(5px)',
-        transformPerspective: 1000
-      },
+    // Stagger reveal of section cards
+    gsap.fromTo('.reveal-card', 
+      { opacity: 0, y: 30 },
       {
         opacity: 1,
         y: 0,
-        filter: 'blur(0px)',
-        duration: 1.5,
-        ease: 'power3.out',
-        delay: 0.5
-      }
-    );
-
-    // 4. Tagline 3D ScrollTrigger Parallax
-    gsap.fromTo('.hero-tagline',
-      {
-        y: 0,
-        z: 0,
-        opacity: 1
-      },
-      {
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
         scrollTrigger: {
-          trigger: '.hero-section',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        },
-        y: -220,
-        z: -400,
-        opacity: 0,
-        immediateRender: false,
-        ease: 'none'
-      }
-    );
-
-    // 5. CTA Button Entrance
-    gsap.fromTo('.hero-ctas',
-      { 
-        opacity: 0, 
-        y: 20,
-        transformPerspective: 1000
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: 'power3.out',
-        delay: 0.8
-      }
-    );
-
-    // 6. CTA Button 3D ScrollTrigger Parallax
-    gsap.fromTo('.hero-ctas',
-      {
-        y: 0,
-        z: 0,
-        opacity: 1
-      },
-      {
-        scrollTrigger: {
-          trigger: '.hero-section',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        },
-        y: -140,
-        z: -240,
-        opacity: 0,
-        immediateRender: false,
-        ease: 'none'
-      }
-    );
-
-    // 2. Desktop-only ScrollTrigger animations (viewports >= 1024px)
-    let mm = gsap.matchMedia();
-    mm.add("(min-width: 1024px)", () => {
-      // Services Card Grid Stagger
-      gsap.fromTo('.card-premium', 
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '#services',
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play reverse play reverse'
-          }
-        }
-      );
-
-      // scrubbing track line animation on Why Choose Us Timeline
-      gsap.fromTo('.timeline-line',
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          duration: 1.5,
-          ease: 'none',
-          transformOrigin: 'top center',
-          scrollTrigger: {
-            trigger: '.timeline-container',
-            start: 'top 80%',
-            end: 'bottom 60%',
-            scrub: true
-          }
-        }
-      );
-
-      // Staggered node entry on Why Choose Us Timeline
-      gsap.fromTo('.timeline-node',
-        { opacity: 0, x: -30 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.timeline-container',
-            start: 'top 75%',
-            end: 'bottom 25%',
-            toggleActions: 'play reverse play reverse'
-          }
-        }
-      );
-
-      // Product Cards Grid Stagger
-      gsap.fromTo('.card-product-horizontal',
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '#products',
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play reverse play reverse'
-          }
-        }
-      );
-
-      // About Us left copy text entrance
-      gsap.fromTo('.about-text-content',
-        { opacity: 0, x: -50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '#about',
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play reverse play reverse'
-          }
-        }
-      );
-
-      // About Us stats boxes bounce pop stagger
-      gsap.fromTo('.about-stat-box',
-        { opacity: 0, scale: 0.85, y: 30 },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'back.out(1.7)',
-          scrollTrigger: {
-            trigger: '.about-stats-container',
-            start: 'top 85%',
-            end: 'bottom 15%',
-            toggleActions: 'play reverse play reverse'
-          }
-        }
-      );
-    });
-
-    // 3. Holographic Focus Lock ScrollTrigger animation on bottom CTA Title
-    gsap.fromTo('.cta-title',
-      {
-        opacity: 0,
-        scale: 0.95,
-        y: 25,
-        filter: 'blur(12px)',
-        letterSpacing: '-0.15em'
-      },
-      {
-        scrollTrigger: {
-          trigger: '.cta-section',
+          trigger: '.reveal-card-trigger',
           start: 'top 85%',
-          end: 'bottom 15%',
-          toggleActions: 'play reverse play reverse'
-        },
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        letterSpacing: '0.02em',
-        duration: 1.4,
-        ease: 'power3.out'
+          toggleActions: 'play none none none'
+        }
       }
     );
 
-    return () => mm.revert();
+    // Stagger reveal of services
+    gsap.fromTo('.reveal-service', 
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.reveal-services-trigger',
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+
+    // Stagger reveal of products
+    gsap.fromTo('.reveal-product', 
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.reveal-products-trigger',
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
   }, []);
 
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const techDirectory = {
+    frontend: ['React', 'Next.js', 'Vue.js', 'Angular', 'Tailwind CSS', 'TypeScript'],
+    backend: ['Node.js', 'Python (Django/FastAPI)', 'Java (Spring Boot)', 'Go', 'PHP (Laravel)', '.NET Core'],
+    mobile: ['Flutter', 'React Native', 'Swift (iOS)', 'Kotlin (Android)'],
+    cloud: ['Amazon Web Services (AWS)', 'Microsoft Azure', 'Google Cloud Platform', 'Docker', 'Kubernetes', 'Firebase']
+  };
+
+  const faqs = [
+    {
+      q: "How long does custom software development take?",
+      a: "Depending on scope, a typical MVP (Minimum Viable Product) takes 8 to 12 weeks. Large-scale enterprise systems with microservices, complex integrations, and security migrations typically span 4 to 9 months, structured into bi-weekly agile sprint deliverables."
+    },
+    {
+      q: "How much does a typical software project cost?",
+      a: "Costs vary based on complexity, integration layers, and team scale. We provide transparent, outcome-aligned proposals after our initial discovery phase, outlining fixed milestone allocations to prevent budget creep."
+    },
+    {
+      q: "Do you sign Non-Disclosure Agreements (NDAs)?",
+      a: "Yes, 100%. We sign standard enterprise NDAs before scoping conversations or receiving data logs to protect your proprietary logic and business models."
+    },
+    {
+      q: "Do you provide post-launch maintenance and support?",
+      a: "Absolutely. We offer dedicated SLAs (Service Level Agreements) covering 24/7 server monitoring, security patching, database backups, and ongoing iterative feature improvements."
+    },
+    {
+      q: "Can you modernize or scale our existing software?",
+      a: "Yes. We frequently audit legacy code bases, migrate monolith architectures to secure serverless/containerized microservices, and optimize database layers to improve transaction performance."
+    },
+    {
+      q: "What industries do you specialize in?",
+      a: "Our core team has deep domain experience engineering digital products across Healthcare (HIPAA-compliant platforms), Education (scalable LMS systems), Finance, Logistics, and E-commerce."
+    }
+  ];
+
   return (
-    <>
-      {/* HERO SECTION */}
-      <section className="section hero-section" style={{ position: 'relative', overflow: 'hidden' }}>
+    <div className="homepage-redesign">
+      
+      {/* 1. HERO SECTION */}
+      <section className="section hero-section" style={{ minHeight: '92vh', paddingTop: '160px', paddingBottom: '80px', display: 'flex', alignItems: 'center' }}>
         <div className="grid-background"></div>
-        <div className="vertical-grid-line"></div>
-        
-        {/* Fullscreen Interactive 3D Holographic Quantum Core (Three.js) */}
-        <HeroThreeSciFi />
-        
-        <div className="container hero-grid" style={{ position: 'relative', zIndex: 1 }}>
-          <div className="hero-content" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
-            <h1 className="hero-title text-gradient-chrome" style={{ opacity: 0, transform: 'translateZ(450px) translateY(40px)', filter: 'blur(15px)', transformStyle: 'preserve-3d', willChange: 'transform, opacity, filter' }}>
-              TECHNOLOGY<br className="desktop-only" /> THAT EMPOWERS<br className="desktop-only" /> BUSINESSES
-            </h1>
-            <p className="hero-tagline" style={{ opacity: 0, transform: 'translateY(25px)', filter: 'blur(5px)', transformStyle: 'preserve-3d', willChange: 'transform, opacity, filter', fontSize: '1.1rem', maxWidth: '500px', color: 'var(--text-secondary)', lineHeight: '1.6', marginTop: 'var(--space-3)' }}>
-              We build powerful software solutions that drive innovation, automate processes and accelerate your business growth.
-            </p>
-            <div className="hero-ctas" style={{ opacity: 0, transform: 'translateY(20px)', transformStyle: 'preserve-3d', willChange: 'transform, opacity', marginTop: 'var(--space-4)', display: 'flex' }}>
-              <Link href="/services" className="btn btn-glass" style={{ borderRadius: '9999px', padding: '12px 28px', backgroundColor: 'rgba(255, 255, 255, 0.02)', borderColor: 'rgba(255, 255, 255, 0.15)', color: '#FFFFFF' }}>EXPLORE SERVICES &rarr;</Link>
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: 'var(--space-4)', alignItems: 'center', maxWidth: '100%' }}>
+            
+            {/* Left Content */}
+            <div className="hero-text-content" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.18)', borderRadius: '9999px', padding: '6px 16px', width: 'fit-content' }}>
+                <Sparkles style={{ width: '13px', height: '13px', color: '#2563EB' }} />
+                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#2563EB', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Next-Gen Software Engineering</span>
+              </div>
+              
+              <h1 className="hero-title text-gradient-chrome" style={{ fontSize: '3.8rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-1px' }}>
+                Enterprise Software.<br />Exceptional Experiences.<br />Real Business Growth.
+              </h1>
+              
+              <p className="hero-tagline" style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', lineHeight: 1.6, maxWidth: '520px' }}>
+                We design, build and scale custom digital products that resolve operational bottlenecks, automate legacy processes and drive measurable performance metrics.
+              </p>
+              
+              {/* Authenticity Bullet Points */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', margin: '8px 0' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                  <Check style={{ width: '14px', height: '14px', color: '#2563EB', strokeWidth: '3px' }} />
+                  <span>End-to-End Development</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                  <Check style={{ width: '14px', height: '14px', color: '#2563EB', strokeWidth: '3px' }} />
+                  <span>Dedicated Technical Team</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                  <Check style={{ width: '14px', height: '14px', color: '#2563EB', strokeWidth: '3px' }} />
+                  <span>Agile Sprint Delivery</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                  <Check style={{ width: '14px', height: '14px', color: '#2563EB', strokeWidth: '3px' }} />
+                  <span>Long-Term SLA Support</span>
+                </div>
+              </div>
+
+              <div className="hero-ctas" style={{ display: 'flex', gap: '14px', marginTop: '8px' }}>
+                <Link href="/contact" className="btn btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', background: 'var(--accent-blue)', color: '#FFFFFF', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                  Start Your Project <ArrowRight style={{ width: '16px', height: '16px' }} />
+                </Link>
+                <Link href="/products" className="btn btn-glass" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontWeight: 600 }}>
+                  Explore Our Solutions
+                </Link>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* TRUST BANNERS */}
-      <section className="trust-slider">
-        <div className="trust-track">
-          <span className="trust-logo">ENTERPRISE</span>
-          <span className="trust-logo">STARTUPS</span>
-          <span className="trust-logo">GOVERNMENT</span>
-          <span className="trust-logo">HEALTHCARE</span>
-          <span className="trust-logo">EDUCATION</span>
-          {/* Duplicate for looping animation scroll */}
-          <span className="trust-logo">ENTERPRISE</span>
-          <span className="trust-logo">STARTUPS</span>
-          <span className="trust-logo">GOVERNMENT</span>
-          <span className="trust-logo">HEALTHCARE</span>
-          <span className="trust-logo">EDUCATION</span>
-        </div>
-      </section>
-
-      {/* SERVICES SECTION */}
-      <section className="section" id="services">
-        <div className="container content-wrapper">
-          <div style={{textAlign: 'center', marginBottom: 'var(--space-5)'}}>
-            <div className="section-subtitle-divider">WHAT WE DO</div>
-            <h2 className="text-gradient-chrome" style={{marginTop: 'var(--space-1)', fontSize: '2.2rem', letterSpacing: '0.12em'}}>OUR SERVICES</h2>
-          </div>
-          
-          <div className="card-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))'}}>
-            <div className="card-premium card-centered">
-              <div className="card-icon"><Code style={{ width: 24, height: 24 }} /></div>
-              <h3 className="card-title" style={{fontSize: '1.05rem'}}>Software Development</h3>
-              <p className="card-desc">Custom software solutions designed to solve real-world problems and drive efficiency.</p>
-              <Link href="/services#software" className="card-action btn-text">Learn More</Link>
+            {/* Right Illustration */}
+            <div className="hero-mockup-wrapper" style={{ display: 'flex', justifyContent: 'center' }}>
+              <DashboardMockup />
             </div>
             
-            <div className="card-premium card-centered">
-              <div className="card-icon"><Cloud style={{ width: 24, height: 24 }} /></div>
-              <h3 className="card-title" style={{fontSize: '1.05rem'}}>Cloud Solutions</h3>
-              <p className="card-desc">Scalable, secure and reliable cloud solutions to modernize your infrastructure.</p>
-              <Link href="/services#cloud" className="card-action btn-text">Learn More</Link>
-            </div>
-            
-            <div className="card-premium card-centered">
-              <div className="card-icon"><Shield style={{ width: 24, height: 24 }} /></div>
-              <h3 className="card-title" style={{fontSize: '1.05rem'}}>Cybersecurity</h3>
-              <p className="card-desc">Advanced security solutions to protect your systems, data and digital assets.</p>
-              <Link href="/services#consulting" className="card-action btn-text">Learn More</Link>
-            </div>
-            
-            <div className="card-premium card-centered">
-              <div className="card-icon"><Smartphone style={{ width: 24, height: 24 }} /></div>
-              <h3 className="card-title" style={{fontSize: '1.05rem'}}>Mobile App Development</h3>
-              <p className="card-desc">Building intuitive and high-performance mobile apps for iOS and Android.</p>
-              <Link href="/services#mobile" className="card-action btn-text">Learn More</Link>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* WHY CHOOSE US TIMELINE SECTION */}
-      <section className="section" style={{backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)'}}>
-        <div className="container content-wrapper">
-          <div style={{textAlign: 'center', marginBottom: 'var(--space-5)'}}>
-            <p className="section-subtitle" style={{fontFamily: 'var(--font-heading)', fontSize: '0.8rem', letterSpacing: '0.2em', color: 'var(--text-muted)', textTransform: 'uppercase'}}>Engineering Philosophy</p>
-            <h2 className="text-gradient-chrome" style={{marginTop: 'var(--space-1)'}}>Why Choose Us</h2>
-          </div>
-          
-          <div className="timeline-container">
-            <div className="timeline-line"></div>
-            <div className="timeline-grid">
-              <div className="timeline-node">
-                <div className="timeline-dot"><Lightbulb style={{width: '20px', height: '20px'}} /></div>
-                <h4 className="timeline-title">Innovation</h4>
-                <p className="timeline-desc">Pioneering edge tech solutions rather than legacy frameworks.</p>
-              </div>
-              <div className="timeline-node">
-                <div className="timeline-dot"><Compass style={{width: '20px', height: '20px'}} /></div>
-                <h4 className="timeline-title">Strategy</h4>
-                <p className="timeline-desc">Thorough client scoping to build exact corporate logic paths.</p>
-              </div>
-              <div className="timeline-node">
-                <div className="timeline-dot"><Cpu style={{width: '20px', height: '20px'}} /></div>
-                <h4 className="timeline-title">Engineering</h4>
-                <p className="timeline-desc">Clean, optimized codebases supporting concurrent scaling.</p>
-              </div>
-              <div className="timeline-node">
-                <div className="timeline-dot"><Send style={{width: '20px', height: '20px'}} /></div>
-                <h4 className="timeline-title">Deployment</h4>
-                <p className="timeline-desc">Automated CI/CD validation checks with zero-downtime.</p>
-              </div>
-              <div className="timeline-node">
-                <div className="timeline-dot"><HeartHandshake style={{width: '20px', height: '20px'}} /></div>
-                <h4 className="timeline-title">Support</h4>
-                <p className="timeline-desc">Continuous monitoring and server updates round-the-clock.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCTS SECTION */}
-      <section className="section" id="products">
-        <div className="container content-wrapper">
-          <div style={{textAlign: 'center', marginBottom: 'var(--space-5)'}}>
-            <div className="section-subtitle-divider">INNOVATIVE SOLUTIONS</div>
-            <h2 className="text-gradient-chrome" style={{marginTop: 'var(--space-1)', fontSize: '2.2rem', letterSpacing: '0.12em'}}>OUR PRODUCTS</h2>
-          </div>
-          
-          <div className="card-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))'}}>
-            {/* Card 1 */}
-            <div className="card-product-horizontal">
-              <svg className="product-emblem-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="emblem-chrome-1" x1="0%" y1="100%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#1F252C" />
-                    <stop offset="20%" stopColor="#8A95A5" />
-                    <stop offset="40%" stopColor="#CFD6DF" />
-                    <stop offset="60%" stopColor="#FFFFFF" />
-                    <stop offset="80%" stopColor="#8A95A5" />
-                    <stop offset="100%" stopColor="#1F252C" />
-                  </linearGradient>
-                  <linearGradient id="emblem-chrome-2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FFFFFF" />
-                    <stop offset="30%" stopColor="#D1D7E0" />
-                    <stop offset="50%" stopColor="#5C6673" />
-                    <stop offset="70%" stopColor="#EBEFF5" />
-                    <stop offset="100%" stopColor="#151A21" />
-                  </linearGradient>
-                </defs>
-                <path d="M 32 85 C 32 85 45 42 55 25 C 62 13 70 12 75 22 C 80 32 85 48 85 48 C 85 48 76 68 70 78 C 65 85 58 87 50 82 Z" fill="url(#emblem-chrome-1)" opacity="0.9" />
-                <path d="M 22 82 C 12 60 22 30 45 15 C 65 2 82 8 92 25 C 102 42 101 70 85 85 C 75 95 62 98 48 90 C 44 87 48 80 54 82 C 64 85 74 81 81 74 C 91 64 92 42 84 28 C 76 15 63 11 48 21 C 32 32 23 55 30 74 C 32 80 24 84 22 82 Z" fill="url(#emblem-chrome-2)" />
-                <path d="M 33 62 C 37 58 48 55 60 57 C 72 59 81 65 85 71 C 88 77 82 81 77 78 C 72 75 66 70 56 68 C 46 66 38 68 35 71 C 31 75 29 66 33 62 Z" fill="url(#emblem-chrome-1)" />
-              </svg>
-              <div className="product-content">
-                <h3 className="product-title">AWENUE CRM</h3>
-                <p className="product-desc">A powerful CRM to manage leads, customers and sales pipeline effortlessly.</p>
-                <Link href="/product-details" className="product-link btn-text">VIEW PRODUCT</Link>
-              </div>
-            </div>
-
-            {/* Card 2 */}
-            <div className="card-product-horizontal">
-              <svg className="product-emblem-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="emblem-chrome-1" x1="0%" y1="100%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#1F252C" />
-                    <stop offset="20%" stopColor="#8A95A5" />
-                    <stop offset="40%" stopColor="#CFD6DF" />
-                    <stop offset="60%" stopColor="#FFFFFF" />
-                    <stop offset="80%" stopColor="#8A95A5" />
-                    <stop offset="100%" stopColor="#1F252C" />
-                  </linearGradient>
-                  <linearGradient id="emblem-chrome-2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FFFFFF" />
-                    <stop offset="30%" stopColor="#D1D7E0" />
-                    <stop offset="50%" stopColor="#5C6673" />
-                    <stop offset="70%" stopColor="#EBEFF5" />
-                    <stop offset="100%" stopColor="#151A21" />
-                  </linearGradient>
-                </defs>
-                <path d="M 32 85 C 32 85 45 42 55 25 C 62 13 70 12 75 22 C 80 32 85 48 85 48 C 85 48 76 68 70 78 C 65 85 58 87 50 82 Z" fill="url(#emblem-chrome-1)" opacity="0.9" />
-                <path d="M 22 82 C 12 60 22 30 45 15 C 65 2 82 8 92 25 C 102 42 101 70 85 85 C 75 95 62 98 48 90 C 44 87 48 80 54 82 C 64 85 74 81 81 74 C 91 64 92 42 84 28 C 76 15 63 11 48 21 C 32 32 23 55 30 74 C 32 80 24 84 22 82 Z" fill="url(#emblem-chrome-2)" />
-                <path d="M 33 62 C 37 58 48 55 60 57 C 72 59 81 65 85 71 C 88 77 82 81 77 78 C 72 75 66 70 56 68 C 46 66 38 68 35 71 C 31 75 29 66 33 62 Z" fill="url(#emblem-chrome-1)" />
-              </svg>
-              <div className="product-content">
-                <h3 className="product-title">AWENUE ERP</h3>
-                <p className="product-desc">An intelligent ERP system to streamline your operations and improve productivity.</p>
-                <Link href="/products#erp" className="product-link btn-text">VIEW PRODUCT</Link>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="card-product-horizontal">
-              <svg className="product-emblem-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="emblem-chrome-1" x1="0%" y1="100%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#1F252C" />
-                    <stop offset="20%" stopColor="#8A95A5" />
-                    <stop offset="40%" stopColor="#CFD6DF" />
-                    <stop offset="60%" stopColor="#FFFFFF" />
-                    <stop offset="80%" stopColor="#8A95A5" />
-                    <stop offset="100%" stopColor="#1F252C" />
-                  </linearGradient>
-                  <linearGradient id="emblem-chrome-2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FFFFFF" />
-                    <stop offset="30%" stopColor="#D1D7E0" />
-                    <stop offset="50%" stopColor="#5C6673" />
-                    <stop offset="70%" stopColor="#EBEFF5" />
-                    <stop offset="100%" stopColor="#151A21" />
-                  </linearGradient>
-                </defs>
-                <path d="M 32 85 C 32 85 45 42 55 25 C 62 13 70 12 75 22 C 80 32 85 48 85 48 C 85 48 76 68 70 78 C 65 85 58 87 50 82 Z" fill="url(#emblem-chrome-1)" opacity="0.9" />
-                <path d="M 22 82 C 12 60 22 30 45 15 C 65 2 82 8 92 25 C 102 42 101 70 85 85 C 75 95 62 98 48 90 C 44 87 48 80 54 82 C 64 85 74 81 81 74 C 91 64 92 42 84 28 C 76 15 63 11 48 21 C 32 32 23 55 30 74 C 32 80 24 84 22 82 Z" fill="url(#emblem-chrome-2)" />
-                <path d="M 33 62 C 37 58 48 55 60 57 C 72 59 81 65 85 71 C 88 77 82 81 77 78 C 72 75 66 70 56 68 C 46 66 38 68 35 71 C 31 75 29 66 33 62 Z" fill="url(#emblem-chrome-1)" />
-              </svg>
-              <div className="product-content">
-                <h3 className="product-title">AWENUE ANALYTICS</h3>
-                <p className="product-desc">Data analytics platform that turns your data into actionable business insights.</p>
-                <Link href="/products#analytics" className="product-link btn-text">VIEW PRODUCT</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT US SPLIT SECTION */}
-      <section className="section" style={{backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)'}} id="about">
-        <div className="container content-wrapper about-split-layout">
-          {/* Left side copy */}
-          <div className="about-text-content">
-            <div className="section-subtitle-left">ABOUT US</div>
-            <h2 className="text-gradient-chrome" style={{fontSize: '2.2rem', letterSpacing: '0.12em', lineHeight: '1.2', margin: 'var(--space-1) 0 var(--space-2) 0'}}>
-              DRIVEN BY INNOVATION<br className="desktop-only" /> FOCUSED ON IMPACT
-            </h2>
-            <p style={{fontSize: '0.95rem', lineHeight: '1.8', marginBottom: 'var(--space-3)', color: 'var(--text-secondary)'}}>
-              Avenue Global Software Solutions is a technology company passionate about delivering innovative, reliable and scalable software solutions. We partner with businesses to turn ideas into impactful digital experiences.
-            </p>
-            <Link href="/about" className="btn btn-primary">READ MORE ABOUT US &rarr;</Link>
-          </div>
-          
-          {/* Right side metrics */}
-          <div className="about-stats-container">
-            {/* Stat 1 */}
-            <div className="about-stat-box">
-              <Users className="stat-icon" />
-              <span className="stat-num text-gradient-chrome">50+</span>
-              <span className="stat-lbl">Happy Clients</span>
-            </div>
-            {/* Stat 2 */}
-            <div className="about-stat-box">
-              <FolderCheck className="stat-icon" />
-              <span className="stat-num text-gradient-chrome">120+</span>
-              <span className="stat-lbl">Projects Delivered</span>
-            </div>
-            {/* Stat 3 */}
-            <div className="about-stat-box">
-              <Award className="stat-icon" />
-              <span className="stat-num text-gradient-chrome">10+</span>
-              <span className="stat-lbl">Years of Experience</span>
-            </div>
-            {/* Stat 4 */}
-            <div className="about-stat-box">
-              <Users className="stat-icon" />
-              <span className="stat-num text-gradient-chrome">25+</span>
-              <span className="stat-lbl">Expert Team</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CALL TO ACTION BOTTOM */}
-      <section className="section cta-section" style={{textAlign: 'center', padding: 'var(--space-8) 0'}}>
-        <div className="container content-wrapper">
-          <h2 className="text-gradient-chrome cta-title" style={{fontSize: '3rem', marginBottom: 'var(--space-3)', lineHeight: '1.2'}}>
-            Let's Build Something<br className="desktop-only" /> Extraordinary
-          </h2>
-          <p style={{color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto var(--space-4) auto', fontSize: '1.1rem'}}>
-            Partner with AWENUE to map your enterprise systems, deploy scalable web structures, and lead your digital transformation cycle.
+      {/* 2. TRUSTED TECHNOLOGY STACK BAR */}
+      <section className="trust-slider" style={{ borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)', padding: '32px 0', background: 'rgba(255,255,255,0.01)' }}>
+        <div className="container">
+          <p style={{ textAlign: 'center', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '2px', marginBottom: '20px' }}>
+            Built With a Trusted Technology Stack
           </p>
-          <div className="btn-wrapper">
-            <Link href="/contact" className="btn btn-primary" style={{fontSize: '1.1rem', padding: '18px 48px'}}>Contact Us</Link>
+          <div className="tech-marquee-container">
+            <div className="tech-marquee-track">
+              {['React', 'Next.js', 'Node.js', 'Amazon Web Services', 'MongoDB', 'Flutter', 'Microsoft Azure', 'Docker', 'Kubernetes', 'Python', 'React', 'Next.js', 'Node.js', 'Amazon Web Services', 'MongoDB', 'Flutter', 'Microsoft Azure', 'Docker', 'Kubernetes', 'Python'].map((tech, i) => (
+                <div key={i} className="tech-marquee-item">{tech}</div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
-    </>
+
+      {/* 3. BUSINESS CHALLENGES SECTION */}
+      <section className="section" style={{ padding: '100px 0' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Business Barriers</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Are you facing these digital scaling challenges?</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              Enterprise software development shouldn't be a guessing game. We address your critical operational friction points first.
+            </p>
+          </div>
+
+          <div className="challenge-grid reveal-card-trigger">
+            {[
+              { title: "Outdated Legacy Systems", desc: "Monolith database architectures slowing transaction processing times and degrading system throughput." },
+              { title: "Manual Operation Overload", desc: "Employees spending hours manual-billing, scheduling, and matching data logs across disjointed legacy systems." },
+              { title: "Fragmented Data Silos", desc: "CRM, HRMS, and finance ledgers operating independently without unified analytical dashboards." },
+              { title: "Sub-Optimal Retention", desc: "User retention drop-offs caused by unresponsive layouts, slow API queries, and outdated UX interfaces." }
+            ].map((item, index) => (
+              <div key={index} className="challenge-card reveal-card">
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '12px' }}>{item.title}</h3>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          
+          <div style={{ textAlign: 'center', marginTop: '48px' }}>
+            <p style={{ fontSize: '1.1rem', color: 'var(--text-primary)', fontWeight: 500 }}>
+              "Awenue maps your digital bottlenecks and builds high-performance tools to solve them."
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. GROUPED SERVICES SECTION */}
+      <section className="section" id="services" style={{ padding: '100px 0', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Our Capabilities</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Grouped Capabilities. High-Performance Execution.</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              We compile robust code blocks and layout frameworks organized into specialized engineering divisions.
+            </p>
+          </div>
+
+          <div className="services-group-section reveal-services-trigger">
+            {/* Category 1 */}
+            <div>
+              <h3 className="services-category-title">Software Engineering</h3>
+              <div className="services-category-grid">
+                {[
+                  { title: "Custom Software Development", desc: "We design robust microservices, custom database schemas, and clean API gateways built to handle transactional loads with low latencies.", benefit: "Boosts process automation metrics by up to 60%." },
+                  { title: "SaaS Product Engineering", desc: "Multi-tenant workspace platforms engineered with secure authorization levels, billing portals, and visual dashboards.", benefit: "Accelerates time-to-market delivery cycles." },
+                  { title: "Enterprise Systems Integration", desc: "We build connections between your CRM, ERP, and payment databases to establish a unified operational environment.", benefit: "Consolidates business analytics reports in real-time." }
+                ].map((service, i) => (
+                  <div key={i} className="service-premium-card reveal-service">
+                    <div>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '12px' }}>{service.title}</h4>
+                      <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>{service.desc}</p>
+                    </div>
+                    <div style={{ borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '12px' }}>
+                      <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#2563EB', fontWeight: 700, display: 'block', marginBottom: '4px' }}>Business Impact</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 500 }}>{service.benefit}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Category 2 */}
+            <div style={{ marginTop: '32px' }}>
+              <h3 className="services-category-title">Digital Experiences</h3>
+              <div className="services-category-grid">
+                {[
+                  { title: "Website Development", desc: "Performance-oriented websites built using Next.js. Optimized for page-loading speed metrics and responsive layouts.", benefit: "Improves Search Engine visibility scores." },
+                  { title: "Mobile App Development", desc: "Hybrid React Native frameworks and native iOS/Android apps built with offline DB caching and fluid UI transitions.", benefit: "Provides smooth performance metrics on mobile screens." },
+                  { title: "UI/UX Design & Prototyping", desc: "Detailed Figma user journey wireframes and interactive prototypes styled to maximize visual retention and task flow.", benefit: "Reduces user onboarding drop-off cycles." }
+                ].map((service, i) => (
+                  <div key={i} className="service-premium-card reveal-service">
+                    <div>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '12px' }}>{service.title}</h4>
+                      <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>{service.desc}</p>
+                    </div>
+                    <div style={{ borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '12px' }}>
+                      <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#2563EB', fontWeight: 700, display: 'block', marginBottom: '4px' }}>Business Impact</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 500 }}>{service.benefit}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Category 3 */}
+            <div style={{ marginTop: '32px' }}>
+              <h3 className="services-category-title">Growth & Cloud Systems</h3>
+              <div className="services-category-grid">
+                {[
+                  { title: "Cloud Architecture & DevOps", desc: "Container orchestration setups utilizing Docker and Kubernetes clusters on AWS/Azure to guarantee zero downtime.", benefit: "Reduces server overhead costs by up to 35%." },
+                  { title: "Strategic IT Consulting", desc: "Auditing your systems security layer, scoping network plans, and outlining digital transformation migration paths.", benefit: "Identifies legacy data vulnerabilities." }
+                ].map((service, i) => (
+                  <div key={i} className="service-premium-card reveal-service">
+                    <div>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '12px' }}>{service.title}</h4>
+                      <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>{service.desc}</p>
+                    </div>
+                    <div style={{ borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '12px' }}>
+                      <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#2563EB', fontWeight: 700, display: 'block', marginBottom: '4px' }}>Business Impact</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 500 }}>{service.benefit}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. FEATURED SAAS PRODUCTS */}
+      <section className="section" id="products" style={{ padding: '100px 0' }}>
+        <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px', flexWrap: 'wrap', gap: '20px' }}>
+            <div style={{ maxWidth: '600px' }}>
+              <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Product Suite</span>
+              <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Holographic SaaS Products</h2>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+                Pre-engineered white-label core architectures deployed and configured to match your company's workflows.
+              </p>
+            </div>
+            <Link href="/products" className="btn btn-glass" style={{ padding: '12px 24px', borderRadius: '12px', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>
+              View All Products &rarr;
+            </Link>
+          </div>
+
+          <div className="services-category-grid reveal-products-trigger">
+            {[
+              { 
+                name: "Awenue CRM", 
+                tag: "Sales Pipeline",
+                desc: "Cloud pipeline system built to automate lead scoring, monitor sales task grids, and generate auto-performance logs.",
+                features: ["Lead Scoring Pipelines", "Interactive Task Grids", "Real-Time Reports"],
+                industry: "Real Estate, Agencies, SaaS"
+              },
+              { 
+                name: "Awenue HRMS", 
+                tag: "Workforce Management",
+                desc: "Secure workforce portal to handle staff logs, salary structures, leave requests, and digital assessment review loops.",
+                features: ["Automated Salary Structures", "Personnel Access Levels", "Task Audit Trails"],
+                industry: "Enterprises, SMEs"
+              },
+              { 
+                name: "Awenue School Manager", 
+                tag: "LMS & Admin Suite",
+                desc: "Integrated student information system supporting automated attendance tracks, fee invoice dispatch, and parent portals.",
+                features: ["Billing Invoice Dispatch", "LMS Portal Integrations", "Database Check-Ins"],
+                industry: "Schools, Universities"
+              }
+            ].map((prod, index) => (
+              <div key={index} className="service-premium-card reveal-product" style={{ padding: '28px', background: 'var(--card-bg)' }}>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                    <span style={{ fontSize: '0.65rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>{prod.tag}</span>
+                    <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>{prod.industry}</span>
+                  </div>
+                  
+                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px' }}>{prod.name}</h3>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '20px' }}>{prod.desc}</p>
+                  
+                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
+                    {prod.features.map((feat, i) => (
+                      <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                        <Check style={{ width: '13px', height: '13px', color: '#2563EB', strokeWidth: '3px' }} />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <Link href="/contact" className="btn btn-glass" style={{ width: '100%', textAlign: 'center', padding: '10px', fontSize: '0.85rem', fontWeight: 600, border: '1px solid var(--border-color)', borderRadius: '10px', color: 'var(--text-primary)', display: 'block' }}>
+                  Request Demo Setup
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. DEVELOPMENT PROCESS SECTION */}
+      <section className="section" style={{ padding: '100px 0', borderTop: '1px solid var(--border-color)', background: 'rgba(255,255,255,0.01)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Our Framework</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Agile Development Journey</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              We compile code following structured, logical milestones to guarantee transparent progress visibility.
+            </p>
+          </div>
+
+          <ProcessTimeline />
+        </div>
+      </section>
+
+      {/* 7. FEATURED CASE STUDY */}
+      <section className="section" id="portfolio" style={{ padding: '100px 0' }}>
+        <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px', flexWrap: 'wrap', gap: '20px' }}>
+            <div>
+              <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Featured Case Study</span>
+              <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Scalable Digital Architecture in Practice</h2>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+                How we solved manual overhead cycles for a prominent educational system.
+              </p>
+            </div>
+          </div>
+
+          {/* Case Study Card */}
+          <div 
+            style={{ 
+              background: 'var(--card-bg)', 
+              border: '1px solid var(--border-color)', 
+              borderRadius: '24px', 
+              padding: '40px',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '40px',
+              alignItems: 'center'
+            }}
+          >
+            {/* Left Case Info */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div>
+                <span style={{ fontSize: '0.7rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', display: 'block', marginBottom: '8px' }}>PROJECT_SHOWCASE</span>
+                <h3 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)' }}>LMS & Billing Centralization</h3>
+              </div>
+              
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                An educational organization with 12 campuses processed fee collections, student logs, and grades manually, causing data lags and billing discrepancies.
+              </p>
+
+              {/* Problem/Solution split */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ borderLeft: '3px solid #EF4444', paddingLeft: '16px' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#EF4444', textTransform: 'uppercase' }}>The challenge</span>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                    100+ manual spreadsheets, delayed payment reconciliations, and slow load times on legacy student records databases.
+                  </p>
+                </div>
+                <div style={{ borderLeft: '3px solid #10B981', paddingLeft: '16px' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#10B981', textTransform: 'uppercase' }}>The architecture</span>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                    Developed a cloud-native Next.js portal powered by Node.js microservices. Integrated Stripe Billing APIs for auto-invoicing and built an offline-sync mobile app.
+                  </p>
+                </div>
+              </div>
+
+              {/* Technologies Badge */}
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '8px' }}>
+                {['Next.js', 'Node.js', 'PostgreSQL', 'AWS ECS', 'Stripe Billing'].map((tech, i) => (
+                  <span key={i} style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '4px 10px' }}>{tech}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Case Metrics */}
+            <div 
+              style={{ 
+                background: 'rgba(255, 255, 255, 0.01)', 
+                border: '1px solid rgba(255, 255, 255, 0.04)', 
+                borderRadius: '16px', 
+                padding: '32px',
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '24px',
+                textAlign: 'center'
+              }}
+            >
+              <div>
+                <span style={{ fontSize: '2.5rem', fontWeight: 800, color: '#2563EB', display: 'block' }}>-40%</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '4px', display: 'block' }}>Admin Overhead Hours</span>
+              </div>
+              <div>
+                <span style={{ fontSize: '2.5rem', fontWeight: 800, color: '#10B981', display: 'block' }}>100%</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '4px', display: 'block' }}>Auto Billing Reconciliations</span>
+              </div>
+              <div style={{ gridColumn: 'span 2', borderTop: '1px solid rgba(255, 255, 255, 0.04)', paddingTop: '24px', textAlign: 'left' }}>
+                <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.5px' }}>Business Impact</span>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.5 }}>
+                  The transition consolidated accounting records into one dashboard, freeing up administration workers for direct parent support lines.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. INDUSTRIES SERVED */}
+      <section className="section" style={{ padding: '100px 0', borderTop: '1px solid var(--border-color)', background: 'rgba(255,255,255,0.01)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Domain Expertise</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Outcome-Focused Industries</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              We adapt software structures to meet the compliance frameworks and user models of specific sectors.
+            </p>
+          </div>
+
+          <div className="challenge-grid">
+            {[
+              { ind: "Healthcare", desc: "Secure digital management grids, HIPAA-compliant patient dashboards, and automated clinic consultation schedules." },
+              { ind: "Education", desc: "Learning Management Systems, student personnel tracking databases, auto-billing invoices, and exam grade portals." },
+              { ind: "Real Estate", desc: "Interactive asset listings, custom CRM lead-tracking software, and Stripe payment gateway interfaces." },
+              { ind: "Logistics", desc: "Database record management for fleets, automated shipping logs, and live tracking map configurations." }
+            ].map((item, index) => (
+              <div key={index} className="challenge-card" style={{ padding: '24px' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '10px' }}>{item.ind}</h3>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. STRUCTURED TECHNOLOGIES DIRECTORY */}
+      <section className="section" style={{ padding: '100px 0' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Competence Map</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Structured Tech Stack</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              We build using modern, developer-supported technologies to ensure long-term database scalability.
+            </p>
+          </div>
+
+          {/* Interactive tabs */}
+          <div className="tech-directory-tabs">
+            {Object.keys(techDirectory).map((tab) => (
+              <button 
+                key={tab}
+                className={`tech-tab-button ${activeTechTab === tab ? 'active' : ''}`}
+                onClick={() => setActiveTechTab(tab)}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
+          </div>
+
+          {/* Tech List Grid */}
+          <div className="tech-directory-grid">
+            {techDirectory[activeTechTab].map((techName, index) => (
+              <div key={index} className="tech-directory-item">
+                {techName}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 10. WHY CHOOSE AWENUE (COMPARISON TABLE) */}
+      <section className="section" style={{ padding: '100px 0', borderTop: '1px solid var(--border-color)', background: 'rgba(255,255,255,0.01)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto var(--space-5) auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Operational Strategy</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Measurable Advantages</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              Compare how we structure development cycles compared to legacy outsourced IT agencies.
+            </p>
+          </div>
+
+          {/* Comparison Matrix */}
+          <div className="comparison-table-wrapper">
+            <table className="comparison-table">
+              <thead>
+                <tr>
+                  <th className="comparison-th">Operational Metric</th>
+                  <th className="comparison-th" style={{ color: 'var(--text-muted)' }}>Traditional Vendor</th>
+                  <th className="comparison-th" style={{ color: '#2563EB' }}>Awenue Systems</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="comparison-tr">
+                  <td className="comparison-td" style={{ fontWeight: 600 }}>Architecture Customization</td>
+                  <td className="comparison-td">WordPress / Theme templates with bloated styling rules.</td>
+                  <td className="comparison-td" style={{ color: 'var(--text-primary)', fontWeight: 500 }}>Bespoke backend modules engineered for high concurrency.</td>
+                </tr>
+                <tr className="comparison-tr">
+                  <td className="comparison-td" style={{ fontWeight: 600 }}>Agile Visibility</td>
+                  <td className="comparison-td">Vague project checkpoints, slow update emails.</td>
+                  <td className="comparison-td" style={{ color: 'var(--text-primary)', fontWeight: 500 }}>Live development staging links, bi-weekly sprint reviews.</td>
+                </tr>
+                <tr className="comparison-tr">
+                  <td className="comparison-td" style={{ fontWeight: 600 }}>Security Layering</td>
+                  <td className="comparison-td">Basic plugin firewall locks, legacy network configs.</td>
+                  <td className="comparison-td" style={{ color: 'var(--text-primary)', fontWeight: 500 }}>TLS encryption layers, secure database authorization policies.</td>
+                </tr>
+                <tr className="comparison-tr">
+                  <td className="comparison-td" style={{ fontWeight: 600 }}>Post-Launch Support</td>
+                  <td className="comparison-td">Freelance support contracts, delayed bug patch logs.</td>
+                  <td className="comparison-td" style={{ color: 'var(--text-primary)', fontWeight: 500 }}>Dedicated SLA response metrics, automatic system updates.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* 11. CORE PHILOSOPHY & VISION */}
+      <section className="section" style={{ padding: '100px 0' }}>
+        <div className="container">
+          <div 
+            style={{ 
+              background: 'linear-gradient(135deg, rgba(37,99,235,0.05) 0%, rgba(10,15,30,0.6) 100%)', 
+              border: '1px solid rgba(37,99,235,0.15)', 
+              borderRadius: '24px', 
+              padding: '48px',
+              maxWidth: '900px',
+              margin: '0 auto'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+              <Building style={{ width: '16px', height: '16px', color: '#2563EB' }} />
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#2563EB', textTransform: 'uppercase', letterSpacing: '1px' }}>Engineering Philosophy</span>
+            </div>
+            
+            <h3 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '16px', lineHeight: '1.3' }}>
+              "We believe enterprise software should be measured by business speed metrics, security, and scalability—not lines of code."
+            </h3>
+            
+            <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
+              Our founding team established Awenue to solve a major operational gap: many development houses deliver features that look good but buckle under database load or fail compliance audits. We build digital architectures aligned to support enterprise transactions from step one.
+            </p>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '20px' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <HeartHandshake style={{ width: '18px', height: '18px', color: 'var(--text-secondary)' }} />
+              </div>
+              <div>
+                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', display: 'block' }}>Awenue Engineering Core</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Founding Vision Statement</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 12. FAQ ACCORDION SECTION */}
+      <section className="section" style={{ padding: '100px 0', borderTop: '1px solid var(--border-color)', background: 'rgba(255,255,255,0.01)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto' }}>
+            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Help Center</span>
+            <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Frequently Asked Questions</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6 }}>
+              Key scoping details startup founders and enterprise CTOs clarify before initiating builds.
+            </p>
+          </div>
+
+          <div className="faq-accordion-container">
+            {faqs.map((faq, index) => (
+              <div key={index} className="faq-item">
+                <button 
+                  className="faq-question-button"
+                  onClick={() => toggleFaq(index)}
+                >
+                  <span>{faq.q}</span>
+                  {openFaq === index ? (
+                    <ChevronUp style={{ width: '18px', height: '18px', color: '#2563EB' }} />
+                  ) : (
+                    <ChevronDown style={{ width: '18px', height: '18px', color: 'var(--text-muted)' }} />
+                  )}
+                </button>
+                {openFaq === index && (
+                  <div className="faq-answer-wrapper">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 13. ACTION-ORIENTED FINAL CTA SECTION */}
+      <section className="section cta-section" style={{ padding: '120px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+        <div 
+          style={{ 
+            position: 'absolute',
+            width: '60%',
+            height: '60%',
+            top: '20%',
+            left: '20%',
+            background: 'radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0) 60%)',
+            filter: 'blur(50px)',
+            pointerEvents: 'none',
+            zIndex: 1
+          }}
+        />
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <h2 className="text-gradient-chrome cta-title" style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '16px', lineHeight: 1.25 }}>
+            Ready to Build Your Next Digital Product?
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '580px', margin: '0 auto var(--space-4) auto', fontSize: '1.05rem', lineHeight: 1.6 }}>
+            Let's discuss your operational bottleneck cycles, system parameters, and construct software modules that deliver real business growth.
+          </p>
+          <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/contact" className="btn btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', background: 'var(--accent-blue)', color: '#FFFFFF', fontWeight: 600 }}>
+              Schedule a Consultation
+            </Link>
+            <Link href="/contact" className="btn btn-glass" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontWeight: 600 }}>
+              Request a Proposal
+            </Link>
+          </div>
+        </div>
+      </section>
+      
+    </div>
   );
 }

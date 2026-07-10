@@ -3,35 +3,35 @@
    ========================================================================== */
 
 /* Font Imports */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* CSS Variables */
 :root {
-  /* Color Palette */
-  --bg-primary: #060606;
-  --bg-secondary: #101010;
-  --card-bg: #141414;
-  --card-hover: #1A1A1A;
-  --border-color: #2B2B2B;
-  --border-hover: #444444;
+  /* Color Palette - Deep Navy Enterprise theme */
+  --bg-primary: #0A0F1E;
+  --bg-secondary: #0D1426;
+  --card-bg: rgba(18, 26, 47, 0.4);
+  --card-hover: rgba(28, 39, 68, 0.55);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(37, 99, 235, 0.4);
   
-  --text-primary: #FFFFFF;
-  --text-secondary: #CFCFCF;
-  --text-muted: #8B8B8B;
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
   
   /* Accent & Glows */
-  --accent-glow: rgba(245, 245, 245, 0.05);
-  --accent-glow-strong: rgba(245, 245, 245, 0.15);
-  --cursor-glow-color: rgba(245, 245, 245, 0.03);
+  --accent-blue: #2563EB;
+  --accent-glow: rgba(37, 99, 235, 0.15);
+  --accent-glow-strong: rgba(37, 99, 235, 0.35);
+  --cursor-glow-color: rgba(37, 99, 235, 0.05);
   
   /* Metallic Gradients */
-  --gradient-chrome: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 25%, #88929A 48%, #CBD5E1 52%, #444E56 80%, #000000 100%);
-  --gradient-gunmetal: linear-gradient(135deg, #1E293B 0%, #334155 30%, #0F172A 70%, #1E293B 100%);
-  --gradient-titanium: linear-gradient(135deg, #475569 0%, #64748B 25%, #1E293B 50%, #334155 75%, #475569 100%);
-  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  --gradient-chrome: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 50%, #94A3B8 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 100%);
+  --gradient-accent: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
   
   /* Fonts */
-  --font-heading: 'Space Grotesk', sans-serif;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Inter', sans-serif;
   
   /* Spacing Grid (8px based) */
@@ -45,8 +45,8 @@
   --space-8: 120px;
   
   /* Sizing */
-  --container-max: 1440px;
-  --content-max: 1280px;
+  --container-max: 1400px;
+  --content-max: 1200px;
   
   /* Border Radii */
   --radius-card: 24px;
@@ -54,8 +54,8 @@
   --radius-input: 14px;
   
   /* Transition Easings */
-  --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: all 0.2s ease;
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.25s ease;
   
   /* Z-Indices */
   --z-bg: -1;
@@ -2493,3 +2493,342 @@ br.desktop-only {
   margin-left: 2px !important;
   text-shadow: 0 0 10px #00f2fe !important;
 }
+
+/* ==========================================================================
+   HOMEPAGE STORYTELLING COMPONENT STYLES
+   ========================================================================== */
+
+/* 1. Grayscale Tech Marquee */
+.tech-marquee-container {
+  overflow: hidden;
+  padding: var(--space-2) 0;
+  width: 100%;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+}
+
+.tech-marquee-track {
+  display: flex;
+  gap: var(--space-5);
+  width: max-content;
+  animation: scroll-marquee 25s linear infinite;
+}
+
+.tech-marquee-item {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  opacity: 0.55;
+  transition: var(--transition-fast);
+  cursor: default;
+}
+
+.tech-marquee-item:hover {
+  opacity: 1;
+  color: var(--accent-blue);
+  text-shadow: 0 0 15px var(--accent-glow);
+}
+
+@keyframes scroll-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 2. Business Challenges Section */
+.challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.challenge-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.challenge-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  transition: var(--transition-fast);
+}
+
+.challenge-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(239, 68, 68, 0.2);
+  background-color: var(--card-hover);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+.challenge-card:hover::before {
+  background: #EF4444; /* Alert color for challenges */
+}
+
+/* 3. Vertical Process Timeline */
+.process-vertical-timeline {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: var(--space-5) auto 0 auto;
+  padding: var(--space-3) 0;
+}
+
+.process-track-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.process-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover) !important;
+  background-color: var(--card-hover) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+}
+
+.process-timeline-node:hover .process-icon-outer {
+  border-color: var(--accent-blue) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 0 15px var(--accent-glow) !important;
+}
+
+/* Responsive Process Timeline */
+@media (max-width: 768px) {
+  .process-track-line {
+    left: 28px;
+  }
+  .process-timeline-node {
+    grid-template-columns: 56px 1fr !important;
+    gap: var(--space-2);
+  }
+  .process-timeline-node > div:nth-child(1) {
+    grid-column: 2 !important;
+    order: 2 !important;
+    padding-left: 12px !important;
+    padding-right: 0 !important;
+    text-align: left !important;
+  }
+  .process-icon-outer {
+    grid-column: 1 !important;
+    order: 1 !important;
+  }
+  .process-timeline-node > div:nth-child(3) {
+    display: none !important;
+  }
+}
+
+/* 4. Comparison Table */
+.comparison-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  margin-top: var(--space-4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 600px;
+}
+
+.comparison-th {
+  padding: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.comparison-td {
+  padding: var(--space-3);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.comparison-tr:last-child .comparison-td {
+  border-bottom: none;
+}
+
+.comparison-tr:hover {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+/* 5. Services Group Grid & Card Elevate Lift */
+.services-group-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.services-category-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-left: 3px solid var(--accent-blue);
+  padding-left: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.services-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: var(--space-3);
+}
+
+.service-premium-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.service-premium-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-hover);
+  background-color: var(--card-hover);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* 6. FAQ Accordion Item styling */
+.faq-accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 800px;
+  margin: var(--space-4) auto 0 auto;
+}
+
+.faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: var(--card-bg);
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.faq-question-button {
+  width: 100%;
+  padding: 20px 24px;
+  background: transparent;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+}
+
+.faq-question-button:hover {
+  color: var(--accent-blue);
+}
+
+.faq-answer-wrapper {
+  padding: 0 24px 20px 24px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  animation: slide-down-faq 0.25s ease-out;
+}
+
+@keyframes slide-down-faq {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 7. Structured Tech Stack Grid */
+.tech-directory-tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.tech-tab-button {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: 9999px;
+  padding: 10px 22px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.tech-tab-button:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--text-primary);
+}
+
+.tech-tab-button.active {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: #FFFFFF;
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.tech-directory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.tech-directory-item {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+}
+
+.tech-directory-item:hover {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
