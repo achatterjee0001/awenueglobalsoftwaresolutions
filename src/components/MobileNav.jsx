@@ -8,7 +8,7 @@ export default function MobileNav({ isOpen, onClose }) {
   return (
     <div className={`nav-menu-mobile ${isOpen ? 'open' : ''}`}>
       <div className="mobile-nav-header">
-        <img src="/assets/logo-dark.png" alt="AWENUE logo" style={{ height: '36px', objectFit: 'contain' }} />
+        <img src="/assets/logo-dark.png" alt="AWENUE logo" style={{ height: '50px', objectFit: 'contain' }} />
         <button className="mobile-close-btn" aria-label="Close Navigation" onClick={onClose}>
           <X style={{ width: 18, height: 18 }} />
         </button>

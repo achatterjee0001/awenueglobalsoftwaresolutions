@@ -1953,7 +1953,10 @@ a {
     height: 85px !important;
   }
   .brand-logo-img {
-    height: 60px !important;
+    height: 75px !important; /* Increased phone logo height */
+  }
+  .header-nav .btn-wrapper {
+    display: none !important; /* Hide Get In Touch button from phone view header */
   }
   .main-content {
     min-height: calc(100vh - 85px) !important;
@@ -2208,5 +2211,97 @@ br.desktop-only {
   h2.text-gradient-chrome {
     font-size: 1.8rem !important;
     letter-spacing: 0.08em !important;
+  }
+}
+
+/* 4. Fullscreen Centered Mobile Overlay Menu */
+@media (max-width: 768px) {
+  .nav-menu-mobile {
+    width: 100vw !important;
+    height: 100vh !important;
+    right: -100vw !important;
+    left: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    z-index: 99999 !important;
+  }
+  
+  /* Centered spinning holographic circular radar outline */
+  .nav-menu-mobile::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px;
+    height: 280px;
+    border: 1px dashed rgba(255, 255, 255, 0.035);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    animation: rotateClockwise 45s linear infinite;
+  }
+  
+  .nav-menu-mobile.open {
+    right: 0 !important;
+  }
+  
+  .mobile-nav-header {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 90px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 var(--space-4) !important;
+  }
+  
+  .mobile-close-btn {
+    position: absolute !important;
+    top: 25px !important;
+    right: 25px !important;
+    margin: 0 !important;
+  }
+  
+  .mobile-nav-links {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: var(--space-4) !important;
+    width: 100% !important;
+    margin-top: 50px !important;
+    padding: 0 var(--space-4) !important;
+  }
+  
+  .nav-menu-mobile .nav-link {
+    font-size: 1.6rem !important;
+    text-align: center !important;
+    border-bottom: none !important;
+    padding: 8px 0 !important;
+    width: fit-content !important;
+    transition: color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease, opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .nav-menu-mobile .nav-link::before {
+    bottom: 2px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .nav-menu-mobile .nav-link:hover::before {
+    width: 30px !important;
+  }
+
+  .nav-menu-mobile .nav-link:hover {
+    padding-left: 0 !important;
+    color: #ffffff !important;
+    transform: scale(1.12) !important;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.35) !important;
   }
 }

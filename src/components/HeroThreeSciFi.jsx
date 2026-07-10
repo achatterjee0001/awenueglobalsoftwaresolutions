@@ -18,7 +18,13 @@ export default function HeroThreeSciFi() {
     const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
     camera.position.z = 280;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    } catch (e) {
+      console.warn("WebGL not supported or context lost. Failing gracefully:", e);
+      return;
+    }
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     containerRef.current.appendChild(renderer.domElement);
