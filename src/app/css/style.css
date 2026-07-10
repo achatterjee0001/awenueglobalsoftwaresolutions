@@ -2501,7 +2501,7 @@ br.desktop-only {
 /* 1. Grayscale Tech Marquee */
 .tech-marquee-container {
   overflow: hidden;
-  padding: var(--space-4) 0;
+  padding: 8px 0;
   width: 100%;
   position: relative;
   mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);

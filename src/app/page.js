@@ -192,9 +192,9 @@ export default function Home() {
       </section>
 
       {/* 2. TRUSTED TECHNOLOGY STACK BAR */}
-      <section className="trust-slider" style={{ borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)', padding: '48px 0', background: 'rgba(255,255,255,0.01)' }}>
+      <section className="trust-slider" style={{ borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)', padding: '24px 0', background: 'rgba(255,255,255,0.01)' }}>
         <div className="container">
-          <p style={{ textAlign: 'center', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '2px', marginBottom: '36px' }}>
+          <p style={{ textAlign: 'center', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '2px', marginBottom: '16px' }}>
             Built With a Trusted Technology Stack
           </p>
           <div className="tech-marquee-container">
