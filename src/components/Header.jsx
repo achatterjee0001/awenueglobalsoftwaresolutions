@@ -13,7 +13,8 @@ import {
   Users, 
   Briefcase, 
   GraduationCap, 
-  Activity 
+  Activity,
+  ChevronDown
 } from 'lucide-react';
 
 export default function Header({ onMobileMenuToggle, isOpen }) {
@@ -137,9 +138,7 @@ export default function Header({ onMobileMenuToggle, isOpen }) {
               </div>
             </div>
           </div>
-          <div className="nav-item">
-            <Link href="/#portfolio" className="nav-link">Portfolio</Link>
-          </div>
+
           <div className="nav-item">
             <Link href="/about" className="nav-link">About</Link>
           </div>

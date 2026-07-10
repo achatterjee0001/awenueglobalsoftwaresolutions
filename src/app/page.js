@@ -171,7 +171,7 @@ export default function Home() {
                   <span>Long-Term SLA Support</span>
                 </div>
               </div>
-
+ 
               <div className="hero-ctas" style={{ display: 'flex', gap: '14px', marginTop: '8px' }}>
                 <Link href="/contact" className="btn btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', background: 'var(--accent-blue)', color: '#FFFFFF', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   Start Your Project <ArrowRight style={{ width: '16px', height: '16px' }} />
@@ -181,7 +181,7 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-
+ 
             {/* Right Illustration */}
             <div className="hero-mockup-wrapper" style={{ display: 'flex', justifyContent: 'center' }}>
               <DashboardMockup />
@@ -192,15 +192,34 @@ export default function Home() {
       </section>
 
       {/* 2. TRUSTED TECHNOLOGY STACK BAR */}
-      <section className="trust-slider" style={{ borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)', padding: '32px 0', background: 'rgba(255,255,255,0.01)' }}>
+      <section className="trust-slider" style={{ borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)', padding: '48px 0', background: 'rgba(255,255,255,0.01)' }}>
         <div className="container">
-          <p style={{ textAlign: 'center', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '2px', marginBottom: '20px' }}>
+          <p style={{ textAlign: 'center', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '2px', marginBottom: '36px' }}>
             Built With a Trusted Technology Stack
           </p>
           <div className="tech-marquee-container">
             <div className="tech-marquee-track">
-              {['React', 'Next.js', 'Node.js', 'Amazon Web Services', 'MongoDB', 'Flutter', 'Microsoft Azure', 'Docker', 'Kubernetes', 'Python', 'React', 'Next.js', 'Node.js', 'Amazon Web Services', 'MongoDB', 'Flutter', 'Microsoft Azure', 'Docker', 'Kubernetes', 'Python'].map((tech, i) => (
-                <div key={i} className="tech-marquee-item">{tech}</div>
+              {[
+                { name: 'React', svg: <svg viewBox="0 0 24 24" width="48" height="48" fill="none" strokeWidth="1.5"><ellipse cx="12" cy="12" rx="11" ry="4.2" /><ellipse cx="12" cy="12" rx="11" ry="4.2" transform="rotate(60 12 12)" /><ellipse cx="12" cy="12" rx="11" ry="4.2" transform="rotate(120 12 12)" /><circle cx="12" cy="12" r="2" fill="currentColor" /></svg> },
+                { name: 'Next.js', svg: <svg viewBox="0 0 24 24" width="48" height="48" fill="none" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M9 17V7l7.5 9.5V7" /></svg> },
+                { name: 'Node.js', svg: <svg viewBox="0 0 24 24" width="48" height="48" fill="none" strokeWidth="1.5"><path d="M12 2L3 7v10l9 5 9-5V7L12 2z" /><path d="M12 22V12m0 0L3 7m9 5l9-5" /></svg> },
+                { name: 'AWS', svg: <svg viewBox="0 0 24 24" width="48" height="48" fill="none" strokeWidth="1.5"><path d="M6 14s2.5-3 6-3 6 3 6 3M3 17s4-5 9-5 9 5 9 5M12 6c-3 0-5.5 2-5.5 4.5S9 15 12 15s5.5-2 5.5-4.5S15 6 12 6z" /></svg> },
+                { name: 'PostgreSQL', svg: <svg viewBox="0 0 24 24" width="48" height="48" fill="none" strokeWidth="1.5"><path d="M12 2c4.4 0 8 3.6 8 8 0 3-1.6 5.6-4 7L12 22 8 17c-2.4-1.4-4-4-4-7 0-4.4 3.6-8 8-8z" /><path d="M12 6v8m-4-6h8" /></svg> },
+                { name: 'Docker', svg: <svg viewBox="0 0 24 24" width="48" height="48" fill="none" strokeWidth="1.5"><path d="M2 14h20v2H2zM5 11h3v3H5zm4 0h3v3H9zm4 0h3v3h-3zm4 0h3v3h-3zM9 8h3v3H9zm4 0h3v3h-3z" /></svg> },
+                { name: 'Kubernetes', svg: <svg viewBox="0 0 24 24" width="48" height="48" fill="none" strokeWidth="1.5"><path d="M12 2L3 6v12l9 4 9-4V6L12 2z" /><path d="M12 2v20M3 6l18 12M3 18L21 6" /></svg> },
+                { name: 'Python', svg: <svg viewBox="0 0 24 24" width="48" height="48" fill="none" strokeWidth="1.5"><path d="M12 2C8.7 2 8 2.7 8 6v2h8V6c0-3.3-.7-4-4-4zM12 22c3.3 0 4-2.7 4-6v-2H8v2c0 3.3.7 6 4 6z" /><circle cx="10" cy="4" r="0.75" fill="currentColor" /><circle cx="14" cy="20" r="0.75" fill="currentColor" /></svg> },
+                { name: 'TypeScript', svg: <svg viewBox="0 0 24 24" width="48" height="48" fill="none" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M7 7h4M9 7v10M14 8c1-1 3-1 3 1v1c0 2-3 1.5-3 3.5V17m0-2h3" /></svg> },
+                { name: 'Figma', svg: <svg viewBox="0 0 24 24" width="48" height="48" fill="none" strokeWidth="1.5"><path d="M8 5a3 3 0 1 1 3 3H8V5zm0 6a3 3 0 0 1 6 0 3 3 0 0 1-6 0zm0 6a3 3 0 1 1 3-3H8v3zm6-12a3 3 0 1 1 3 3h-3V5zm0 6a3 3 0 1 1 3 3h-3v-3z" /></svg> }
+              ].reduce((acc, current, _, arr) => {
+                if (acc.length === 0) {
+                  return [...arr, ...arr];
+                }
+                return acc;
+              }, []).map((tech, i) => (
+                <div key={i} className="tech-marquee-item">
+                  {tech.svg}
+                  <span style={{ letterSpacing: '1px' }}>{tech.name.toUpperCase()}</span>
+                </div>
               ))}
             </div>
           </div>

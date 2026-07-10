@@ -2501,7 +2501,7 @@ br.desktop-only {
 /* 1. Grayscale Tech Marquee */
 .tech-marquee-container {
   overflow: hidden;
-  padding: var(--space-2) 0;
+  padding: var(--space-4) 0;
   width: 100%;
   position: relative;
   mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
@@ -2510,25 +2510,47 @@ br.desktop-only {
 
 .tech-marquee-track {
   display: flex;
-  gap: var(--space-5);
+  gap: 48px;
   width: max-content;
-  animation: scroll-marquee 25s linear infinite;
+  animation: scroll-marquee 30s linear infinite;
+  will-change: transform;
 }
 
 .tech-marquee-item {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: var(--text-muted);
-  opacity: 0.55;
-  transition: var(--transition-fast);
-  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.5;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.tech-marquee-item svg {
+  stroke: var(--text-muted);
+  transition: all 0.3s ease;
 }
 
 .tech-marquee-item:hover {
   opacity: 1;
-  color: var(--accent-blue);
-  text-shadow: 0 0 15px var(--accent-glow);
+  transform: translateY(-6px);
+}
+
+.tech-marquee-item:hover svg {
+  stroke: #2563EB;
+  filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.6));
+}
+
+.tech-marquee-item span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.tech-marquee-item:hover span {
+  color: var(--text-primary);
 }
 
 @keyframes scroll-marquee {

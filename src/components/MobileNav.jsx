@@ -11,6 +11,7 @@ export default function MobileNav({ isOpen, onClose }) {
         <Link href="/" className="nav-link" onClick={onClose}>HOME</Link>
         <Link href="/services" className="nav-link" onClick={onClose}>SERVICES</Link>
         <Link href="/products" className="nav-link" onClick={onClose}>OUR PRODUCTS</Link>
+
         <Link href="/about" className="nav-link" onClick={onClose}>ABOUT US</Link>
         <Link href="/contact" className="nav-link" onClick={onClose}>CONTACT US</Link>
         <Link href="/contact" className="btn btn-primary" style={{ marginTop: 'var(--space-4)', textAlign: 'center', borderRadius: '9999px' }} onClick={onClose}>

@@ -12,7 +12,7 @@ import {
 export default function Footer() {
   return (
     <footer className="footer" style={{ borderTop: '1px solid var(--border-color)', padding: '80px 0 32px 0', background: '#070C1A' }}>
-      <div className="container" style={{ display: 'grid', gridTemplateColumns: '1.2fr repeat(4, 1fr) 1.2fr', gap: '32px', marginBottom: '64px' }}>
+      <div className="container" style={{ display: 'grid', gridTemplateColumns: '1.2fr repeat(3, 1fr) 1.2fr', gap: '32px', marginBottom: '64px' }}>
         
         {/* Logo and desc */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -60,16 +60,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Industries */}
-        <div>
-          <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '20px' }}>Industries</h4>
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', padding: 0, fontSize: '0.88rem' }}>
-            <li><Link href="/#portfolio" className="footer-link">Healthcare</Link></li>
-            <li><Link href="/#portfolio" className="footer-link">Education</Link></li>
-            <li><Link href="/#portfolio" className="footer-link">Real Estate</Link></li>
-            <li><Link href="/#portfolio" className="footer-link">Logistics</Link></li>
-          </ul>
-        </div>
+
 
         {/* Resources */}
         <div>
@@ -118,8 +109,8 @@ export default function Footer() {
         <div className="container footer-bottom-flex" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>&copy; 2026 Avenue Global Software Solutions. All Rights Reserved.</p>
           <div className="footer-bottom-links" style={{ display: 'flex', gap: '20px', fontSize: '0.8rem' }}>
-            <Link href="/privacy" className="footer-link">Privacy Policy</Link>
-            <Link href="/terms" className="footer-link">Terms of Service</Link>
+            <Link href="/terms#privacy" className="footer-link">Privacy Policy</Link>
+            <Link href="/terms#terms" className="footer-link">Terms of Service</Link>
           </div>
         </div>
       </div>
