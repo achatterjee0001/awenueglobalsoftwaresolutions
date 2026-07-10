@@ -78,7 +78,7 @@ export default function ContactPage() {
       <section className="section contact-hero" style={{ minHeight: '55vh', paddingTop: '160px', paddingBottom: '48px', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
         <div className="grid-background"></div>
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '16px', margin: '0 auto', alignItems: 'center', textAlign: 'center' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.18)', borderRadius: '9999px', padding: '6px 16px', width: 'fit-content' }}>
               <Sparkles style={{ width: '13px', height: '13px', color: '#2563EB' }} />
               <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#2563EB', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Technical Consultation</span>
@@ -88,7 +88,7 @@ export default function ContactPage() {
               Tell Us About Your Project. Let's Build the Future.
             </h1>
             
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '640px' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '640px', textAlign: 'center' }}>
               Whether you are modernizing outdated legacy software, deploying containerized cloud microservices, launching a mobile app, or building a SaaS platform, our team is ready to design and execute.
             </p>
           </div>
