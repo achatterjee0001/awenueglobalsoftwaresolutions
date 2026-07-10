@@ -75,7 +75,7 @@ export default function ContactPage() {
     <div className="contact-page-redesign">
       
       {/* 1. HERO SECTION */}
-      <section className="section contact-hero" style={{ minHeight: '55vh', paddingTop: '160px', paddingBottom: '48px', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section className="section contact-hero" style={{ minHeight: '40vh', paddingTop: '120px', paddingBottom: '40px', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
         <div className="grid-background"></div>
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '16px', margin: '0 auto', alignItems: 'center', textAlign: 'center' }}>
