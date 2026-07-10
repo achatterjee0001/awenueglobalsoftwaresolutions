@@ -2518,9 +2518,9 @@ br.desktop-only {
 
 .tech-marquee-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 8px;
+  gap: 14px;
   opacity: 0.5;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
@@ -2534,7 +2534,7 @@ br.desktop-only {
 
 .tech-marquee-item:hover {
   opacity: 1;
-  transform: translateY(-6px);
+  transform: translateY(-4px);
 }
 
 .tech-marquee-item:hover svg {
@@ -2543,9 +2543,10 @@ br.desktop-only {
 }
 
 .tech-marquee-item span {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--text-muted);
   transition: color 0.3s ease;
 }
 
