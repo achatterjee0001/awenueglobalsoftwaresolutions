@@ -16,7 +16,7 @@ import {
   Activity 
 } from 'lucide-react';
 
-export default function Header({ onMobileMenuToggle }) {
+export default function Header({ onMobileMenuToggle, isOpen }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
 
@@ -151,7 +151,7 @@ export default function Header({ onMobileMenuToggle }) {
         </div>
         
         {/* Mobile Burger Trigger */}
-        <button className="menu-btn" aria-label="Toggle Navigation" onClick={onMobileMenuToggle}>
+        <button className={`menu-btn ${isOpen ? 'open' : ''}`} aria-label="Toggle Navigation" onClick={onMobileMenuToggle}>
           <span></span>
           <span></span>
           <span></span>

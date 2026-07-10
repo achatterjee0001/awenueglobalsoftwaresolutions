@@ -353,7 +353,8 @@ a {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding-top: 120px;
+      margin-top: -120px;
+      padding-top: 140px;
       position: relative;
     }
     
@@ -863,7 +864,7 @@ a {
     
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: var(--space-3);
       margin-top: var(--space-5);
     }
@@ -1357,7 +1358,7 @@ a {
     
     .blog-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: var(--space-3);
       margin-top: var(--space-5);
     }
@@ -1884,9 +1885,43 @@ a {
   filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.15));
 }
 
-/* Custom Headline backlighting */
+/* Custom Headline backlighting & default desktop typography */
 .hero-title {
   text-shadow: 0 0 60px rgba(255, 255, 255, 0.04);
+  font-size: 5rem;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Custom Parallax container visual heights */
+.hero-parallax {
+  position: relative;
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 3.8rem;
+    line-height: 1.15;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-parallax {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2.8rem;
+    line-height: 1.2;
+  }
 }
 
 /* Premium Button outline transformations */
@@ -1901,4 +1936,277 @@ a {
   border-color: rgba(255, 255, 255, 0.45) !important;
   transform: translateY(-2px) scale(1.01) !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Responsive Mobile Alignments & Scaling Overrides */
+
+/* Main Content Offsets */
+.main-content {
+  min-height: calc(100vh - 120px);
+  padding-top: 120px;
+  transition: padding-top 0.3s ease, min-height 0.3s ease;
+}
+
+/* Header, Brand Logo and Main Offset Scaling on Mobile */
+@media (max-width: 768px) {
+  .header-nav, .header-nav.scrolled {
+    height: 85px !important;
+  }
+  .brand-logo-img {
+    height: 60px !important;
+  }
+  .main-content {
+    min-height: calc(100vh - 85px) !important;
+    padding-top: 85px !important;
+  }
+  .hero-section {
+    margin-top: -85px !important;
+    padding-top: 105px !important;
+  }
+}
+
+/* Footer Responsive Logo Image */
+.footer-logo-img {
+  height: 150px;
+  object-fit: contain;
+  margin-top: -20px;
+  margin-left: -15px;
+  transition: height 0.3s ease, margin 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .footer-logo-img {
+    height: 110px !important;
+    margin-top: -10px !important;
+    margin-left: -5px !important;
+  }
+}
+
+/* Mobile Side Menu Premium Alignments */
+.mobile-nav-header {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--space-4);
+}
+
+.mobile-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.01);
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.mobile-close-btn:hover {
+  color: var(--text-secondary);
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Glassmorphism Drawer Force Overrides */
+.nav-menu-mobile {
+  background: rgba(10, 10, 10, 0.75) !important;
+  backdrop-filter: blur(25px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: -15px 0 45px rgba(0, 0, 0, 0.6) !important;
+  overflow: hidden !important;
+}
+
+/* Subtle Top Corner Radial Glow Backlight */
+.nav-menu-mobile::after {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.nav-menu-mobile .nav-link {
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1em !important;
+  color: var(--text-primary) !important;
+  text-transform: uppercase !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+  padding: var(--space-2) 0 !important;
+  display: block !important;
+  position: relative !important;
+  
+  /* Staggered Motion Start */
+  opacity: 0;
+  transform: translateX(30px);
+  transition: color 0.2s ease, padding-left 0.2s ease, border-color 0.2s ease, opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Float hover line indicator */
+.nav-menu-mobile .nav-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--text-secondary), transparent);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-menu-mobile .nav-link:hover::before {
+  width: 50px;
+}
+
+.nav-menu-mobile .nav-link:hover {
+  color: var(--text-secondary) !important;
+  padding-left: 10px !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Staggered Entrance Animation triggers on active open state */
+.nav-menu-mobile.open .nav-link,
+.nav-menu-mobile.open .btn-primary {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.nav-menu-mobile.open .mobile-nav-links .nav-link:nth-child(1) { transition-delay: 0.1s !important; }
+.nav-menu-mobile.open .mobile-nav-links .nav-link:nth-child(2) { transition-delay: 0.15s !important; }
+.nav-menu-mobile.open .mobile-nav-links .nav-link:nth-child(3) { transition-delay: 0.2s !important; }
+.nav-menu-mobile.open .mobile-nav-links .nav-link:nth-child(4) { transition-delay: 0.25s !important; }
+.nav-menu-mobile.open .mobile-nav-links .nav-link:nth-child(5) { transition-delay: 0.3s !important; }
+
+.nav-menu-mobile .btn-primary {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nav-menu-mobile.open .btn-primary {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: 0.35s !important;
+}
+
+/* Orbit Ring Rotating Animations for Hero Graphics */
+@keyframes rotateClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotateCounterClockwise {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.orbit-ring-1 {
+  animation: rotateClockwise 25s linear infinite;
+}
+
+.orbit-ring-2 {
+  animation: rotateCounterClockwise 30s linear infinite;
+}
+
+.orbit-ring-3 {
+  animation: rotateClockwise 20s linear infinite;
+}
+
+/* Floating particles styling */
+@keyframes floatParticle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  50% { transform: translateY(-12px) translateX(6px); opacity: 0.8; }
+}
+
+.floating-particle-1 { animation: floatParticle 6s ease-in-out infinite; }
+.floating-particle-2 { animation: floatParticle 8s ease-in-out infinite 1s; }
+.floating-particle-3 { animation: floatParticle 7s ease-in-out infinite 2s; }
+.floating-particle-4 { animation: floatParticle 9s ease-in-out infinite 0.5s; }
+
+/* Reversed flow stroke animation */
+@keyframes dashReverse {
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+.dash-flow-reverse {
+  animation: dashReverse 4s linear infinite !important;
+}
+
+/* ----------------------------------------------------
+   Responsive Mobile Polish & Formatting Overrides
+   ---------------------------------------------------- */
+
+/* 1. Desktop-Only Line Breaks */
+br.desktop-only {
+  display: block;
+}
+@media (max-width: 768px) {
+  br.desktop-only {
+    display: none !important;
+  }
+}
+
+/* 2. Vertical Product Cards Stack on Mobile */
+@media (max-width: 576px) {
+  .card-product-horizontal {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+    gap: var(--space-4) !important;
+    padding: var(--space-4) !important;
+  }
+  .card-product-horizontal .product-content {
+    text-align: center !important;
+    align-items: center !important;
+  }
+  .card-product-horizontal .product-emblem-svg {
+    margin-bottom: var(--space-1) !important;
+  }
+}
+
+/* 3. Typography Scaling on Smartphone Viewports (<480px) */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.1rem !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0.02em !important;
+  }
+  .hero-tagline {
+    font-size: 0.95rem !important;
+    line-height: 1.55 !important;
+  }
+  .btn-glass, .btn-primary {
+    font-size: 0.85rem !important;
+    padding: 10px 22px !important;
+  }
+  .section-subtitle-divider {
+    font-size: 0.75rem !important;
+    letter-spacing: 0.15em !important;
+  }
+  h2.text-gradient-chrome {
+    font-size: 1.8rem !important;
+    letter-spacing: 0.08em !important;
+  }
 }

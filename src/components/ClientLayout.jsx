@@ -32,10 +32,10 @@ export default function ClientLayout({ children }) {
       <ParticleCanvas />
       <CustomCursor />
       
-      <Header onMobileMenuToggle={() => setMobileOpen(!mobileOpen)} />
+      <Header onMobileMenuToggle={() => setMobileOpen(!mobileOpen)} isOpen={mobileOpen} />
       <MobileNav isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
       
-      <main style={{ minHeight: 'calc(100vh - 120px)', paddingTop: '120px' }}>
+      <main className="main-content">
         {children}
       </main>
       
