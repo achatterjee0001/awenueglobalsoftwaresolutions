@@ -164,10 +164,10 @@ export default function ServicesPage() {
     <div className="services-page-redesign">
       
       {/* 1. HERO SECTION */}
-      <section className="section services-hero" style={{ minHeight: '65vh', paddingTop: '160px', paddingBottom: '64px', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section className="section services-hero" style={{ minHeight: '75vh', paddingTop: '120px', paddingBottom: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
         <div className="grid-background"></div>
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '16px', margin: '0 auto', alignItems: 'center', textAlign: 'center' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.18)', borderRadius: '9999px', padding: '6px 16px', width: 'fit-content' }}>
               <Sparkles style={{ width: '13px', height: '13px', color: '#2563EB' }} />
               <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#2563EB', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Professional Capabilities</span>
@@ -177,11 +177,11 @@ export default function ServicesPage() {
               Technology Solutions Built Around Your Business Goals.
             </h1>
             
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '640px' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '640px', textAlign: 'center' }}>
               We partner with startup founders and enterprise CTOs to engineer custom software, scalable cloud architectures, high-performance web systems, and design tokens that translate into business growth.
             </p>
-
-            <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
+ 
+            <div style={{ display: 'flex', gap: '12px', marginTop: '8px', justifyContent: 'center' }}>
               <Link href="/contact" className="btn btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', background: 'var(--accent-blue)', color: '#FFFFFF', fontWeight: 600 }}>
                 Start Your Project
               </Link>
