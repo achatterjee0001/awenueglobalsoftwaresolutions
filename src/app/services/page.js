@@ -173,7 +173,7 @@ export default function ServicesPage() {
               <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#2563EB', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Professional Capabilities</span>
             </div>
             
-            <h1 className="text-gradient-chrome" style={{ fontSize: '3.6rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-1px' }}>
+            <h1 className="text-gradient-chrome" style={{ fontSize: 'clamp(2.2rem, 7vw, 3.6rem)', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-1px' }}>
               Technology Solutions Built Around Your Business Goals.
             </h1>
             
@@ -262,7 +262,7 @@ export default function ServicesPage() {
                   borderRadius: '24px',
                   padding: '40px',
                   display: 'grid',
-                  gridTemplateColumns: '1.1fr 0.9fr',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))',
                   gap: '40px',
                   alignItems: 'start',
                   transition: 'var(--transition-smooth)'
@@ -377,7 +377,7 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))', gap: '32px' }}>
             {[
               {
                 title: "Custom CRM Deployment",

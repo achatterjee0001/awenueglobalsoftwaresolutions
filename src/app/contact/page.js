@@ -84,7 +84,7 @@ export default function ContactPage() {
               <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#2563EB', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Technical Consultation</span>
             </div>
             
-            <h1 className="text-gradient-chrome" style={{ fontSize: '3.6rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-1px' }}>
+            <h1 className="text-gradient-chrome" style={{ fontSize: 'clamp(2.2rem, 7vw, 3.6rem)', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-1px' }}>
               Tell Us About Your Project. Let's Build the Future.
             </h1>
             
@@ -137,14 +137,14 @@ export default function ContactPage() {
       {/* 3. PROJECT INQUIRY FORM (SPLIT LAYOUT) */}
       <section className="section" style={{ padding: '80px 0', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid var(--border-color)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '64px', alignItems: 'start' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))', gap: '64px', alignItems: 'start' }}>
             
             {/* Left Side: Form */}
             <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '24px', padding: '40px', boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)' }}>
               <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '24px' }}>Project Inquiry Form</h2>
               
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '16px' }}>
                   <div className="form-group">
                     <label className="form-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px', display: 'block' }}>Full Name *</label>
                     <input type="text" name="name" required value={formData.name} onChange={handleInputChange} className="form-control" style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '10px 14px', color: 'var(--text-primary)' }} placeholder="Jane Doe" />
@@ -155,7 +155,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '16px' }}>
                   <div className="form-group">
                     <label className="form-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px', display: 'block' }}>Work Email *</label>
                     <input type="email" name="email" required value={formData.email} onChange={handleInputChange} className="form-control" style={{ width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '10px 14px', color: 'var(--text-primary)' }} placeholder="jane@company.com" />
@@ -179,7 +179,7 @@ export default function ContactPage() {
                   </select>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '16px' }}>
                   <div className="form-group">
                     <label className="form-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px', display: 'block' }}>Budget Range</label>
                     <select name="budget" value={formData.budget} onChange={handleInputChange} className="form-control" style={{ width: '100%', background: '#0D1426', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '10px 14px', color: 'var(--text-primary)', cursor: 'pointer' }}>
@@ -303,7 +303,7 @@ export default function ContactPage() {
       {/* 5. OFFICE & AVAILABILITY */}
       <section className="section" style={{ padding: '100px 0', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid var(--border-color)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))', gap: '64px', alignItems: 'center' }}>
             <div>
               <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Location details</span>
               <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>Office & Availability</h2>

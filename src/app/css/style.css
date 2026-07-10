@@ -2855,3 +2855,14 @@ br.desktop-only {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* 3. Terms & Trust Page Responsiveness */
+@media (max-width: 992px) {
+  .terms-trust-page > .container > div {
+    grid-template-columns: 1fr !important;
+  }
+  .terms-trust-page aside {
+    position: static !important;
+    margin-bottom: 24px;
+  }
+}
+

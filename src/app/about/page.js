@@ -65,7 +65,7 @@ export default function AboutPage() {
       <section className="section about-hero" style={{ minHeight: '65vh', paddingTop: '160px', paddingBottom: '64px', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
         <div className="grid-background"></div>
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '40px', alignItems: 'center' }}>
+          <div className="about-split" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))', gap: '40px', alignItems: 'center' }}>
             
             {/* Left Info */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -74,7 +74,7 @@ export default function AboutPage() {
                 <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#2563EB', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Corporate Profile</span>
               </div>
               
-              <h1 className="text-gradient-chrome" style={{ fontSize: '3.6rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-1px' }}>
+              <h1 className="text-gradient-chrome" style={{ fontSize: 'clamp(2.2rem, 7vw, 3.6rem)', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-1px' }}>
                 Building Technology That Drives Business Transformation.
               </h1>
               
@@ -124,7 +124,7 @@ export default function AboutPage() {
 
       {/* 2. OUR STORY */}
       <section className="section" style={{ padding: '100px 0', borderTop: '1px solid var(--border-color)' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))', gap: '64px', alignItems: 'center' }}>
           <div>
             <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Our History</span>
             <h2 className="text-gradient-chrome" style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '8px', marginBottom: '16px' }}>The Spark Behind Awenue</h2>
@@ -155,7 +155,7 @@ export default function AboutPage() {
 
       {/* 3. PURPOSE BEFORE MISSION */}
       <section className="section" style={{ padding: '100px 0', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid var(--border-color)' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '32px' }}>
           
           {/* Why We Exist */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -290,7 +290,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '32px' }}>
             {[
               { num: "01", t: "Understand Business", d: "We map out your sales cycles, admin overhead procedures, and user retention barriers first." },
               { num: "02", t: "Research & Feasibility", d: "feasibility analysis on API connections, schema designs, and data transfer volumes." },
@@ -344,7 +344,7 @@ export default function AboutPage() {
 
       {/* 9. GLOBAL VISION & CULTURE */}
       <section className="section" style={{ padding: '100px 0', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid var(--border-color)' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px' }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))', gap: '64px' }}>
           
           {/* Global Vision */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

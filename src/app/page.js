@@ -144,7 +144,7 @@ export default function Home() {
                 <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#2563EB', letterSpacing: '0.5px', textTransform: 'uppercase' }}>Next-Gen Software Engineering</span>
               </div>
               
-              <h1 className="hero-title text-gradient-chrome" style={{ fontSize: '3.8rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-1px' }}>
+              <h1 className="hero-title text-gradient-chrome" style={{ fontSize: 'clamp(2.2rem, 7vw, 3.8rem)', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-1px' }}>
                 Enterprise Software.<br />Exceptional Experiences.<br />Real Business Growth.
               </h1>
               
