@@ -2247,15 +2247,15 @@ br.desktop-only {
     padding: 100px var(--space-4) 40px var(--space-4) !important;
     z-index: 99999 !important;
 
-    /* Holographic Radial Ripple Reveal starting from bottom-right floating FAB */
-    clip-path: circle(0px at calc(100vw - 50px) calc(100vh - 50px)) !important;
+    /* Holographic Radial Ripple Reveal starting from top-right header button */
+    clip-path: circle(0px at calc(100vw - 48px) 42px) !important;
     opacity: 0 !important;
     pointer-events: none !important;
     transition: clip-path 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out !important;
   }
   
   .nav-menu-mobile.open {
-    clip-path: circle(150% at calc(100vw - 50px) calc(100vh - 50px)) !important;
+    clip-path: circle(150% at calc(100vw - 48px) 42px) !important;
     opacity: 1 !important;
     pointer-events: auto !important;
   }
@@ -2917,5 +2917,11 @@ br.desktop-only {
     transform: none !important;
     pointer-events: auto !important;
   }
+}
+
+.mobile-menu-nav-link:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
