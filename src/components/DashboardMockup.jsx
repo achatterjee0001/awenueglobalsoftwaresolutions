@@ -16,6 +16,7 @@ import {
 
 export default function DashboardMockup() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [scale, setScale] = useState(1);
   const containerRef = useRef(null);
 
   const handleMouseMove = (e) => {
@@ -45,6 +46,24 @@ export default function DashboardMockup() {
   useEffect(() => {
     // Set default initial tilt
     setTilt({ x: -4, y: 8 });
+
+    // Handle viewport resize scaling
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 480) {
+        setScale(0.5);
+      } else if (width < 768) {
+        setScale(0.68);
+      } else if (width < 1024) {
+        setScale(0.85);
+      } else {
+        setScale(1);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -54,14 +73,15 @@ export default function DashboardMockup() {
       onMouseLeave={handleMouseLeave}
       style={{
         width: '100%',
-        height: '520px',
+        height: `${520 * scale}px`,
         perspective: '1500px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
         cursor: 'pointer',
-        userSelect: 'none'
+        userSelect: 'none',
+        overflow: 'hidden'
       }}
     >
       {/* 3D Transform Wrapper */}
@@ -71,7 +91,7 @@ export default function DashboardMockup() {
           height: '85%',
           position: 'relative',
           transformStyle: 'preserve-3d',
-          transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transform: `scale(${scale}) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
           transition: 'transform 0.15s ease-out'
         }}
       >

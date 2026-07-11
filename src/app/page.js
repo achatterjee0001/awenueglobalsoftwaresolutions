@@ -135,7 +135,7 @@ export default function Home() {
       <section className="section hero-section" style={{ minHeight: '92vh', paddingTop: '160px', paddingBottom: '80px', display: 'flex', alignItems: 'center' }}>
         <div className="grid-background"></div>
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: 'var(--space-4)', alignItems: 'center', maxWidth: '100%' }}>
+          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))', gap: 'var(--space-4)', alignItems: 'center', maxWidth: '100%' }}>
             
             {/* Left Content */}
             <div className="hero-text-content" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
@@ -153,7 +153,7 @@ export default function Home() {
               </p>
               
               {/* Authenticity Bullet Points */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', margin: '8px 0' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '12px', margin: '8px 0' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                   <Check style={{ width: '14px', height: '14px', color: '#2563EB', strokeWidth: '3px' }} />
                   <span>End-to-End Development</span>
@@ -172,7 +172,7 @@ export default function Home() {
                 </div>
               </div>
  
-              <div className="hero-ctas" style={{ display: 'flex', gap: '14px', marginTop: '8px' }}>
+              <div className="hero-ctas" style={{ display: 'flex', gap: '14px', marginTop: '8px', flexWrap: 'wrap' }}>
                 <Link href="/contact" className="btn btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem', borderRadius: '12px', background: 'var(--accent-blue)', color: '#FFFFFF', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   Start Your Project <ArrowRight style={{ width: '16px', height: '16px' }} />
                 </Link>
