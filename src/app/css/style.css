@@ -2227,8 +2227,8 @@ br.desktop-only {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: flex-start !important;
-    padding: 160px 0 0 0 !important; /* Space to clear the centered logo */
+    justify-content: center !important;
+    padding: 0 !important;
     z-index: 99999 !important;
 
     /* Holographic Radial Ripple Reveal starting from bottom-right floating FAB */
