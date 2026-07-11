@@ -91,7 +91,7 @@ export default function DashboardMockup() {
           height: '85%',
           position: 'relative',
           transformStyle: 'preserve-3d',
-          transform: `scale(${scale}) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transform: `scale(${scale}) rotateX(${scale < 1 ? 0 : tilt.x}deg) rotateY(${scale < 1 ? 0 : tilt.y}deg)`,
           transition: 'transform 0.15s ease-out'
         }}
       >

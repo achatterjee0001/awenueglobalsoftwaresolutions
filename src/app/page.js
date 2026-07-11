@@ -135,7 +135,7 @@ export default function Home() {
       <section className="section hero-section" style={{ minHeight: '92vh', paddingTop: '160px', paddingBottom: '80px', display: 'flex', alignItems: 'center' }}>
         <div className="grid-background"></div>
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))', gap: 'var(--space-4)', alignItems: 'center', maxWidth: '100%' }}>
+          <div className="hero-grid" style={{ maxWidth: '100%' }}>
             
             {/* Left Content */}
             <div className="hero-text-content" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
