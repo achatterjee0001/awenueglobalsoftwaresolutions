@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Header from './Header';
 import MobileNav from './MobileNav';
 import Footer from './Footer';
@@ -9,11 +10,14 @@ import CustomCursor from './CustomCursor';
 import Preloader from './Preloader';
 
 export default function ClientLayout({ children }) {
+  const pathname = usePathname();
+  const isAdmin = pathname === '/admin';
+  
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
-    if (hasLoaded) {
+    if (hasLoaded && !isAdmin) {
       // Trigger entrance animations for any hero reveal elements currently present on the DOM
       const revealElements = document.querySelectorAll('.hero-reveal');
       revealElements.forEach((el, index) => {
@@ -24,7 +28,15 @@ export default function ClientLayout({ children }) {
         }, index * 150);
       });
     }
-  }, [hasLoaded]);
+  }, [hasLoaded, isAdmin]);
+
+  if (isAdmin) {
+    return (
+      <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', background: '#03050a' }}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <>

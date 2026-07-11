@@ -83,37 +83,60 @@ export default function DesignsystemPage() {
     <section className="ds-section">
       <h2 className="text-gradient-chrome" style={{fontSize: '1.5rem', marginBottom: 'var(--space-3)'}}>3. Component Library</h2>
       
-      {/* Primary Button Component */}
-      <div style={{marginBottom: 'var(--space-4)'}}>
-        <h4>Primary Button (Metallic Border Reflection)</h4>
-        <div style={{padding: 'var(--space-3) 0'}}>
-          <Link href="#" className="btn btn-primary">Book Consultation</Link>
-        </div>
-        <div className="snippet-box">
-          <button className="copy-btn" onclick="copyText('btn-snippet-1', this)">COPY</button>
-          <pre id="btn-snippet-1">&lt;a href="#" className="btn btn-primary"&gt;Book Consultation&lt;/a&gt;</pre>
-        </div>
-      </div>
+      {/* Clipboard Copy Helper */}
+      {(() => {
+        const copyToClipboard = (textId, e) => {
+          const el = document.getElementById(textId);
+          if (el) {
+            navigator.clipboard.writeText(el.innerText || el.textContent);
+            const target = e.currentTarget;
+            const originalText = target.innerText;
+            target.innerText = 'COPIED!';
+            target.style.backgroundColor = '#10B981';
+            target.style.borderColor = '#10B981';
+            setTimeout(() => {
+              target.innerText = originalText;
+              target.style.backgroundColor = '';
+              target.style.borderColor = '';
+            }, 2000);
+          }
+        };
+        return (
+          <>
+            {/* Primary Button Component */}
+            <div style={{marginBottom: 'var(--space-4)'}}>
+              <h4>Primary Button (Metallic Border Reflection)</h4>
+              <div style={{padding: 'var(--space-3) 0'}}>
+                <Link href="#" className="btn btn-primary">Book Consultation</Link>
+              </div>
+              <div className="snippet-box" style={{ position: 'relative' }}>
+                <button className="copy-btn" onClick={(e) => copyToClipboard('btn-snippet-1', e)}>COPY</button>
+                <pre id="btn-snippet-1">&lt;a href="#" className="btn btn-primary"&gt;Book Consultation&lt;/a&gt;</pre>
+              </div>
+            </div>
 
-      {/* Card Component */}
-      <div style={{marginBottom: 'var(--space-4)'}}>
-        <h4>Premium Card (Hover Lift & pointer-glow)</h4>
-        <div style={{padding: 'var(--space-3) 0', maxWidth: '380px'}}>
-          <div className="card-premium">
-            <div className="card-icon"><Code  style={{ width: 24, height: 24, display: 'inline-block' }} /></div>
-            <h3 className="card-title">Software Development</h3>
-            <p className="card-desc">Bespoke backend microservices and API layers.</p>
-          </div>
-        </div>
-        <div className="snippet-box">
-          <button className="copy-btn" onclick="copyText('card-snippet-1', this)">COPY</button>
-          <pre id="card-snippet-1">&lt;div className="card-premium"&gt;
+            {/* Card Component */}
+            <div style={{marginBottom: 'var(--space-4)'}}>
+              <h4>Premium Card (Hover Lift & pointer-glow)</h4>
+              <div style={{padding: 'var(--space-3) 0', maxWidth: '380px'}}>
+                <div className="card-premium">
+                  <div className="card-icon"><Code  style={{ width: 24, height: 24, display: 'inline-block' }} /></div>
+                  <h3 className="card-title">Software Development</h3>
+                  <p className="card-desc">Bespoke backend microservices and API layers.</p>
+                </div>
+              </div>
+              <div className="snippet-box" style={{ position: 'relative' }}>
+                <button className="copy-btn" onClick={(e) => copyToClipboard('card-snippet-1', e)}>COPY</button>
+                <pre id="card-snippet-1">&lt;div className="card-premium"&gt;
   &lt;div className="card-icon"&gt;&lt;i data-lucide="code"&gt;&lt;/i&gt;&lt;/div&gt;
   &lt;h3 className="card-title"&gt;Software Development&lt;/h3&gt;
   &lt;p className="card-desc"&gt;Bespoke backend microservices and API layers.&lt;/p&gt;
 &lt;/div&gt;</pre>
-        </div>
-      </div>
+              </div>
+            </div>
+          </>
+        );
+      })()}
     </section>
 
     {/* 4. Figma-Ready Settings */}

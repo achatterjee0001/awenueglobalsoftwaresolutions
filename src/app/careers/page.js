@@ -35,7 +35,7 @@ export default function CareersPage() {
               <span className="job-tag">Full-time</span>
             </div>
           </div>
-          <button className="btn btn-primary" onclick="openApplyModal('Senior Frontend Architect')">Apply Now</button>
+          <Link href="/contact?subject=Application for Senior Frontend Architect" className="btn btn-primary">Apply Now</Link>
         </div>
 
         {/* Job 2 */}
@@ -48,7 +48,7 @@ export default function CareersPage() {
               <span className="job-tag">Full-time</span>
             </div>
           </div>
-          <button className="btn btn-primary" onclick="openApplyModal('Distributed Systems Engineer')">Apply Now</button>
+          <Link href="/contact?subject=Application for Distributed Systems Engineer" className="btn btn-primary">Apply Now</Link>
         </div>
 
         {/* Job 3 */}
@@ -61,7 +61,7 @@ export default function CareersPage() {
               <span className="job-tag">Contract (1 Yr)</span>
             </div>
           </div>
-          <button className="btn btn-primary" onclick="openApplyModal('Cloud Security Specialist')">Apply Now</button>
+          <Link href="/contact?subject=Application for Cloud Security Specialist" className="btn btn-primary">Apply Now</Link>
         </div>
 
       </div>

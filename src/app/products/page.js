@@ -80,7 +80,7 @@ export default function ProductsPage() {
           </div>
           <h3 className="card-title">Avenue ERP</h3>
           <p className="card-desc">Supply ledger automation systems, ledger auditing panels, and localized invoicing compilers for multi-currency companies.</p>
-          <button className="btn btn-primary" style={{marginTop: 'auto'}} onclick="location.href='contact.html'">Request Demo</button>
+          <Link href="/contact?subject=Request Demo: Avenue ERP" className="btn btn-primary" style={{marginTop: 'auto'}}>Request Demo</Link>
         </div>
 
         {/* AVENUE HRMS */}
@@ -102,7 +102,7 @@ export default function ProductsPage() {
           </div>
           <h3 className="card-title">Avenue HRMS</h3>
           <p className="card-desc">Interactive personnel logs, secure check-in modules, salary ledger configurations, and custom review pipelines.</p>
-          <button className="btn btn-primary" style={{marginTop: 'auto'}} onclick="location.href='contact.html'">Request Demo</button>
+          <Link href="/contact?subject=Request Demo: Avenue HRMS" className="btn btn-primary" style={{marginTop: 'auto'}}>Request Demo</Link>
         </div>
 
         {/* SCHOOL MANAGEMENT */}
@@ -123,7 +123,7 @@ export default function ProductsPage() {
           </div>
           <h3 className="card-title">Avenue Education</h3>
           <p className="card-desc">Complete university databases, fee compiled invoice trackers, schedules grids, and digital grading systems.</p>
-          <button className="btn btn-primary" style={{marginTop: 'auto'}} onclick="location.href='contact.html'">Request Demo</button>
+          <Link href="/contact?subject=Request Demo: Avenue Education" className="btn btn-primary" style={{marginTop: 'auto'}}>Request Demo</Link>
         </div>
 
         {/* HOSPITAL MANAGEMENT */}
@@ -144,7 +144,7 @@ export default function ProductsPage() {
           </div>
           <h3 className="card-title">Avenue Healthcare</h3>
           <p className="card-desc">Electronic medical logs, secure consultation queues, resource monitoring systems, and billing dashboards.</p>
-          <button className="btn btn-primary" style={{marginTop: 'auto'}} onclick="location.href='contact.html'">Request Demo</button>
+          <Link href="/contact?subject=Request Demo: Avenue Healthcare" className="btn btn-primary" style={{marginTop: 'auto'}}>Request Demo</Link>
         </div>
 
         {/* CUSTOM AI SOLUTIONS */}
@@ -164,7 +164,7 @@ export default function ProductsPage() {
           </div>
           <h3 className="card-title">AI Solutions</h3>
           <p className="card-desc">Custom integrated predictive networks, parsing algorithms, automated speech engines, and smart decision nodes.</p>
-          <button className="btn btn-primary" style={{marginTop: 'auto'}} onclick="location.href='contact.html'">Request Demo</button>
+          <Link href="/contact?subject=Request Demo: Avenue AI Solutions" className="btn btn-primary" style={{marginTop: 'auto'}}>Request Demo</Link>
         </div>
 
       </div>

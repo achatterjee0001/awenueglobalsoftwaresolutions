@@ -141,7 +141,7 @@ export default function ProductdetailsPage() {
             <li><Check  style={{ width: 24, height: 24, display: 'inline-block' }} /> Standard email campaigns</li>
             <li><Check  style={{ width: 24, height: 24, display: 'inline-block' }} /> 10 Users included</li>
           </ul>
-          <button className="btn btn-glass" style={{marginTop: 'auto'}} onclick="location.href='contact.html'">Select Growth</button>
+          <Link href="/contact?subject=Select CRM Growth Tier" className="btn btn-glass" style={{marginTop: 'auto'}}>Select Growth</Link>
         </div>
 
         {/* Tier 2 */}
@@ -158,7 +158,7 @@ export default function ProductdetailsPage() {
             <li><Check  style={{ width: 24, height: 24, display: 'inline-block' }} /> Integrated data analytics nodes</li>
             <li><Check  style={{ width: 24, height: 24, display: 'inline-block' }} /> 50 Users included</li>
           </ul>
-          <button className="btn btn-primary" style={{marginTop: 'auto'}} onclick="location.href='contact.html'">Deploy Enterprise</button>
+          <Link href="/contact?subject=Deploy CRM Enterprise Tier" className="btn btn-primary" style={{marginTop: 'auto'}}>Deploy Enterprise</Link>
         </div>
 
         {/* Tier 3 */}
@@ -172,7 +172,7 @@ export default function ProductdetailsPage() {
             <li><Check  style={{ width: 24, height: 24, display: 'inline-block' }} /> Dedicated support team</li>
             <li><Check  style={{ width: 24, height: 24, display: 'inline-block' }} /> SLA uptime guarantees</li>
           </ul>
-          <button className="btn btn-glass" style={{marginTop: 'auto'}} onclick="location.href='contact.html'">Contact Architects</button>
+          <Link href="/contact?subject=Contact CRM Architects" className="btn btn-glass" style={{marginTop: 'auto'}}>Contact Architects</Link>
         </div>
       </div>
     </div>
