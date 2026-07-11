@@ -11,8 +11,8 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="footer" style={{ borderTop: '1px solid var(--border-color)', padding: '80px 0 32px 0', background: '#070C1A' }}>
-      <div className="container" style={{ display: 'grid', gridTemplateColumns: '1.2fr repeat(3, 1fr) 1.2fr', gap: '32px', marginBottom: '64px' }}>
+    <footer className="footer">
+      <div className="container footer-grid">
         
         {/* Logo and desc */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

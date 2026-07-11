@@ -2327,21 +2327,21 @@ br.desktop-only {
     opacity: 1 !important;
   }
 
-  /* 4. Reposition the burger/cross button into a floating action button (FAB) at bottom-right */
+  /* 4. Pinned mobile menu button inside the header bar at top-right */
   .header-nav .menu-btn {
-    position: fixed !important;
-    bottom: 30px !important;
-    right: 25px !important;
-    top: auto !important;
-    transform: none !important;
-    width: 54px !important;
-    height: 54px !important;
-    border-radius: 50% !important;
-    background: rgba(10, 10, 10, 0.6) !important;
+    position: absolute !important;
+    top: 50% !important;
+    right: 24px !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
     backdrop-filter: blur(12px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
