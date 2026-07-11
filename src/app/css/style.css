@@ -2282,17 +2282,13 @@ br.desktop-only {
     left: var(--space-4) !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
     z-index: 100001 !important;
     opacity: 1 !important;
-    will-change: left, transform !important;
   }
 
   .brand-logo-img {
-    height: 75px !important;
-    transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    height: 36px !important;
     opacity: 1 !important;
-    will-change: height, transform !important;
   }
 
   /* 2. Float header navbar on top of menu overlay when active */
@@ -2313,19 +2309,7 @@ br.desktop-only {
     box-shadow: none !important;
   }
 
-  /* 3. Center the logo in the viewport header smoothly when menu is open */
-  .header-nav.menu-open .brand-logo-container {
-    left: 50% !important;
-    top: 30px !important; /* Push it down from the top edge of the mobile screen */
-    transform: translate(-50%, 0) !important; /* Vertical translation reset to keep the 30px top padding intact */
-    opacity: 1 !important;
-  }
-
-  .header-nav.menu-open .brand-logo-img {
-    height: 130px !important; /* Scale logo height inside mobile menu up to 130px */
-    transform: scale(1.2) !important; /* Larger centered visual presence */
-    opacity: 1 !important;
-  }
+  /* 3. Logo stays pinned top-left in header at all times — logo is shown inside overlay separately */
 
   /* 4. Pinned mobile menu button inside the header bar at top-right */
   .header-nav .menu-btn {
@@ -2353,7 +2337,8 @@ br.desktop-only {
   }
 
   .header-nav .menu-btn:hover {
-    transform: scale(1.06) !important;
+    /* Keep translateY(-50%) so the button doesn't shift on hover/close */
+    transform: translateY(-50%) scale(1.06) !important;
     border-color: rgba(255, 255, 255, 0.2) !important;
     background: rgba(20, 20, 20, 0.7) !important;
   }
@@ -2388,16 +2373,16 @@ br.desktop-only {
   }
   
   .nav-menu-mobile .nav-link {
-    font-size: 1.6rem !important;
+    font-size: 1rem !important;
     text-align: center !important;
     border-bottom: none !important;
-    padding: 8px 0 !important;
+    padding: 6px 0 !important;
     width: fit-content !important;
     
     /* Center vertical slide entrance */
     opacity: 0 !important;
-    transform: translateY(25px) !important;
-    transition: color 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), text-shadow 0.3s ease, opacity 0.5s ease !important;
+    transform: translateY(20px) !important;
+    transition: color 0.3s ease, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), text-shadow 0.3s ease, opacity 0.45s ease !important;
   }
 
   .nav-menu-mobile.open .nav-link {

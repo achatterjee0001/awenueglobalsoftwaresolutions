@@ -31,11 +31,20 @@ export default function MobileNav({ isOpen, onClose }) {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: '120px 24px 40px 24px',
+        padding: '80px 24px 40px 24px',
         overflowY: 'auto',
         position: 'relative',
         zIndex: 5
       }}>
+        
+        {/* Overlay Logo */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
+          <img
+            src="/assets/logo-dark.png"
+            alt="AWENUE"
+            style={{ height: '36px', objectFit: 'contain', opacity: 0.92 }}
+          />
+        </div>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '36px', width: '100%' }}>
           
