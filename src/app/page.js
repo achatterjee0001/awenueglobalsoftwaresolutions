@@ -183,7 +183,7 @@ export default function Home() {
             </div>
  
             {/* Right Illustration */}
-            <div className="hero-mockup-wrapper" style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="hero-mockup-wrapper" style={{ display: 'flex', justifyContent: 'center', marginTop: '-264px', }}>
               <DashboardMockup />
             </div>
             
