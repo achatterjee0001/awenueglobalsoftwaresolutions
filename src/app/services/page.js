@@ -324,16 +324,27 @@ export default function ServicesPage() {
                   </div>
                 </div>
 
-                {/* Right Side: Full-height image */}
+                {/* Right Side: Padded image with overlay & hover effect */}
                 {service.image && (
-                  <div style={{ position: 'relative', overflow: 'hidden', borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    />
-                    {/* Subtle gradient overlay on left edge to blend with card */}
-                    <div style={{ position: 'absolute', top: 0, left: 0, width: '80px', height: '100%', background: 'linear-gradient(to right, var(--card-bg), transparent)', pointerEvents: 'none' }} />
+                  <div style={{
+                    padding: '20px 20px 20px 0',
+                    display: 'flex',
+                    alignItems: 'stretch'
+                  }}>
+                    <div className="service-img-panel">
+                      {/* Image */}
+                      <img
+                        className="service-img-inner"
+                        src={service.image}
+                        alt={service.title}
+                      />
+                      {/* Dark gradient overlay */}
+                      <div className="service-img-overlay" />
+                      {/* Label badge on hover */}
+                      <div className="service-img-badge">
+                        <span>{service.title}</span>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
