@@ -63,6 +63,7 @@ export default function ServicesPage() {
       services: [
         {
           title: "Custom Software Development",
+          image: "/assets/service_software_engineering.jpg",
           problem: "Legacy backend monoliths causing operational lags, high server maintenance overhead, and unstable databases under peak load.",
           solution: "Bespoke backend modules, microservices, and database tuning mapped to scale securely with lower CPU execution cycles.",
           technologies: ["Node.js", "Python", "Golang", "PostgreSQL", "MongoDB"],
@@ -70,6 +71,7 @@ export default function ServicesPage() {
         },
         {
           title: "SaaS Product Engineering",
+          image: "/assets/service_saas_product.jpg",
           problem: "Businesses struggling to design and launch stable, multi-tenant workspace platforms with integrated user billing systems.",
           solution: "Multi-tenant SaaS architectures engineered with secure user access levels, automated payment pipelines, and analytics boards.",
           technologies: ["Next.js", "Node.js", "Stripe Billing", "JWT Auth", "Postgres"],
@@ -77,6 +79,7 @@ export default function ServicesPage() {
         },
         {
           title: "Enterprise ERP & CRM systems",
+          image: "/assets/service_erp_crm.jpg",
           problem: "Operational friction and data loss from manual billing, disjointed CRM tracking sheets, and manual inventory audits.",
           solution: "Custom resource planning dashboards built to centralize sales pipelines, employee logs, and automatic invoice generations.",
           technologies: ["React", "Express", "REST APIs", "AWS RDS", "Docker"],
@@ -89,6 +92,7 @@ export default function ServicesPage() {
       services: [
         {
           title: "Next.js Web Engineering",
+          image: "/assets/service_web_engineering.jpg",
           problem: "Websites with slow page load times, poor mobile response layouts, and low conversion/retention metrics.",
           solution: "Optimized Next.js templates, static site rendering (SSR), and smooth CSS grids to maximize load speeds and mobile UX.",
           technologies: ["Next.js", "React", "Tailwind CSS", "Vercel", "HTML5/CSS3"],
@@ -96,6 +100,7 @@ export default function ServicesPage() {
         },
         {
           title: "Mobile App Development",
+          image: "/assets/service_mobile_app.jpg",
           problem: "Unresponsive hybrid framework wrappers, missing offline cache architectures, and poor app performance.",
           solution: "Hybrid React Native and native iOS/Android code blocks featuring offline state caches and fluid visual transitions.",
           technologies: ["Flutter", "React Native", "Swift", "Kotlin", "Firebase"],
@@ -108,6 +113,7 @@ export default function ServicesPage() {
       services: [
         {
           title: "UI/UX Architecture & Prototyping",
+          image: "/assets/service_uiux_design.jpg",
           problem: "User drop-offs and poor tool adoption caused by complicated task flows and inconsistent page structures.",
           solution: "Detailed Figma user journey frames, interactive click prototypes, and modular system tokens styled for accessibility.",
           technologies: ["Figma", "Adobe CC", "Tailwind Design Tokens"],
@@ -115,6 +121,7 @@ export default function ServicesPage() {
         },
         {
           title: "Brand Identity Design",
+          image: "/assets/service_brand_identity.jpg",
           problem: "Innovative technology companies lacking corporate credibility due to outdated assets and inconsistent brand style guidelines.",
           solution: "Premium typographic scales, vectorized emblems, landing layout wireframes, and corporate identity specifications.",
           technologies: ["Vector Design Toolsets", "Figma", "Typography Sheets"],
@@ -127,6 +134,7 @@ export default function ServicesPage() {
       services: [
         {
           title: "Cloud Operations & DevOps",
+          image: "/assets/service_cloud_devops.jpg",
           problem: "High hosting bills, manual cluster deployments, server downtime, and slow version release schedules.",
           solution: "Containerized deployment automation using Docker and Kubernetes clusters on AWS/Azure to secure high availability.",
           technologies: ["Docker", "Kubernetes", "AWS ECS", "GitHub Actions CI/CD"],
@@ -134,6 +142,7 @@ export default function ServicesPage() {
         },
         {
           title: "Strategic IT Consulting",
+          image: "/assets/service_it_consulting.jpg",
           problem: "Companies lacking a clear roadmap to migrate legacy infrastructures to modern technology stacks.",
           solution: "Full code base security checks, performance analysis logs, database mapping, and phase-by-phase migration plans.",
           technologies: ["Tech Audits", "System Diagrams", "Database Schema Maps"],
@@ -298,17 +307,30 @@ export default function ServicesPage() {
                   </Link>
                 </div>
 
-                {/* Right Side: Key Deliverables Checklist */}
-                <div style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: '16px', padding: '28px' }}>
-                  <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#2563EB', fontWeight: 700, letterSpacing: '1px', display: 'block', marginBottom: '16px' }}>Project Deliverables</span>
-                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', padding: 0 }}>
-                    {service.deliverables.map((del, idx) => (
-                      <li key={idx} style={{ display: 'flex', alignItems: 'start', gap: '10px', fontSize: '0.85rem', color: 'var(--text-primary)' }}>
-                        <Check style={{ width: '14px', height: '14px', color: '#10B981', marginTop: '2px', strokeWidth: '3px' }} />
-                        <span>{del}</span>
-                      </li>
-                    ))}
-                  </ul>
+                {/* Right Side: Service Image + Key Deliverables Checklist */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  {/* Service Visual */}
+                  {service.image && (
+                    <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block' }}
+                      />
+                    </div>
+                  )}
+                  {/* Deliverables */}
+                  <div style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: '16px', padding: '24px' }}>
+                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#2563EB', fontWeight: 700, letterSpacing: '1px', display: 'block', marginBottom: '14px' }}>Project Deliverables</span>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', padding: 0 }}>
+                      {service.deliverables.map((del, idx) => (
+                        <li key={idx} style={{ display: 'flex', alignItems: 'start', gap: '10px', fontSize: '0.85rem', color: 'var(--text-primary)' }}>
+                          <Check style={{ width: '14px', height: '14px', color: '#10B981', marginTop: '2px', strokeWidth: '3px' }} />
+                          <span>{del}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             ))}

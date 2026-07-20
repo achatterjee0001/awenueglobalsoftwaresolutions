@@ -92,18 +92,7 @@ export default function MobileNav({ isOpen, onClose }) {
                 <ChevronRight style={{ width: '16px', height: '16px', opacity: 0.4 }} />
               </Link>
 
-              <Link 
-                href="/blog" 
-                className={`mobile-menu-nav-link ${pathname === '/blog' ? 'active' : ''}`}
-                onClick={onClose}
-                style={navLinkStyle(pathname === '/blog')}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span className="dot" style={dotStyle(pathname === '/blog')}></span>
-                  <span>Resources</span>
-                </div>
-                <ChevronRight style={{ width: '16px', height: '16px', opacity: 0.4 }} />
-              </Link>
+
 
               <Link 
                 href="/contact" 
@@ -124,12 +113,12 @@ export default function MobileNav({ isOpen, onClose }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <span style={{ fontSize: '0.65rem', color: '#2563EB', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.5px', display: 'block' }}>Enterprise Products</span>
             
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '12px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '8px' }}>
               {[
-                { title: 'Awenue CRM', desc: 'Acquisition & pipeline system.', path: '/product-details', icon: <Users style={{ width: '16px', height: '16px', color: '#2563EB' }} /> },
-                { title: 'Awenue ERP', desc: 'Invoicing & ledger compilers.', path: '/products#erp', icon: <Code style={{ width: '16px', height: '16px', color: '#2563EB' }} /> },
-                { title: 'Awenue HRMS', desc: 'Workforce & personnel logs.', path: '/products#hrms', icon: <Briefcase style={{ width: '16px', height: '16px', color: '#2563EB' }} /> },
-                { title: 'Awenue Education', desc: 'LMS databases & grade portal.', path: '/products#school', icon: <LayoutGrid style={{ width: '16px', height: '16px', color: '#2563EB' }} /> }
+                { title: 'Awenue CRM', desc: 'Acquisition & pipeline system.', path: '/product-details', icon: <Users style={{ width: '14px', height: '14px', color: '#2563EB' }} /> },
+                { title: 'Awenue ERP', desc: 'Invoicing & ledger compilers.', path: '/products#erp', icon: <Code style={{ width: '14px', height: '14px', color: '#2563EB' }} /> },
+                { title: 'Awenue HRMS', desc: 'Workforce & personnel logs.', path: '/products#hrms', icon: <Briefcase style={{ width: '14px', height: '14px', color: '#2563EB' }} /> },
+                { title: 'Awenue Education', desc: 'LMS databases & grade portal.', path: '/products#school', icon: <LayoutGrid style={{ width: '14px', height: '14px', color: '#2563EB' }} /> }
               ].map((prod, index) => (
                 <Link 
                   key={index}
@@ -138,9 +127,9 @@ export default function MobileNav({ isOpen, onClose }) {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '12px',
-                    padding: '12px',
-                    borderRadius: '12px',
+                    gap: '10px',
+                    padding: '8px 10px',
+                    borderRadius: '10px',
                     background: 'rgba(255,255,255,0.02)',
                     border: '1px solid rgba(255,255,255,0.04)',
                     textDecoration: 'none',
@@ -148,19 +137,20 @@ export default function MobileNav({ isOpen, onClose }) {
                   }}
                 >
                   <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '8px',
+                    width: '26px',
+                    height: '26px',
+                    borderRadius: '7px',
                     background: 'rgba(37,99,235,0.08)',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    flexShrink: 0
                   }}>
                     {prod.icon}
                   </div>
                   <div>
-                    <h5 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>{prod.title}</h5>
-                    <p style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', margin: '2px 0 0 0' }}>{prod.desc}</p>
+                    <h5 style={{ fontSize: '0.78rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>{prod.title}</h5>
+                    <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', margin: '1px 0 0 0' }}>{prod.desc}</p>
                   </div>
                 </Link>
               ))}
@@ -214,7 +204,7 @@ const navLinkStyle = (isActive) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: '12px 14px',
+  padding: '9px 12px',
   borderRadius: '10px',
   background: isActive ? 'rgba(255, 255, 255, 0.03)' : 'transparent',
   color: isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.65)',

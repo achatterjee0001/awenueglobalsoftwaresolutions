@@ -138,17 +138,12 @@ export default function Header({ onMobileMenuToggle, isOpen }) {
               </div>
             </div>
           </div>
-
           <div className="nav-item">
             <Link href="/about" className="nav-link">About</Link>
           </div>
           <div className="nav-item">
-            <Link href="/blog" className="nav-link">Resources</Link>
-          </div>
-          <div className="nav-item">
             <Link href="/contact" className="nav-link">Contact</Link>
-          </div>
-        </nav>
+          </div>        </nav>
         
         <div className="btn-wrapper">
           <Link href="/contact" className="nav-cta">Get Free Consultation</Link>

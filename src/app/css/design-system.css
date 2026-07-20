@@ -10,7 +10,7 @@
 }
 
 .brand-logo-img {
-  height: 100px;
+  height: 72px;
   width: auto;
   object-fit: contain;
   transition: var(--transition-smooth);
@@ -24,7 +24,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: 90px;
   z-index: var(--z-nav);
   border-bottom: 1px solid transparent;
   transition: var(--transition-smooth);
@@ -36,7 +36,7 @@
   border-bottom: 1px solid var(--border-color);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  height: 72px;
+  height: 90px;
 }
 
 .nav-container {

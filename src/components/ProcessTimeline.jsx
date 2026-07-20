@@ -15,51 +15,51 @@ import {
 const steps = [
   {
     icon: Eye,
-    title: "1. Discover",
-    desc: "We align with your team to understand your digital business model, scope out key user requirements, and define concrete success parameters.",
-    deliverable: "Project Scope Document & High-Level Architecture Map"
+    title: "Phase 01 — Discover",
+    desc: "We dive deep into your business goals, target audience, and project scope to align on clear objectives.",
+    deliverable: "Scope & Goals Alignment, Requirement Matrix"
   },
   {
     icon: Search,
-    title: "2. Research",
-    desc: "Market landscaping, competitive benchmarking, and feasibility audits. We analyze data flows and legacy dependencies to de-risk development.",
-    deliverable: "Tech Stack Recommendations & Feasibility Analysis Report"
+    title: "Phase 02 — Research",
+    desc: "We analyze market trends, competitor strategies, and evaluate the ideal technology stack for your product.",
+    deliverable: "Competitor Intelligence, Tech Architecture Audit"
   },
   {
     icon: Target,
-    title: "3. Strategy",
-    desc: "Constructing the development roadmaps, milestones, resource planning, and scoping clear project milestones to ensure budget-aligned delivery.",
-    deliverable: "Detailed Product Roadmap & Sprint Milestones Plan"
+    title: "Phase 03 — Strategy",
+    desc: "We build an actionable product roadmap, sprint plans, and system architecture before writing code.",
+    deliverable: "Sprint & Milestone Roadmap, System Design Blueprint"
   },
   {
     icon: Layers,
-    title: "4. UI/UX Design",
-    desc: "Translating architecture maps into wireframes, high-fidelity prototypes, and design tokens built for optimal accessibility and user retention.",
-    deliverable: "Figma Interactive Prototypes & Visual Style Guide"
+    title: "Phase 04 — Design",
+    desc: "We create interactive wireframes, modern UI component libraries, and polished high-fidelity prototypes.",
+    deliverable: "Interactive Prototypes, Design System & Tokens"
   },
   {
     icon: Code,
-    title: "5. Development",
-    desc: "Our engineering squad compiles modular, performant source code following strict repository policies, automated test suites, and microservices guidelines.",
-    deliverable: "Alpha/Beta Version & CI/CD Pipelines Configuration"
+    title: "Phase 05 — Develop",
+    desc: "We build your product using clean code, scalable APIs, and modern frameworks with weekly staging builds.",
+    deliverable: "Weekly Staging Previews, Clean & Scalable Code"
   },
   {
     icon: ShieldCheck,
-    title: "6. QA & Testing",
-    desc: "End-to-end user testing, integration checks, automated security scans, load performance validations, and cross-browser responsiveness checks.",
-    deliverable: "Audit QA Reports & Stress Testing Metrics Logs"
+    title: "Phase 06 — Test",
+    desc: "We perform rigorous quality assurance, cross-browser testing, security audits, and performance tuning.",
+    deliverable: "End-to-End QA Testing, Security & Load Audits"
   },
   {
     icon: Rocket,
-    title: "7. Deployment",
-    desc: "Deploying code structures to production clusters on AWS, Azure, or Google Cloud under strict load balancing rules and zero-downtime guidelines.",
-    deliverable: "Live Production Launch & Operational Runbooks"
+    title: "Phase 07 — Launch",
+    desc: "We deploy your solution to production cloud infrastructure with zero downtime and real-time monitoring.",
+    deliverable: "Zero-Downtime Deployment, Cloud Infra Setup"
   },
   {
     icon: LifeBuoy,
-    title: "8. Support",
-    desc: "24/7 infrastructure monitoring, database backups, security patch updates, and ongoing iterative improvements to scale with user load.",
-    deliverable: "Monthly Maintenance SLA Logs & User Analytics Reviews"
+    title: "Phase 08 — Grow",
+    desc: "We continuously optimize, scale server capacity, add new features, and provide long-term technical support.",
+    deliverable: "Continuous Upgrades, 24/7 SLA Support"
   }
 ];
 
@@ -133,8 +133,8 @@ export default function ProcessTimeline() {
                     flexDirection: 'column',
                     gap: '4px'
                   }}>
-                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#2563EB', fontWeight: 700, letterSpacing: '0.5px' }}>
-                      Key Deliverable
+                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--accent-blue)', fontWeight: 700, letterSpacing: '0.5px' }}>
+                      Key Deliverables
                     </span>
                     <span style={{ fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 500 }}>
                       {step.deliverable}
