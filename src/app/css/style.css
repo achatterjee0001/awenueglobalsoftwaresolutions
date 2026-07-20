@@ -3202,3 +3202,18 @@ br.desktop-only {
   color: #FFFFFF !important;
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
+
+/* Service card responsive: stack on mobile */
+@media (max-width: 768px) {
+  .reveal-service-card {
+    grid-template-columns: 1fr !important;
+    min-height: unset !important;
+  }
+  .reveal-service-card > div:last-child img {
+    height: 240px !important;
+  }
+  .reveal-service-card > div:last-child {
+    border-left: none !important;
+    border-top: 1px solid rgba(255,255,255,0.06) !important;
+  }
+}

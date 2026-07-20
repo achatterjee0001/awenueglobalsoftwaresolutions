@@ -269,18 +269,19 @@ export default function ServicesPage() {
                   background: 'var(--card-bg)',
                   border: '1px solid var(--border-color)',
                   borderRadius: '24px',
-                  padding: '40px',
+                  overflow: 'hidden',
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))',
-                  gap: '40px',
-                  alignItems: 'start',
-                  transition: 'var(--transition-smooth)'
+                  gridTemplateColumns: '1fr min(45%, 520px)',
+                  alignItems: 'stretch',
+                  transition: 'var(--transition-smooth)',
+                  minHeight: '420px'
                 }}
               >
-                {/* Left Side: Problem & Solution Alignments */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {/* Left Side: All content */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '40px' }}>
                   <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{service.title}</h3>
                   
+                  {/* Problem & Solution */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     <div>
                       <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#EF4444', fontWeight: 700, letterSpacing: '0.5px', display: 'block' }}>Operational Barrier</span>
@@ -292,7 +293,7 @@ export default function ServicesPage() {
                     </div>
                   </div>
 
-                  {/* Technologies Badges */}
+                  {/* Tech Stack */}
                   <div>
                     <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, display: 'block', marginBottom: '8px' }}>Stack Competencies</span>
                     <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -302,36 +303,39 @@ export default function ServicesPage() {
                     </div>
                   </div>
 
-                  <Link href="/contact" className="btn btn-primary" style={{ alignSelf: 'flex-start', padding: '10px 22px', fontSize: '0.85rem', background: '#2563EB', color: '#FFF', borderRadius: '10px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '8px' }}>
-                    Request Scope Details <ArrowRight style={{ width: '14px', height: '14px' }} />
-                  </Link>
-                </div>
-
-                {/* Right Side: Service Image + Key Deliverables Checklist */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  {/* Service Visual */}
-                  {service.image && (
-                    <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block' }}
-                      />
-                    </div>
-                  )}
                   {/* Deliverables */}
-                  <div style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: '16px', padding: '24px' }}>
-                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#2563EB', fontWeight: 700, letterSpacing: '1px', display: 'block', marginBottom: '14px' }}>Project Deliverables</span>
-                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', padding: 0 }}>
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '20px' }}>
+                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#2563EB', fontWeight: 700, letterSpacing: '1px', display: 'block', marginBottom: '12px' }}>Project Deliverables</span>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '9px', padding: 0, margin: 0 }}>
                       {service.deliverables.map((del, idx) => (
-                        <li key={idx} style={{ display: 'flex', alignItems: 'start', gap: '10px', fontSize: '0.85rem', color: 'var(--text-primary)' }}>
-                          <Check style={{ width: '14px', height: '14px', color: '#10B981', marginTop: '2px', strokeWidth: '3px' }} />
+                        <li key={idx} style={{ display: 'flex', alignItems: 'start', gap: '10px', fontSize: '0.84rem', color: 'var(--text-primary)' }}>
+                          <Check style={{ width: '14px', height: '14px', color: '#10B981', marginTop: '2px', strokeWidth: '3px', flexShrink: 0 }} />
                           <span>{del}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
+
+                  {/* CTA Button */}
+                  <div style={{ marginTop: 'auto', paddingTop: '4px' }}>
+                    <Link href="/contact" className="btn btn-primary" style={{ alignSelf: 'flex-start', padding: '10px 22px', fontSize: '0.85rem', background: '#2563EB', color: '#FFF', borderRadius: '10px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      Request Scope Details <ArrowRight style={{ width: '14px', height: '14px' }} />
+                    </Link>
+                  </div>
                 </div>
+
+                {/* Right Side: Full-height image */}
+                {service.image && (
+                  <div style={{ position: 'relative', overflow: 'hidden', borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
+                    {/* Subtle gradient overlay on left edge to blend with card */}
+                    <div style={{ position: 'absolute', top: 0, left: 0, width: '80px', height: '100%', background: 'linear-gradient(to right, var(--card-bg), transparent)', pointerEvents: 'none' }} />
+                  </div>
+                )}
               </div>
             ))}
           </div>
